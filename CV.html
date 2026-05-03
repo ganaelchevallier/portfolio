@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — Ganaël Chevallier · Layout 3D · Previs · Animation CG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET & BASE ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 11px; }
+
+:root {
+  --black:    #080808;
+  --ink:      #0E0E0E;
+  --charcoal: #1A1A1A;
+  --smoke:    #2A2A2A;
+  --mist:     #555;
+  --silver:   #888;
+  --offwhite: #E2DDD4;
+  --cream:    #F2EDE4;
+  --gold:     #B8983A;
+  --gold-lt:  #D4AF50;
+  --gold-dim: rgba(184,152,58,0.12);
+  --col-lead: #9B4E2B;
+  --col-anim: #2B5F7A;
+  --col-lay:  #3A6644;
+  --col-prev: #6B4A8A;
+  --col-film: #3E5C78;
+  --col-clip: #7A5C38;
+  --col-brand:#3A6055;
+}
+
+body {
+  background: var(--black);
+  color: var(--offwhite);
+  font-family: 'DM Mono', monospace;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+
+
+
+/* ─── GRAIN ─────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.28;
+}
+
+/* ─── WRAPPER ───────────────────────────────────── */
+.cv-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 32px;
+}
+
+/* ══════════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════════ */
+.cv-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  padding: 24px 0 18px;
+  border-bottom: none;
+  margin-bottom: 0;
+  align-items: start;
+}
+
+.cv-header-left {}
+
+.cv-pretitle {
+  font-size: 8.5px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.cv-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+.cv-name em {
+  font-style: italic;
+  opacity: 0.65;
+}
+
+.cv-subtitle {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver);
+  line-height: 1.9;
+  max-width: 520px;
+}
+
+.cv-subtitle strong {
+  color: var(--offwhite);
+  font-weight: 400;
+}
+
+.cv-awards-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.award-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 5px 12px;
+}
+
+/* Right column: contact + skills */
+.cv-header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 220px;
+  align-items: flex-end;
+}
+
+.cv-contact-block {
+  border-right: 2px solid var(--gold);
+  padding-right: 16px;
+  text-align: right;
+}
+
+.cv-contact-block p {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--silver);
+  line-height: 1.7;
+}
+
+.cv-contact-block a {
+  color: var(--gold-lt);
+  text-decoration: none;
+}
+
+.cv-contact-block a:hover {
+  text-decoration: underline;
+}
+
+.cv-contact-block .contact-name {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--offwhite);
+  margin-bottom: 4px;
+}
+
+.cv-skills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.sk {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  border: 1px solid #222;
+  padding: 5px 10px 6px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.sk.main {
+  color: var(--offwhite);
+  border-color: var(--charcoal);
+}
+
+.sk-dots {
+  display: flex;
+  gap: 2px;
+}
+
+.sk-dot {
+  width: 9px;
+  height: 2px;
+  border-radius: 1px;
+  background: #252525;
+}
+
+/* Soft principal → segments dorés */
+.sk.main .sk-dot.on {
+  background: var(--gold);
+  box-shadow: 0 0 3px rgba(184,152,58,0.35);
+}
+
+/* Soft legacy (XSI) → segments argent atténués */
+.sk .sk-dot.on {
+  background: var(--silver);
+}
+
+
+/* ══════════════════════════════════════════════════
+   EXP SECTION WRAPPER
+══════════════════════════════════════════════════ */
+.exp-section {
+  border: 1px solid var(--charcoal);
+}
+.exp-section .proj-header {
+}
+.exp-section .modules-grid {
+  border: none;
+  margin-top: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   MODULES — 4 COLUMNS
+══════════════════════════════════════════════════ */
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--charcoal);
+  border: 1px solid var(--charcoal);
+  margin-top: 1px;
+}
+
+.module {
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Module header tab */
+.mod-tab {
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--charcoal);
+}
+
+.mod-tab::before {
+  content: '';
+  width: 4px;
+  height: 22px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.module.lead .mod-tab::before { background: var(--col-lead); }
+.module.anim .mod-tab::before { background: var(--col-anim); }
+.module.layout .mod-tab::before { background: var(--col-lay); }
+.module.prev .mod-tab::before { background: var(--col-prev); }
+
+.module.lead   .mod-tab { background: rgba(155,78,43,0.18);  border-bottom: 2px solid var(--col-lead); }
+.module.anim   .mod-tab { background: rgba(43,95,122,0.18);  border-bottom: 2px solid var(--col-anim); }
+.module.layout .mod-tab { background: rgba(58,102,68,0.18);  border-bottom: 2px solid var(--col-lay); }
+.module.prev   .mod-tab { background: rgba(107,74,138,0.18); border-bottom: 2px solid var(--col-prev); }
+
+.module.lead   .mod-title { color: #D4856A; letter-spacing: 0.2em; }
+.module.anim   .mod-title { color: #7BBAD4; }
+.module.layout .mod-title { color: #7ABDA0; }
+.module.prev   .mod-title { color: #B89AD4; }
+
+.mod-tab-inner {}
+
+.mod-label {
+  font-size: 7px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.module.lead   .mod-label { color: #D4856A; }
+.module.anim   .mod-label { color: #7BBAD4; }
+.module.layout .mod-label { color: #7ABDA0; }
+.module.prev   .mod-label { color: #B89AD4; }
+
+.mod-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.mod-count {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--mist);
+  font-weight: 300;
+}
+
+/* Entries */
+.mod-body {
+  padding: 2px 0;
+  flex: 1;
+}
+
+.entry {
+  padding: 4px 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.entry:hover {
+  background: rgba(255,255,255,0.02);
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+/* Prestige tiers */
+.entry.tier-1, .entry.tier-2, .entry.tier-3 { border-left: 2px solid var(--charcoal); }
+
+.entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.entry-studio {
+  font-size: 9.5px;
+  font-weight: 400;
+  color: var(--offwhite);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-date {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--mist);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.entry-duration {
+  font-size: 8px;
+  background: var(--charcoal);
+  color: var(--silver);
+  padding: 1px 6px;
+  margin-left: 4px;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.entry-project {
+  font-size: 8.5px;
+  font-style: italic;
+  color: var(--mist);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entry-project strong {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--silver);
+}
+
+/* ══════════════════════════════════════════════════
+   RECOMMANDATIONS SECTION
+══════════════════════════════════════════════════ */
+.reco-section {
+  border: 1px solid var(--charcoal);
+  border-top: none;
+}
+
+.reco-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--charcoal);
+  border: none;
+}
+
+/* Long-duration entry highlight */
+.entry.long .entry-studio {
+  color: var(--cream);
+  font-weight: 400;
+}
+.entry.long .entry-duration {
+  background: #2C2C2C;
+  color: var(--offwhite);
+  letter-spacing: 0.1em;
+}
+
+.reco-item {
+  background: #0A0A0A;
+  padding: 12px 14px;
+}
+
+.reco-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12.5px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--offwhite);
+  line-height: 1.65;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.reco-quote::before {
+  content: '"';
+  font-size: 28px;
+  line-height: 0;
+  vertical-align: -8px;
+  color: var(--gold);
+  margin-right: 3px;
+  font-style: normal;
+}
+
+.reco-sig {
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mist);
+  border-top: 1px solid var(--charcoal);
+  padding-top: 10px;
+}
+
+.reco-sig strong {
+  color: var(--gold);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   PROJECTS SECTION
+══════════════════════════════════════════════════ */
+.projects-section {
+  border: 1px solid var(--charcoal);
+  border-top: none;
+  background: var(--ink);
+}
+
+.proj-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--charcoal);
+  background: var(--charcoal);
+}
+
+.proj-header-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.proj-header-sub {
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+.proj-header-line {
+  flex: 1;
+  height: 1px;
+  background: var(--smoke);
+}
+
+.proj-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--charcoal);
+}
+
+.proj-col {
+  background: var(--ink);
+  padding: 12px 14px;
+}
+
+.proj-col-label {
+  font-size: 7.5px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--charcoal);
+}
+
+/* Accent couleur par colonne projets */
+.proj-col.films  { border-top: 2px solid var(--col-film); }
+.proj-col.clips  { border-top: 2px solid var(--col-clip); }
+.proj-col.brands { border-top: 2px solid var(--col-brand); }
+
+.proj-col.films  .proj-col-label { color: #7AAAC8; }
+.proj-col.clips  .proj-col-label { color: #C09A6A; }
+.proj-col.brands .proj-col-label { color: #7AB5A0; }
+
+.proj-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.proj-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.025);
+  transition: padding-left 0.2s;
+  cursor: default;
+}
+
+.proj-list li:hover {
+  padding-left: 4px;
+}
+
+.proj-list li:last-child { border-bottom: none; }
+
+.proj-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.proj-list li.p1 .proj-dot,
+.proj-list li.p2 .proj-dot,
+.proj-list li.p3 .proj-dot { background: var(--mist); }
+
+.proj-title {
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.proj-list li.p1 .proj-title,
+.proj-list li.p2 .proj-title,
+.proj-list li.p3 .proj-title { color: var(--offwhite); font-weight: 300; font-size: 9.5px; }
+
+.proj-by {
+  font-size: 8px;
+  color: var(--mist);
+  letter-spacing: 0.06em;
+  font-style: italic;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Brands section inside projects */
+.brands-grid {
+  padding: 10px 16px;
+  border-top: 1px solid var(--charcoal);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.brands-label {
+  font-size: 7.5px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-right: 8px;
+  flex-basis: 100%;
+  margin-bottom: 8px;
+}
+
+.brand-tag {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--silver);
+  border: 1px solid var(--charcoal);
+  padding: 3px 8px;
+  transition: all 0.2s;
+}
+
+.brand-tag:hover {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+.cv-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 0;
+  border-top: 1px solid var(--charcoal);
+  margin-top: 0;
+}
+
+.cv-footer-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+  color: var(--mist);
+  letter-spacing: 0.15em;
+}
+
+.cv-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  justify-content: flex-end;
+}
+
+.cv-footer-links a {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.cv-footer-links a:hover { color: var(--gold); }
+
+/* ── LANGUES ────────────────────────────── */
+.cv-lang-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.cv-lang-row .lang-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.cv-lang-row .lang-badge strong {
+  font-weight: 400;
+  color: var(--offwhite);
+}
+
+.cv-lang-row .lang-dots {
+  display: flex;
+  gap: 2px;
+}
+
+.cv-lang-row .lang-dot {
+  width: 9px;
+  height: 2px;
+  border-radius: 1px;
+  background: #252525;
+}
+
+.cv-lang-row .lang-dot.on {
+  background: var(--gold);
+  box-shadow: 0 0 3px rgba(184,152,58,0.35);
+}
+
+/* ── BRANDS INLINE ─────────────────────────────── */
+.brands-inline {
+  font-size: 9.5px;
+  color: var(--offwhite);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 2;
+  padding: 10px 14px;
+}
+
+/* ─── PRINT ─────────────────────────────────────── */
+@media print {
+  body { background: #fff; color: #111; }
+  body::before { display: none; }
+  :root {
+    --black: #fff; --ink: #fff; --charcoal: #ddd;
+    --smoke: #ccc; --mist: #666; --silver: #444;
+    --offwhite: #111; --cream: #000; --gold: #7A6020;
+    --gold-lt: #9A7A28; --gold-dim: rgba(122,96,32,0.15);
+  }
+  .module, .reco-item, .proj-col { background: #fff; }
+  .modules-grid, .reco-strip, .proj-body { background: #ddd; }
+  .entry:hover, .proj-list li:hover { background: none; padding-left: 0; }
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 960px) {
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .reco-strip { grid-template-columns: 1fr; }
+  .proj-body { grid-template-columns: repeat(3, 1fr); }
+  .cv-header { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .modules-grid { grid-template-columns: 1fr; }
+  .proj-body { grid-template-columns: 1fr; }
+  .cv-name { font-size: 36px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="cv-wrap">
+
+<!-- ══════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════ -->
+<header class="cv-header">
+  <div class="cv-header-left">
+    <p class="cv-pretitle">Artiste VFX · 18 ans d'expérience · Paris / Remote</p>
+    <h1 class="cv-name">Ganaël<br><em>Chevallier</em></h1>
+    <p class="cv-subtitle">
+      <strong>CG Animation — Layout — Previs</strong><br>
+      Film &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising
+    </p>
+  </div>
+
+  <div class="cv-header-right">
+    <div class="cv-contact-block" style="margin-top: 86px;">
+      <p>📍 Île-de-France</p>
+      <p>📞 <a href="tel:+33688379771">+33 6 88 37 97 71</a></p>
+      <p>✉️ <a href="mailto:ganaelchevallier@gmail.com">ganaelchevallier@gmail.com</a></p>
+      <p>🔗 <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank">linkedin.com/in/ganaelchevallier</a></p>
+      <p>🎬 <a href="https://ganaelchevallier.github.io/portfolio/" target="_blank">portfolio</a></p>
+    </div>
+    <div class="cv-skills-row">
+      <!-- Maya 5/5 -->
+      <span class="sk main">
+        <span class="sk-name">Maya</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span>
+        </span>
+      </span>
+      <!-- 3ds Max 5/5 -->
+      <span class="sk main">
+        <span class="sk-name">3ds Max</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span>
+        </span>
+      </span>
+      <!-- Blender 4/5 -->
+      <span class="sk main">
+        <span class="sk-name">Blender</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span>
+        </span>
+      </span>
+      <!-- Unreal 2/5 -->
+      <span class="sk main">
+        <span class="sk-name">Unreal</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span><span class="sk-dot"></span><span class="sk-dot"></span>
+        </span>
+      </span>
+      <!-- Motion Builder 3/5 -->
+      <span class="sk main">
+        <span class="sk-name">Motion Builder</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span><span class="sk-dot"></span>
+        </span>
+      </span>
+      <!-- DaVinci Resolve 4/5 -->
+      <span class="sk main">
+        <span class="sk-name">DaVinci Resolve</span>
+        <span class="sk-dots">
+          <span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span>
+        </span>
+      </span>
+    </div>
+    <div class="cv-lang-row">
+      <div class="lang-badge">
+        <strong>Français</strong>
+        <div class="lang-dots">
+          <span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span>
+        </div>
+      </div>
+      <div class="lang-badge">
+        <strong>English</strong>
+        <div class="lang-dots">
+          <span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot"></span>
+        </div>
+      </div>
+    </div>
+    <div class="cv-awards-row">
+      <span class="award-pill">🏆 Genie Award · Outstanding Achievement</span>
+      <span class="award-pill">🏆 Thea Award · Outstanding Achievement</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════
+     EXPÉRIENCES PROFESSIONNELLES
+══════════════════════════════════════════════════ -->
+<div class="exp-section">
+  <div class="proj-header">
+    <h2 class="proj-header-title">Expériences Professionnelles</h2>
+    <div class="proj-header-line"></div>
+  </div>
+
+  <div class="modules-grid">
+
+  <!-- ▌ CG LEAD ▌ -->
+  <div class="module lead">
+    <div class="mod-tab">
+      <div class="mod-tab-inner">
+        <h2 class="mod-title">CG Lead</h2>
+      </div>
+    </div>
+    <div class="mod-body">
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Eddy</span>
+        </div>
+        <div class="entry-project">CG Lead Anim · <strong>TFT teaser</strong> · Maya</div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Blump Studio</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">The Mill</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ CG ANIM ▌ -->
+  <div class="module anim">
+    <div class="mod-tab">
+      <div class="mod-tab-inner">
+        <h2 class="mod-title">CG Anim</h2>
+      </div>
+    </div>
+    <div class="mod-body">
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Eddy</span>
+        </div>
+        <div class="entry-project">Champions of Runeterra · <strong>TFT teaser</strong> · Maya</div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">FIRM Studio</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">The Mill Paris</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Tetsuo Studio Paris</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">MPC Paris &amp; Liège</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">McMurphy</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Mathematic Studio</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">Ellipse Animation</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Method Films / La Fabrique</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">BUF Compagnie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ CG LAYOUT ▌ -->
+  <div class="module layout">
+    <div class="mod-tab">
+      <div class="mod-tab-inner">
+        <h2 class="mod-title">CG Layout</h2>
+      </div>
+    </div>
+    <div class="mod-body">
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Eddy</span>
+        </div>
+        <div class="entry-project">CG Layout · <strong>TFT teaser</strong> · Blender</div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Passion Paris</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">FIRM Studio</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Tetsuo Studio Paris</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">The Mill</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Prodigious Film (Publicis)</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Digiteyes</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Nod . Paris</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ PREVIS ▌ -->
+  <div class="module prev">
+    <div class="mod-tab">
+      <div class="mod-tab-inner">
+        <h2 class="mod-title">Previs</h2>
+      </div>
+    </div>
+    <div class="mod-body">
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Wizz</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">Digital District</span>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-top">
+          <span class="entry-studio">McMurphy</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">Les Androïds Associés</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">Fortiche</span>
+        </div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top">
+          <span class="entry-studio">Quad Productions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /modules-grid -->
+</div><!-- /exp-section -->
+
+
+<!-- ══════════════════════════════════════════════════
+     PROJETS
+══════════════════════════════════════════════════ -->
+<div class="projects-section">
+  <div class="proj-header">
+    <h2 class="proj-header-title">Sélection de Projets</h2>
+    <div class="proj-header-line"></div>
+  </div>
+
+    <div class="proj-body">
+
+    <!-- LONG-MÉTRAGES : du plus récent au plus ancien -->
+    <div class="proj-col films">
+      <p class="proj-col-label">Long-métrages · Films</p>
+      <ul class="proj-list">
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Voleuses</span><span class="proj-by">· M. Laurent</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Robuste</span><span class="proj-by">· C. Meyer</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Into the Night</span><span class="proj-by">· J. George</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Anna</span><span class="proj-by">· L. Besson</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Spycies</span><span class="proj-by">· G. Ivernel</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Ballerina</span><span class="proj-by">· E. Summer / E. Warin</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">L'Odyssée</span><span class="proj-by">· J. Salle</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Mince alors 2</span><span class="proj-by">· C. de Turckheim</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">The Prodigies</span><span class="proj-by">· A. Charreyron</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Arthur &amp; les Minimoys 2 &amp; 3</span><span class="proj-by">· L. Besson</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Adèle Blanc Sec</span><span class="proj-by">· L. Besson</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Babylon AD</span><span class="proj-by">· M. Kassovitz</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Astérix aux JO</span><span class="proj-by">· T. Langmann</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Speed Racer</span><span class="proj-by">· Wachowskis</span></li>
+      </ul>
+    </div>
+
+    <!-- CLIPS & TEASERS : du plus récent au plus ancien -->
+    <div class="proj-col clips">
+      <p class="proj-col-label">Clips · Teasers · Séries · Génériques</p>
+      <ul class="proj-list">
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">LEICA NORMAN · Feature trailer</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Team Fight Tactics (TFT)</span><span class="proj-by">· Riot Games</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">E-Sport World Cup 2024</span><span class="proj-by">· Teaser</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Free Fire Rampage</span><span class="proj-by">· Teaser</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Heaven &amp; Hell</span><span class="proj-by">· Kanye West</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Chasseurs de Tornades</span><span class="proj-by">· Futuroscope</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">7 and Me</span><span class="proj-by">· Générique France 2</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Wildstar · Saints Row 4</span><span class="proj-by">· Teasers</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Linkers</span><span class="proj-by">· Série TV</span></li>
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Garfield Show 3 &amp; 4</span><span class="proj-by">· Série TV</span></li>
+      </ul>
+    </div>
+
+    <!-- ADVERTISING (Publicités + Luxe/Beauté fusionnés) : du plus récent au plus ancien -->
+    <div class="proj-col brands">
+      <p class="proj-col-label">Advertising · Brands</p>
+      <p class="brands-inline">
+        Peugeot E-208 "Cross over to the fun side" &thinsp;·&thinsp;
+        Dior &thinsp;·&thinsp;
+        Carolina Herrera &thinsp;·&thinsp;
+        Joshua vs Ngannou · EPIC Trailer · Michelin &thinsp;·&thinsp;
+        Planters SuperBowl 2020 &thinsp;·&thinsp;
+        Paco Rabanne &thinsp;·&thinsp;
+        Lacoste &thinsp;·&thinsp;
+        Mumm Champagne &thinsp;·&thinsp;
+        Grey Goose &thinsp;·&thinsp;
+        Prada &thinsp;·&thinsp;
+        Mercedes &thinsp;·&thinsp;
+        Samsung &thinsp;·&thinsp;
+        Renault &thinsp;·&thinsp;
+        Huawei &thinsp;·&thinsp;
+        Société Générale &thinsp;·&thinsp;
+        Duracell &thinsp;·&thinsp;
+        Diesel &thinsp;·&thinsp;
+        Jacobs Coffee &thinsp;·&thinsp;
+        Jaeger &thinsp;·&thinsp;
+        Shell &thinsp;·&thinsp;
+        La Poste &thinsp;·&thinsp;
+        Qatar &thinsp;·&thinsp;
+        Perrier &thinsp;·&thinsp;
+        Vittel &thinsp;·&thinsp;
+        Danone &thinsp;·&thinsp;
+        Castorama &thinsp;·&thinsp;
+        Feu Vert &thinsp;·&thinsp;
+        Leclerc &thinsp;·&thinsp;
+        NISSAN Rogue &thinsp;·&thinsp;
+        Nature's Bounty &thinsp;·&thinsp;
+        Dick's Sporting Goods &thinsp;·&thinsp;
+        Bepanthen &thinsp;·&thinsp;
+        Essilor &thinsp;·&thinsp;
+        Bein Sports &thinsp;·&thinsp;
+        Mountain
+      </p>
+    </div>
+
+  </div><!-- /proj-body -->
+
+</div><!-- /projects-section -->
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer class="cv-footer">
+  <span class="cv-footer-name">Ganaël Chevallier · CV 2026</span>
+  <div class="cv-footer-links">
+    <a href="mailto:ganaelchevallier@gmail.com">ganaelchevallier@gmail.com</a>
+    <a href="tel:+33688379771">+33 6 88 37 97 71</a>
+    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank">LinkedIn</a>
+    <a href="https://ganaelchevallier.github.io/portfolio/" target="_blank">Portfolio</a>
+  </div>
+</footer>
+
+</div><!-- /cv-wrap -->
+
+</body>
+</html>
