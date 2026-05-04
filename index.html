@@ -21,6 +21,7 @@
     --gold:     #B8983A;
     --gold-lt:  #D4AF50;
     --gold-dim: rgba(184,152,58,0.15);
+    --red:      #9B2335;
   }
 
   /* ─── RESET ─────────────────────────────────────────── */
@@ -28,22 +29,15 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: #050505;
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--black);
     color: var(--offwhite);
     font-family: 'DM Mono', monospace;
     font-weight: 300;
     overflow-x: hidden;
     cursor: default;
-  }
-
-  /* ─── SITE MAX-WIDTH CAP ─────────────────────────────── */
-  .site-wrap {
-    max-width: 1380px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    background: var(--black);
-    box-shadow: 0 0 60px rgba(0,0,0,0.8);
   }
 
   ::selection { background: var(--gold); color: var(--black); }
@@ -83,15 +77,6 @@
     text-decoration: none;
   }
 
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px 28px;
-    list-style: none;
-    justify-content: flex-end;
-  }
-
-  .nav-links a {
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -99,8 +84,6 @@
     text-decoration: none;
     transition: color 0.3s;
   }
-
-  .nav-links a:hover { color: var(--gold-lt); }
 
   /* ─── HERO ───────────────────────────────────────────── */
   .hero {
@@ -153,7 +136,7 @@
     letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 52px;
+    margin-bottom: 32px;
     opacity: 0;
     animation: fadeUp 0.8s 0.2s ease forwards;
   }
@@ -172,7 +155,7 @@
     line-height: 0.92;
     letter-spacing: -0.01em;
     color: var(--cream);
-    margin-bottom: 64px;
+    margin-bottom: 40px;
     opacity: 0;
     animation: fadeUp 0.9s 0.4s ease forwards;
   }
@@ -193,7 +176,9 @@
     animation: fadeUp 0.9s 0.6s ease forwards;
   }
 
-  .hero-title-line { display: block; }
+  .hero-title-line {
+    display: block;
+  }
 
   .hero-title strong {
     color: var(--offwhite);
@@ -205,7 +190,7 @@
     font-style: italic;
     text-transform: none;
     letter-spacing: 0.1em;
-    color: var(--mist);
+    color: var(--mist, #555);
     font-size: 10px;
   }
 
@@ -267,6 +252,18 @@
     animation: scrollDrop 3s ease-in-out 2.2s infinite;
   }
 
+  @keyframes scrollGlow {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.9; }
+  }
+
+  @keyframes scrollDrop {
+    0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    30%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    70%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
   /* ─── SECTION COMMONS ────────────────────────────────── */
   section {
     padding: 120px 48px;
@@ -275,9 +272,18 @@
 
   .section-header {
     display: flex;
-    align-items: baseline;
-    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 80px;
+    text-align: center;
+  }
+
+  .section-number {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    font-weight: 400;
   }
 
   .section-title {
@@ -289,10 +295,9 @@
   }
 
   .section-line {
-    flex: 1;
+    width: 40px;
     height: 1px;
-    background: var(--charcoal);
-    margin-left: 24px;
+    background: var(--gold-dim);
   }
 
   /* ─── DIVIDER ────────────────────────────────────────── */
@@ -303,7 +308,7 @@
     margin: 0 48px;
   }
 
-  /* ─── REELS ──────────────────────────────────────────── */
+  /* ─── REELS SECTION ──────────────────────────────────── */
   #reels { background: var(--black); }
 
   .reels-grid {
@@ -325,7 +330,9 @@
     transform: translateY(-4px);
   }
 
-  .reel-card.featured { grid-column: 1 / -1; }
+  .reel-card.featured {
+    grid-column: 1 / -1;
+  }
 
   .reel-video-wrap {
     position: relative;
@@ -341,6 +348,11 @@
     width: 100%;
     height: 100%;
     border: none;
+    pointer-events: none;
+  }
+
+  .reel-video-wrap iframe.active {
+    pointer-events: auto;
   }
 
   .reel-info {
@@ -380,11 +392,15 @@
     transition: all 0.3s;
   }
 
-  .reel-cta:hover { background: var(--gold-dim); border-color: var(--gold); }
+  .reel-cta:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
   .reel-cta svg { transition: transform 0.3s; }
   .reel-cta:hover svg { transform: translateX(3px); }
 
-  /* ─── CREDITS ─────────────────────────────────────────── */
+  /* ─── CREDITS SECTION ────────────────────────────────── */
   #credits { background: var(--ink); }
 
   .credits-columns {
@@ -400,7 +416,10 @@
     transition: background 0.3s, border-color 0.3s;
   }
 
-  .credit-item:hover { background: var(--charcoal); border-color: var(--smoke); }
+  .credit-item:hover {
+    background: var(--charcoal);
+    border-color: var(--smoke);
+  }
 
   .credit-role {
     font-size: 8px;
@@ -425,7 +444,7 @@
     font-style: italic;
   }
 
-  /* ─── CV ─────────────────────────────────────────────── */
+  /* ─── CV SECTION ─────────────────────────────────────── */
   #cv { background: var(--black); }
 
   .cv-layout {
@@ -449,9 +468,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
-    margin: 0 auto 36px;
+    margin-bottom: 36px;
     max-width: 320px;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .stat-item {
@@ -467,7 +487,10 @@
     line-height: 1;
   }
 
-  .stat-number sup { font-size: 18px; color: var(--gold); }
+  .stat-number sup {
+    font-size: 18px;
+    color: var(--gold);
+  }
 
   .stat-label {
     font-size: 9px;
@@ -477,7 +500,29 @@
     margin-top: 8px;
   }
 
-  /* ─── SKILL BADGES ───────────────────────────────────── */
+  .cv-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+  }
+
+  .skill-tag {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--silver);
+    border: 1px solid var(--charcoal);
+    padding: 6px 14px;
+    transition: all 0.3s;
+  }
+
+  .skill-tag:hover {
+    color: var(--gold);
+    border-color: var(--gold-dim);
+  }
+
+  /* ─── SKILL BADGES (compact) ─────────────────────────── */
   .sk-grid {
     display: flex;
     flex-wrap: wrap;
@@ -504,7 +549,10 @@
     white-space: nowrap;
   }
 
-  .sk-badge-dots { display: flex; gap: 3px; }
+  .sk-badge-dots {
+    display: flex;
+    gap: 3px;
+  }
 
   .sk-badge-dot {
     width: 10px;
@@ -516,6 +564,10 @@
   .sk-badge-dot.on {
     background: var(--gold);
     box-shadow: 0 0 3px rgba(184,152,58,0.35);
+  }
+
+  .sk-badge-dot.lang {
+    background: #2a2a2a;
   }
 
   .sk-badge-dot.lang.on {
@@ -544,11 +596,15 @@
     transition: all 0.3s;
   }
 
-  .cv-download-btn:hover { background: var(--gold-lt); }
+  .cv-download-btn:hover {
+    background: var(--gold-lt);
+    color: var(--black);
+  }
+
   .cv-download-btn svg { transition: transform 0.3s; }
   .cv-download-btn:hover svg { transform: translateY(2px); }
 
-  /* ─── CV FRAME ───────────────────────────────────────── */
+  /* CV embed frame panel */
   .cv-frame-panel { position: relative; }
 
   .cv-frame-label {
@@ -562,8 +618,10 @@
   .cv-frame-wrap {
     width: 100%;
     height: 720px;
+    background: var(--charcoal);
     border: 1px solid var(--charcoal);
     overflow: hidden;
+    position: relative;
   }
 
   .cv-frame-wrap iframe {
@@ -591,12 +649,16 @@
     gap: 24px;
   }
 
-  .reco-card:hover { border-color: var(--gold-dim); background: var(--charcoal); }
+  .reco-card:hover {
+    border-color: var(--gold-dim);
+    background: var(--charcoal);
+  }
 
   .reco-quote-mark {
     font-family: 'Cormorant Garamond', serif;
     font-size: 64px;
     line-height: 0.6;
+    color: var(--gold-dim);
     color: rgba(184,152,58,0.3);
     display: block;
   }
@@ -639,30 +701,17 @@
     font-style: italic;
   }
 
-  .btn-reco-linkedin {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--silver);
-    text-decoration: none;
-    border: 1px solid var(--charcoal);
-    padding: 12px 28px;
-    transition: border-color 0.3s, color 0.3s;
-  }
-
-  .btn-reco-linkedin:hover { border-color: var(--gold-dim); color: var(--gold); }
-
   /* ─── CONTACT ────────────────────────────────────────── */
   #contact {
     background: var(--ink);
     text-align: center;
-    padding: 72px 48px 80px;
+    padding: 120px 48px;
   }
 
-  .contact-inner { max-width: 700px; margin: 0 auto; }
+  .contact-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
   .contact-label {
     font-size: 9px;
@@ -681,7 +730,11 @@
     margin-bottom: 24px;
   }
 
-  .contact-headline em { font-style: italic; color: var(--offwhite); opacity: 0.7; }
+  .contact-headline em {
+    font-style: italic;
+    color: var(--offwhite);
+    opacity: 0.7;
+  }
 
   .contact-sub {
     font-size: 11px;
@@ -698,7 +751,9 @@
     margin-bottom: 56px;
   }
 
-  .contact-location span { color: var(--gold); }
+  .contact-location span {
+    color: var(--gold);
+  }
 
   .contact-buttons {
     display: flex;
@@ -722,26 +777,52 @@
     transition: all 0.3s;
   }
 
-  .btn-linkedin:hover { background: #0A66C2; color: #fff; }
+  .btn-linkedin:hover {
+    background: #0A66C2;
+    color: #fff;
+  }
 
-  .btn-email, .btn-phone {
+  .btn-email {
     display: inline-flex;
     align-items: center;
     gap: 12px;
     font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-transform: none;
     color: var(--offwhite);
     background: transparent;
     text-decoration: none;
-    padding: 16px 36px;
+    padding: 16px 24px;
     border: 1px solid var(--smoke);
     transition: all 0.3s;
     white-space: nowrap;
   }
 
-  .btn-email { overflow: hidden; max-width: 100%; }
-  .btn-email:hover, .btn-phone:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-email:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: none;
+    color: var(--offwhite);
+    background: transparent;
+    text-decoration: none;
+    padding: 16px 24px;
+    border: 1px solid var(--smoke);
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .btn-phone:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
 
   /* ─── FOOTER ─────────────────────────────────────────── */
   footer {
@@ -761,7 +842,11 @@
     color: var(--mist);
   }
 
-  .footer-copy { font-size: 9px; letter-spacing: 0.15em; color: var(--smoke); }
+  .footer-copy {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--smoke);
+  }
 
   /* ─── ANIMATIONS ─────────────────────────────────────── */
   @keyframes fadeUp {
@@ -774,16 +859,9 @@
     to   { opacity: 1; }
   }
 
-  @keyframes scrollGlow {
-    0%, 100% { opacity: 0.35; }
-    50%       { opacity: 0.9; }
-  }
-
-  @keyframes scrollDrop {
-    0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
-    30%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
-    70%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(1.3); }
   }
 
   .reveal {
@@ -792,12 +870,14 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   /* ─── RESPONSIVE ─────────────────────────────────────── */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
-    .nav-links { gap: 20px; }
     section { padding: 80px 24px; }
     .hero { padding: 100px 24px 60px; }
     .hero-content { padding-left: 48px; }
@@ -813,90 +893,92 @@
 
   @media (max-width: 600px) {
     nav { padding: 16px 20px; }
-    .nav-links { gap: 12px 20px; font-size: 9px; }
-    .hero {
-      justify-content: flex-start;
-      padding-top: 120px;
-      padding-bottom: 60px;
-      min-height: 100svh;
-    }
     .hero-content { padding-left: 24px; }
-    .hero-name { margin-bottom: 56px; }
-    .hero-awards { margin-top: 72px; }
     .credits-columns { grid-template-columns: 1fr; }
     .cv-stats { grid-template-columns: 1fr 1fr; }
     .contact-buttons { flex-direction: column; align-items: center; }
-    .btn-linkedin, .btn-email, .btn-phone {
-      width: 100%;
-      max-width: 320px;
-      justify-content: center;
-      padding: 14px 20px;
-      letter-spacing: 0.12em;
-      font-size: 9px;
-    }
+    .btn-linkedin, .btn-email, .btn-phone { width: 100%; max-width: 320px; justify-content: center; }
     .reco-grid { grid-template-columns: 1fr; }
-    .hero-scroll { display: none; }
   }
 
-  /* ─── HAMBURGER ───────────────────────────────────── */
-  .nav-burger {
+  /* ─── MENU OVERLAY ────────────────────────────────── */
+  .nav-menu {
     display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,8,0.97);
+    z-index: 500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .nav-menu.open { display: flex; }
+  .nav-menu a {
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--gold-lt); }
+  .nav-menu-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .nav-menu-close span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--offwhite);
+    transition: all 0.28s;
+  }
+  .nav-menu-close span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-menu-close span:nth-child(2) { opacity: 0; }
+  .nav-menu-close span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  .nav-burger {
+    display: flex;
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
-    z-index: 400;
     background: none;
     border: none;
     padding: 4px;
+    z-index: 100;
   }
   .nav-burger span {
     display: block;
     width: 22px;
     height: 1.5px;
     background: var(--silver);
-    transition: all 0.3s;
+    transition: all 0.28s;
   }
-  .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--offwhite); }
-  .nav-burger.open span:nth-child(2) { opacity: 0; }
-  .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--offwhite); }
 
-  @media (max-width: 640px) {
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(8,8,8,0.98);
-      z-index: 300;
-      align-items: center;
-      justify-content: center;
-    }
-    .nav-links.open { display: flex; }
-    .nav-links a { font-size: 13px; letter-spacing: 0.25em; }
-    .nav-burger { display: flex; }
-    nav { position: fixed; background: rgba(8,8,8,0.92); }
-  }
 </style>
 </head>
 
 <body>
-<div class="site-wrap">
 
 <!-- ─── NAV ─────────────────────────────────────────────── -->
 <nav>
   <span class="nav-logo">Portfolio</span>
-  <button class="nav-burger" id="burger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#reels">Démo Reels</a></li>
-    <li><a href="#cv">CV</a></li>
-    <li><a href="#recommandations">Avis</a></li>
-    <li><a href="work.html">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="nav-menu" id="nav-menu">
+  <button class="nav-menu-close" aria-label="Fermer"><span></span><span></span><span></span></button>
+  <a href="#reels">Démo Reels</a>
+  <a href="#cv">CV</a>
+  <a href="work.html">Work</a>
+  <a href="#contact">Contact</a>
+</div>
 
 <!-- ─── HERO ─────────────────────────────────────────────── -->
 <section class="hero" id="top">
@@ -933,19 +1015,21 @@
 <!-- ─── REELS ─────────────────────────────────────────────── -->
 <section id="reels">
   <div class="section-header reveal">
+    
     <h2 class="section-title">Démo Reels</h2>
     <div class="section-line"></div>
   </div>
 
   <div class="reels-grid">
 
+    <!-- REEL 1 : Full CG Animation — FEATURED -->
     <div class="reel-card featured reveal">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowfullscreen="true"
           referrerpolicy="unsafe-url">
         </iframe>
       </div>
@@ -963,13 +1047,14 @@
       </div>
     </div>
 
+    <!-- REEL 2 : Full CG Layout -->
     <div class="reel-card reveal" style="grid-column: 1 / -1;">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowfullscreen="true"
           referrerpolicy="unsafe-url">
         </iframe>
       </div>
@@ -993,6 +1078,7 @@
 <!-- ─── CV ────────────────────────────────────────────────── -->
 <section id="cv">
   <div class="section-header reveal">
+    
     <h2 class="section-title">Curriculum Vitae</h2>
     <div class="section-line"></div>
   </div>
@@ -1004,7 +1090,7 @@
       </p>
 
       <div class="cv-stats">
-        <div class="stat-item">
+        <div class="stat-item" style="text-align:right;">
           <p class="stat-number">18<sup>+</sup></p>
           <p class="stat-label">Années d'expérience</p>
         </div>
@@ -1034,10 +1120,11 @@
       </a>
     </div>
 
+    <!-- CV PREVIEW -->
     <div class="cv-frame-panel reveal">
       <p class="cv-frame-label">Aperçu du CV</p>
       <div class="cv-frame-wrap">
-        <iframe src="cv.html" title="CV Ganaël Chevallier"></iframe>
+        <iframe src="CV.html" title="CV Ganaël Chevallier"></iframe>
       </div>
     </div>
   </div>
@@ -1048,6 +1135,7 @@
 <!-- ─── RECOMMANDATIONS ────────────────────────────────────── -->
 <section id="recommandations">
   <div class="section-header reveal">
+    
     <h2 class="section-title">Recommandations</h2>
     <div class="section-line"></div>
   </div>
@@ -1084,7 +1172,20 @@
   </div>
 
   <div style="text-align:center; margin-top: 56px;" class="reveal">
-    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener" class="btn-reco-linkedin">
+    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener" style="
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      border: 1px solid var(--charcoal);
+      padding: 12px 28px;
+      transition: all 0.3s;
+    " onmouseover="this.style.borderColor='rgba(184,152,58,0.4)';this.style.color='#B8983A';"
+       onmouseout="this.style.borderColor='#1C1C1C';this.style.color='#9A9A9A';">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
       </svg>
@@ -1098,6 +1199,8 @@
 <!-- ─── CONTACT ────────────────────────────────────────────── -->
 <section id="contact">
   <div class="contact-inner">
+    <p class="contact-label reveal">Contact</p>
+    <h2 class="contact-headline reveal">Travaillons<br><em>ensemble</em></h2>
     <p class="contact-sub reveal">
       Disponible pour des projets en Layout 3D,<br>
       Prévisualisation et Animation CG.
@@ -1139,44 +1242,7 @@
   <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Houilles — Paris</span>
 </footer>
 
-</div><!-- /site-wrap -->
-
-<!-- ─── JS ───────────────────────────────────────────────── -->
-<script>
-  // Scroll reveal
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Iframe players : overlay pour préserver le scroll page
-  // Clic sur le player → active l'iframe · Mouseout de la carte → overlay restauré
-  document.querySelectorAll('.reel-video-wrap').forEach(wrap => {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:absolute;inset:0;z-index:2;cursor:pointer;background:transparent;';
-    overlay.title = 'Cliquer pour interagir avec le player';
-    wrap.appendChild(overlay);
-    overlay.addEventListener('click', () => { overlay.style.display = 'none'; });
-    wrap.closest('.reel-card').addEventListener('mouseleave', () => { overlay.style.display = ''; });
-  });
-</script>
-
-
-<script>
-  const burger = document.getElementById('burger');
-  const navLinks = document.getElementById('nav-links');
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      burger.classList.remove('open');
-      navLinks.classList.remove('open');
-    });
-  });
-</script>
-
+<!-- ─── SCROLL REVEAL JS ──────────────────────────────────── -->
+<script>const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(el=>o.observe(el));(()=>{  const burger=document.getElementById('burger');  const menu=document.getElementById('nav-menu');  const open=()=>menu.classList.add('open');  const close=()=>menu.classList.remove('open');  burger.addEventListener('click',open);  menu.addEventListener('click',e=>{if(e.target===menu||e.target.tagName==='A'||e.target.closest('.nav-menu-close'))close();});})();</script>
 </body>
 </html>
