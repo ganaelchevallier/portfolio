@@ -837,6 +837,46 @@
     .reco-grid { grid-template-columns: 1fr; }
     .hero-scroll { display: none; }
   }
+
+  /* ─── HAMBURGER ───────────────────────────────────── */
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 400;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--silver);
+    transition: all 0.3s;
+  }
+  .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--offwhite); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--offwhite); }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8,8,8,0.98);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 13px; letter-spacing: 0.25em; }
+    .nav-burger { display: flex; }
+    nav { position: fixed; background: rgba(8,8,8,0.92); }
+  }
 </style>
 </head>
 
@@ -846,7 +886,10 @@
 <!-- ─── NAV ─────────────────────────────────────────────── -->
 <nav>
   <span class="nav-logo">Portfolio</span>
-  <ul class="nav-links">
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#reels">Démo Reels</a></li>
     <li><a href="#cv">CV</a></li>
     <li><a href="#recommandations">Avis</a></li>
@@ -1116,6 +1159,22 @@
     wrap.appendChild(overlay);
     overlay.addEventListener('click', () => { overlay.style.display = 'none'; });
     wrap.closest('.reel-card').addEventListener('mouseleave', () => { overlay.style.display = ''; });
+  });
+</script>
+
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('nav-links');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
   });
 </script>
 
