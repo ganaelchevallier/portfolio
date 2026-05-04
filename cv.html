@@ -10,7 +10,14 @@
 
 /* ─── RESET & BASE ──────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 11px; }
+html {
+  font-size: 11px;
+  color-scheme: dark;
+  background: #080808 !important;
+}
+@media (prefers-color-scheme: light) {
+  html, body { background: #080808 !important; color: #E2DDD4 !important; }
+}
 
 :root {
   --black:    #080808;
@@ -859,20 +866,13 @@ body::before {
     </div>
     <div class="mod-body">
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Eddy</span>
-        </div>
-        <div class="entry-project">CG Lead Anim · <strong>TFT teaser</strong> · Maya</div>
+        <div class="entry-top"><span class="entry-studio">Eddy</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Blump Studio</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Blump Studio</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">The Mill</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">The Mill</span></div>
       </div>
     </div>
   </div>
@@ -886,55 +886,46 @@ body::before {
     </div>
     <div class="mod-body">
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Eddy</span>
-        </div>
-        <div class="entry-project">Champions of Runeterra · <strong>TFT teaser</strong> · Maya</div>
+        <div class="entry-top"><span class="entry-studio">Eddy</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">FIRM Studio</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">FIRM Studio</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">The Mill Paris</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">The Mill Paris</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Tetsuo Studio Paris</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Tetsuo Studio Paris</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">MPC Paris &amp; Liège</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">MPC Paris &amp; Liège</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">McMurphy</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">McMurphy</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Mathematic Studio</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Mathematic Studio</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">Ellipse Animation</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Mikros Animation</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Method Films / La Fabrique</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Digital District</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">St Louis Post-House</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">BUF Compagnie</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Ellipse Animation</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">Mundocom</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">Method Films / La Fabrique</span></div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top"><span class="entry-studio">BUF Compagnie</span></div>
       </div>
     </div>
   </div>
@@ -948,45 +939,34 @@ body::before {
     </div>
     <div class="mod-body">
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Eddy</span>
-        </div>
-        <div class="entry-project">CG Layout · <strong>TFT teaser</strong> · Blender</div>
+        <div class="entry-top"><span class="entry-studio">Eddy</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Passion Paris</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Passion Paris</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">FIRM Studio</span>
-        </div>
-      </div>
-      <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Tetsuo Studio Paris</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">FIRM Studio</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">The Mill</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">The Mill</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Prodigious Film (Publicis)</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Tetsuo Studio Paris</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Digiteyes</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">MPC Paris</span></div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top"><span class="entry-studio">Mikros Animation</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Nod . Paris</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Prodigious Film (Publicis)</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">Digiteyes</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">Nod . Paris</span></div>
       </div>
     </div>
   </div>
@@ -1000,34 +980,28 @@ body::before {
     </div>
     <div class="mod-body">
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Wizz</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Wizz</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">Digital District</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">MPC Paris</span></div>
       </div>
       <div class="entry">
-        <div class="entry-top">
-          <span class="entry-studio">McMurphy</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Digital District</span></div>
+      </div>
+      <div class="entry">
+        <div class="entry-top"><span class="entry-studio">McMurphy</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">Les Androïds Associés</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Mikros Animation</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">Fortiche</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Les Androïds Associés</span></div>
       </div>
       <div class="entry long">
-        <div class="entry-top">
-          <span class="entry-studio">Quad Productions</span>
-        </div>
+        <div class="entry-top"><span class="entry-studio">Fortiche</span></div>
+      </div>
+      <div class="entry long">
+        <div class="entry-top"><span class="entry-studio">Quad Productions</span></div>
       </div>
     </div>
   </div>
@@ -1072,8 +1046,8 @@ body::before {
     <div class="proj-col clips">
       <p class="proj-col-label">Clips · Teasers · Séries · Génériques</p>
       <ul class="proj-list">
+        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Champions of Runeterra — TFT teaser</span><span class="proj-by">· Riot Games</span></li>
         <li class="p1"><span class="proj-dot"></span><span class="proj-title">LEICA NORMAN · Feature trailer</span></li>
-        <li class="p1"><span class="proj-dot"></span><span class="proj-title">Team Fight Tactics (TFT)</span><span class="proj-by">· Riot Games</span></li>
         <li class="p1"><span class="proj-dot"></span><span class="proj-title">E-Sport World Cup 2024</span><span class="proj-by">· Teaser</span></li>
         <li class="p1"><span class="proj-dot"></span><span class="proj-title">Free Fire Rampage</span><span class="proj-by">· Teaser</span></li>
         <li class="p1"><span class="proj-dot"></span><span class="proj-title">Heaven &amp; Hell</span><span class="proj-by">· Kanye West</span></li>
