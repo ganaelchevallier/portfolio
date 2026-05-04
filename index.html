@@ -55,16 +55,18 @@
 
   /* ─── NAV ────────────────────────────────────────────── */
   nav {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
+    position: sticky;
+    top: 0;
+    z-index: 200;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 20px 48px;
     gap: 12px;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.85), transparent);
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--charcoal);
   }
 
   .nav-logo {
@@ -75,14 +77,6 @@
     text-transform: uppercase;
     color: var(--offwhite);
     text-decoration: none;
-  }
-
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--silver);
-    text-decoration: none;
-    transition: color 0.3s;
   }
 
   /* ─── HERO ───────────────────────────────────────────── */
