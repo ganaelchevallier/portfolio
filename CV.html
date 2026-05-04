@@ -715,20 +715,6 @@ body::before {
 }
 
 /* ─── PRINT ─────────────────────────────────────── */
-@media print {
-  body { background: #fff; color: #111; }
-  body::before { display: none; }
-  :root {
-    --black: #fff; --ink: #fff; --charcoal: #ddd;
-    --smoke: #ccc; --mist: #666; --silver: #444;
-    --offwhite: #111; --cream: #000; --gold: #7A6020;
-    --gold-lt: #9A7A28; --gold-dim: rgba(122,96,32,0.15);
-  }
-  .module, .reco-item, .proj-col { background: #fff; }
-  .modules-grid, .reco-strip, .proj-body { background: #ddd; }
-  .entry:hover, .proj-list li:hover { background: none; padding-left: 0; }
-}
-
 /* ─── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 960px) {
   .modules-grid { grid-template-columns: 1fr 1fr; }
