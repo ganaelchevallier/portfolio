@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ganaël Chevallier — CG Animation · Layout · Previs</title>
+<title>Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
@@ -22,13 +22,6 @@
     --gold-lt:  #D4AF50;
     --gold-dim: rgba(184,152,58,0.15);
     --red:      #9B2335;
-  --col-lead: #9B4E2B;
-  --col-anim: #2B5F7A;
-  --col-lay:  #3A6644;
-  --col-prev: #6B4A8A;
-  --col-film: #3E5C78;
-  --col-clip: #7A5C38;
-  --col-brand:#3A6055;
   }
 
   /* ─── RESET ─────────────────────────────────────────── */
@@ -59,14 +52,16 @@
 
   /* ─── NAV ────────────────────────────────────────────── */
   nav {
-    position: fixed;
+    position: absolute;
     top: 0; left: 0; right: 0;
     z-index: 100;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 48px;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+    padding: 20px 48px;
+    gap: 12px;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.85), transparent);
   }
 
   .nav-logo {
@@ -81,8 +76,10 @@
 
   .nav-links {
     display: flex;
-    gap: 40px;
+    flex-wrap: wrap;
+    gap: 16px 28px;
     list-style: none;
+    justify-content: flex-end;
   }
 
   .nav-links a {
@@ -95,95 +92,6 @@
   }
 
   .nav-links a:hover { color: var(--gold-lt); }
-
-  /* ─── HERO TAGLINE ──────────────────────────────────── */  .hero-tagline {
-    position: relative;
-    z-index: 4;
-    width: 100%;
-    text-align: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(17px, 2.3vw, 32px);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.5;
-    color: var(--offwhite);
-    padding: 0 60px;
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.15s ease forwards;
-  }
-
-  .hero-tagline .tagline-sub {
-    display: block;
-    font-size: clamp(13px, 1.7vw, 24px);
-    color: var(--silver);
-    opacity: 1;
-  }
-
-  /* ─── HERO SKILLS BAR (sous les awards) ─────────────── */
-  .hero-skills {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 32px;
-    margin-left: -80px;
-    width: calc(100% + 80px);
-    opacity: 0;
-    animation: fadeUp 0.9s 1.0s ease forwards;
-  }
-
-  /* ─── HERO LANGUES — style sk (barres discrètes) ────── */
-  .hero-langs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 8px;
-    margin-left: -80px;
-    width: calc(100% + 80px);
-    opacity: 0;
-    animation: fadeUp 0.9s 1.1s ease forwards;
-  }
-
-  .lang-dots {
-    display: flex;
-    gap: 2px;
-  }
-
-  .lang-dot {
-    width: 9px;
-    height: 2px;
-    border-radius: 1px;
-    background: #252525;
-  }
-
-  .lang-dot.on {
-    background: var(--silver);
-    box-shadow: none;
-  }
-
-  .lang-badge {
-    font-size: 8px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mist);
-    border: 1px solid var(--smoke);
-    padding: 5px 10px 6px;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border-radius: 0;
-  }
-
-  .lang-badge strong {
-    color: var(--silver);
-    font-weight: 400;
-    letter-spacing: 0.18em;
-    font-size: 8px;
-  }
 
   /* ─── HERO ───────────────────────────────────────────── */
   .hero {
@@ -233,13 +141,19 @@
 
   .hero-label {
     font-size: 10px;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 32px;
-    white-space: nowrap;
     opacity: 0;
     animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+
+  .hero-label-location {
+    color: var(--silver);
+    letter-spacing: 0.2em;
+    font-size: 9px;
+    opacity: 0.7;
   }
 
   .hero-name {
@@ -261,38 +175,35 @@
   }
 
   .hero-title {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--silver);
+    line-height: 2;
     opacity: 0;
     animation: fadeUp 0.9s 0.6s ease forwards;
   }
 
-  .hero-title .line-jobs {
+  .hero-title-line {
     display: block;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--silver);
-    white-space: nowrap;
-    line-height: 2.2;
   }
 
-  .hero-title .line-jobs strong {
+  .hero-title strong {
     color: var(--offwhite);
     font-weight: 400;
   }
 
-  .hero-title .line-studios {
+  .hero-studios {
     display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    font-weight: 300;
     font-style: italic;
-    letter-spacing: 0.12em;
-    color: #888888;
-    line-height: 2;
+    text-transform: none;
+    letter-spacing: 0.1em;
+    color: var(--mist, #555);
+    font-size: 10px;
   }
 
   .hero-awards {
-    margin-top: 80px;
+    margin-top: 48px;
     display: flex;
     gap: 32px;
     opacity: 0;
@@ -322,33 +233,43 @@
 
   .hero-scroll {
     position: absolute;
-    bottom: 160px;
-    right: 40px;
+    bottom: 90px;
+    right: 48px;
     z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     opacity: 0;
     animation: fadeIn 1s 1.2s ease forwards;
   }
 
   .hero-scroll span {
-    font-size: 7px;
-    letter-spacing: 0.35em;
+    font-size: 8px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--silver);
     writing-mode: vertical-rl;
-    text-orientation: mixed;
-    opacity: 0.75;
+    animation: scrollGlow 3s ease-in-out 2.2s infinite;
   }
 
   .scroll-line {
     width: 1px;
-    height: 48px;
+    height: 60px;
     background: linear-gradient(to bottom, var(--silver), transparent);
-    opacity: 0.55;
-    animation: scrollPulse 2s ease-in-out infinite;
+    animation: scrollDrop 3s ease-in-out 2.2s infinite;
+  }
+
+  @keyframes scrollGlow {
+    0%, 100% { opacity: 0.35; }
+    50%       { opacity: 0.9; }
+  }
+
+  @keyframes scrollDrop {
+    0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    30%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    70%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
   }
 
   /* ─── SECTION COMMONS ────────────────────────────────── */
@@ -399,8 +320,8 @@
 
   .reels-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
   }
 
   .reel-card {
@@ -408,6 +329,7 @@
     border: 1px solid var(--charcoal);
     overflow: hidden;
     transition: border-color 0.4s, transform 0.4s;
+    cursor: pointer;
   }
 
   .reel-card:hover {
@@ -419,36 +341,27 @@
     grid-column: 1 / -1;
   }
 
-  /* iframe wrapper — player réduit d'1/3 via padding-top 37.5% (= 56.25% × 2/3) */
   .reel-video-wrap {
     position: relative;
     width: 100%;
-    padding-top: 37.5%;
+    padding-top: 56.25%;
     background: var(--charcoal);
     overflow: hidden;
   }
 
   .reel-video-wrap iframe {
     position: absolute;
-    top: 0; left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
-    pointer-events: none;
-  }
-
-  /* transparent overlay: captures scroll normally, removed on click to unlock iframe */
-  .reel-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    cursor: pointer;
-    background: transparent;
   }
 
   .reel-info {
-    padding: 22px 28px 26px;
-    text-align: center;
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .reel-category {
@@ -456,7 +369,7 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .reel-title-text {
@@ -465,14 +378,6 @@
     font-weight: 400;
     color: var(--cream);
     letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .reel-year {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    color: var(--mist);
-    margin-top: 6px;
   }
 
   .reel-cta {
@@ -544,25 +449,34 @@
   /* ─── CV SECTION ─────────────────────────────────────── */
   #cv { background: var(--black); }
 
-  .cv-intro {
-    max-width: 900px;
-    margin-bottom: 0;
+  .cv-layout {
+    display: grid;
+    grid-template-columns: 1fr 560px;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .cv-lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--offwhite);
+    margin-bottom: 40px;
   }
 
   .cv-stats {
-    display: flex;
-    gap: 48px;
-    margin-bottom: 48px;
-    align-items: flex-start;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+    max-width: 320px;
   }
 
   .stat-item {
+    border-top: 1px solid var(--charcoal);
     padding-top: 16px;
-  }
-
-  .stat-item.right {
-    text-align: right;
   }
 
   .stat-number {
@@ -574,7 +488,7 @@
   }
 
   .stat-number sup {
-    font-size: 24px;
+    font-size: 18px;
     color: var(--gold);
   }
 
@@ -608,6 +522,65 @@
     border-color: var(--gold-dim);
   }
 
+  /* ─── SKILL BADGES (compact) ─────────────────────────── */
+  .sk-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .sk-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #222;
+    padding: 7px 12px 8px;
+    min-width: 72px;
+  }
+
+  .sk-badge-name {
+    font-size: 7px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    white-space: nowrap;
+  }
+
+  .sk-badge-dots {
+    display: flex;
+    gap: 3px;
+  }
+
+  .sk-badge-dot {
+    width: 10px;
+    height: 2px;
+    border-radius: 1px;
+    background: #2a2a2a;
+  }
+
+  .sk-badge-dot.on {
+    background: var(--gold);
+    box-shadow: 0 0 3px rgba(184,152,58,0.35);
+  }
+
+  .sk-badge-dot.lang {
+    background: #2a2a2a;
+  }
+
+  .sk-badge-dot.lang.on {
+    background: var(--silver);
+    box-shadow: none;
+  }
+
+  .sk-grid-sep {
+    width: 100%;
+    height: 1px;
+    background: var(--charcoal);
+    margin: 4px 0;
+  }
+
   .cv-download-btn {
     display: inline-flex;
     align-items: center;
@@ -629,6 +602,32 @@
 
   .cv-download-btn svg { transition: transform 0.3s; }
   .cv-download-btn:hover svg { transform: translateY(2px); }
+
+  /* CV embed frame panel */
+  .cv-frame-panel { position: relative; }
+
+  .cv-frame-label {
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .cv-frame-wrap {
+    width: 100%;
+    height: 720px;
+    background: var(--charcoal);
+    border: 1px solid var(--charcoal);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cv-frame-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 
   /* ─── RECOMMANDATIONS ────────────────────────────────── */
   #recommandations { background: var(--black); }
@@ -665,7 +664,7 @@
 
   .reco-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(16px, 1.4vw, 18px);
+    font-size: clamp(15px, 1.4vw, 18px);
     font-weight: 300;
     font-style: italic;
     line-height: 1.7;
@@ -710,11 +709,7 @@
 
   .contact-inner {
     max-width: 700px;
-    width: 100%;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
   .contact-label {
@@ -750,10 +745,9 @@
 
   .contact-location {
     font-size: 10px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     color: var(--mist);
     margin-bottom: 56px;
-    white-space: nowrap;
   }
 
   .contact-location span {
@@ -764,34 +758,22 @@
     display: flex;
     gap: 16px;
     justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     margin-bottom: 32px;
-    width: 100%;
-    max-width: 480px;
-  }
-
-  .btn-linkedin,
-  .btn-email,
-  .btn-phone {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 14px 24px;
-    transition: all 0.3s;
-    text-align: center;
-    min-width: 200px;
-    box-sizing: border-box;
   }
 
   .btn-linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
     color: var(--black);
     background: var(--offwhite);
+    text-decoration: none;
+    padding: 16px 36px;
+    transition: all 0.3s;
   }
 
   .btn-linkedin:hover {
@@ -800,9 +782,18 @@
   }
 
   .btn-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
     color: var(--offwhite);
     background: transparent;
+    text-decoration: none;
+    padding: 16px 36px;
     border: 1px solid var(--smoke);
+    transition: all 0.3s;
   }
 
   .btn-email:hover {
@@ -811,60 +802,23 @@
   }
 
   .btn-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
     color: var(--offwhite);
     background: transparent;
+    text-decoration: none;
+    padding: 16px 36px;
     border: 1px solid var(--smoke);
+    transition: all 0.3s;
   }
 
   .btn-phone:hover {
     border-color: var(--gold);
     color: var(--gold);
-  }
-
-  /* ─── INFO BAR (skills + contact dans index) ─────────── */
-  .info-bar {
-    display: flex;
-    gap: 48px;
-    align-items: flex-start;
-    margin-top: 64px;
-    padding-top: 48px;
-    border-top: 1px solid var(--charcoal);
-    flex-wrap: wrap;
-  }
-
-  .info-bar-block {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .info-bar-label {
-    font-size: 8px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-
-  .info-contact-line {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--silver);
-    white-space: nowrap;
-    line-height: 1.9;
-  }
-
-  .info-contact-line a {
-    color: var(--gold-lt);
-    text-decoration: none;
-  }
-
-  .info-contact-line a:hover { text-decoration: underline; }
-
-  .index-skills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
   }
 
   /* ─── FOOTER ─────────────────────────────────────────── */
@@ -919,10 +873,6 @@
   }
 
   /* ─── RESPONSIVE ─────────────────────────────────────── */
-  @media (max-width: 1100px) {
-    .reels-grid { grid-template-columns: 1fr; }
-  }
-
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
     .nav-links { gap: 20px; }
@@ -931,696 +881,25 @@
     .hero-content { padding-left: 48px; }
     .hero-line { left: 24px; }
     .reels-grid { grid-template-columns: 1fr; }
+    .reel-card.featured { grid-column: 1; }
+    .credits-columns { grid-template-columns: 1fr 1fr; }
     .cv-layout { grid-template-columns: 1fr; gap: 48px; }
     .hero-awards { flex-direction: column; gap: 16px; }
     .reco-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 12px; text-align: center; }
-    .info-bar { gap: 32px; }
-    .contact-location { white-space: normal; }
-  }
-
-  @media (max-width: 760px) {
-    nav {
-      padding: 14px 20px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 8px;
-      background: rgba(8,8,8,0.97);
-    }
-    .nav-links {
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px 18px;
-      flex-basis: 100%;
-    }
-    .nav-links a { font-size: 9px; letter-spacing: 0.15em; }
   }
 
   @media (max-width: 600px) {
-    .hero-tagline { font-size: 13px; padding: 0 20px; margin-bottom: 20px; }
+    nav { padding: 16px 20px; }
+    .nav-links { gap: 12px 20px; font-size: 9px; }
     .hero-content { padding-left: 24px; }
-    .reels-grid { grid-template-columns: 1fr; }
+    .credits-columns { grid-template-columns: 1fr; }
     .cv-stats { grid-template-columns: 1fr 1fr; }
-    .contact-buttons { flex-direction: column; align-items: center; width: 100%; }
-    .btn-linkedin, .btn-email, .btn-phone { width: 100%; max-width: 280px; min-width: unset; letter-spacing: 0.1em; }
+    .contact-buttons { flex-direction: column; align-items: center; }
+    .btn-linkedin, .btn-email, .btn-phone { width: 100%; max-width: 320px; justify-content: center; }
     .reco-grid { grid-template-columns: 1fr; }
-    .reel-title-text { white-space: normal; font-size: 15px; }
-    .hero-title .line-jobs { white-space: normal; }
-    .hero-label { white-space: normal; }
-    #contact { padding: 80px 20px; }
-    .contact-location { font-size: 9px; letter-spacing: 0.08em; white-space: nowrap; }
-    .contact-headline { font-size: clamp(28px, 8vw, 48px); }
+    .hero-scroll { display: none; }
   }
-
-  @media (max-width: 360px) {
-    .btn-linkedin, .btn-email, .btn-phone { font-size: 9px; letter-spacing: 0.05em; padding: 12px 16px; }
-    .contact-location { white-space: normal; }
-  }
-
-/* ═══ CV EMBED ══════════════════════════════════════════ */
-.cv-embed {
-  font-size: 11px;
-  line-height: 1.5;
-  margin-top: 64px;
-}
-
-/* ─── WRAPPER ───────────────────────────────────── */
-.cv-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px 32px;
-}
-
-/* ══════════════════════════════════════════════════
-   HEADER
-══════════════════════════════════════════════════ */
-.cv-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 40px;
-  padding: 24px 0 18px;
-  border-bottom: 1px solid var(--charcoal);
-  margin-bottom: 0;
-  align-items: start;
-}
-
-.cv-pretitle {
-  font-size: 8.5px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 10px;
-}
-
-.cv-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 38px;
-  font-weight: 300;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  color: var(--cream);
-  margin-bottom: 14px;
-}
-
-.cv-name em {
-  font-style: italic;
-  opacity: 0.65;
-}
-
-.cv-subtitle {
-  font-size: 9px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--silver);
-  line-height: 1.9;
-  max-width: 520px;
-}
-
-.cv-subtitle strong {
-  color: var(--offwhite);
-  font-weight: 400;
-}
-
-.cv-awards-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.award-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 8px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold-dim);
-  padding: 5px 12px;
-}
-
-/* CV lang row */
-.cv-lang-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-
-.cv-lang-row .lang-badge {
-  border: none;
-  background: none;
-  padding: 5px 8px 6px;
-  border: 1px solid #222;
-}
-
-.cv-lang-row .lang-dot.on {
-  background: var(--gold);
-  box-shadow: 0 0 3px rgba(184,152,58,0.35);
-}
-
-/* Right column: contact + skills */
-.cv-header-right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  min-width: 220px;
-  align-items: flex-end;
-}
-
-.cv-contact-block {
-  border-right: 2px solid var(--gold);
-  padding-right: 16px;
-  text-align: right;
-}
-
-.cv-contact-block p {
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: var(--silver);
-  line-height: 1.7;
-}
-
-.cv-contact-block a {
-  color: var(--gold-lt);
-  text-decoration: none;
-}
-
-.cv-contact-block a:hover {
-  text-decoration: underline;
-}
-
-.cv-skills-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
-}
-
-.sk {
-  font-size: 8px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--mist);
-  border: 1px solid #222;
-  padding: 5px 10px 6px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-}
-
-.sk.main {
-  color: var(--offwhite);
-  border-color: var(--charcoal);
-}
-
-.sk-dots {
-  display: flex;
-  gap: 2px;
-}
-
-.sk-dot {
-  width: 9px;
-  height: 2px;
-  border-radius: 1px;
-  background: #252525;
-}
-
-/* Soft principal → segments dorés */
-.sk.main .sk-dot.on {
-  background: var(--gold);
-  box-shadow: 0 0 3px rgba(184,152,58,0.35);
-}
-
-/* Soft legacy (XSI) → segments argent atténués */
-.sk .sk-dot.on {
-  background: var(--silver);
-}
-
-/* ══════════════════════════════════════════════════
-   EXP SECTION WRAPPER
-══════════════════════════════════════════════════ */
-.exp-section {
-  border: 1px solid var(--charcoal);
-  border-top: none;
-}
-.exp-section .proj-header {
-  border-top: 1px solid var(--charcoal);
-}
-.exp-section .modules-grid {
-  border: none;
-  margin-top: 0;
-}
-
-/* ══════════════════════════════════════════════════
-   MODULES — 4 COLUMNS
-══════════════════════════════════════════════════ */
-.modules-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--charcoal);
-  border: 1px solid var(--charcoal);
-  margin-top: 1px;
-}
-
-.module {
-  background: var(--ink);
-  display: flex;
-  flex-direction: column;
-}
-
-/* Module header tab */
-.mod-tab {
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 2px solid var(--charcoal);
-}
-
-.mod-tab::before {
-  content: '';
-  width: 4px;
-  height: 22px;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-
-.module.lead .mod-tab::before { background: var(--col-lead); }
-.module.anim .mod-tab::before { background: var(--col-anim); }
-.module.layout .mod-tab::before { background: var(--col-lay); }
-.module.prev .mod-tab::before { background: var(--col-prev); }
-
-.module.lead   .mod-tab { background: rgba(155,78,43,0.18);  border-bottom: 2px solid var(--col-lead); }
-.module.anim   .mod-tab { background: rgba(43,95,122,0.18);  border-bottom: 2px solid var(--col-anim); }
-.module.layout .mod-tab { background: rgba(58,102,68,0.18);  border-bottom: 2px solid var(--col-lay); }
-.module.prev   .mod-tab { background: rgba(107,74,138,0.18); border-bottom: 2px solid var(--col-prev); }
-
-.module.lead   .mod-title { color: #D4856A; letter-spacing: 0.2em; }
-.module.anim   .mod-title { color: #7BBAD4; }
-.module.layout .mod-title { color: #7ABDA0; }
-.module.prev   .mod-title { color: #B89AD4; }
-
-.mod-tab-inner {}
-
-.mod-label {
-  font-size: 7px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  line-height: 1;
-  margin-bottom: 3px;
-}
-
-.module.lead   .mod-label { color: #D4856A; }
-.module.anim   .mod-label { color: #7BBAD4; }
-.module.layout .mod-label { color: #7ABDA0; }
-.module.prev   .mod-label { color: #B89AD4; }
-
-.mod-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--cream);
-  line-height: 1;
-}
-
-.mod-count {
-  margin-left: auto;
-  font-size: 10px;
-  color: var(--mist);
-  font-weight: 300;
-}
-
-/* Entries */
-.mod-body {
-  padding: 2px 0;
-  flex: 1;
-}
-
-.entry {
-  padding: 4px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  transition: background 0.2s;
-  cursor: default;
-}
-
-.entry:hover {
-  background: rgba(255,255,255,0.02);
-}
-
-.entry:last-child {
-  border-bottom: none;
-}
-
-/* Prestige tiers */
-.entry.tier-1, .entry.tier-2, .entry.tier-3 { border-left: 2px solid var(--charcoal); }
-
-.entry-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 3px;
-}
-
-.entry-studio {
-  font-size: 9.5px;
-  font-weight: 400;
-  color: var(--offwhite);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.entry-date {
-  font-size: 8px;
-  letter-spacing: 0.12em;
-  color: var(--mist);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.entry-duration {
-  font-size: 8px;
-  background: var(--charcoal);
-  color: var(--silver);
-  padding: 1px 6px;
-  margin-left: 4px;
-  letter-spacing: 0.08em;
-  flex-shrink: 0;
-}
-
-.entry-project {
-  font-size: 8.5px;
-  font-style: italic;
-  color: var(--mist);
-  letter-spacing: 0.08em;
-  line-height: 1.6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.entry-project strong {
-  font-style: normal;
-  font-weight: 400;
-  color: var(--silver);
-}
-
-/* ══════════════════════════════════════════════════
-   RECOMMANDATIONS SECTION
-══════════════════════════════════════════════════ */
-.reco-section {
-  border: 1px solid var(--charcoal);
-  border-top: none;
-}
-
-.reco-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--charcoal);
-  border: none;
-}
-
-/* Long-duration entry highlight */
-.entry.long .entry-studio {
-  color: var(--cream);
-  font-weight: 400;
-}
-.entry.long .entry-duration {
-  background: #2C2C2C;
-  color: var(--offwhite);
-  letter-spacing: 0.1em;
-}
-
-.reco-item {
-  background: #0A0A0A;
-  padding: 12px 14px;
-}
-
-.reco-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12.5px;
-  font-style: italic;
-  font-weight: 300;
-  color: var(--offwhite);
-  line-height: 1.65;
-  margin-bottom: 12px;
-  opacity: 0.9;
-}
-
-.reco-quote::before {
-  content: '"';
-  font-size: 28px;
-  line-height: 0;
-  vertical-align: -8px;
-  color: var(--gold);
-  margin-right: 3px;
-  font-style: normal;
-}
-
-.reco-sig {
-  font-size: 8.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--mist);
-  border-top: 1px solid var(--charcoal);
-  padding-top: 10px;
-}
-
-.reco-sig strong {
-  color: var(--gold);
-  font-weight: 400;
-  display: block;
-  margin-bottom: 2px;
-}
-
-/* ══════════════════════════════════════════════════
-   PROJECTS SECTION
-══════════════════════════════════════════════════ */
-.projects-section {
-  border: 1px solid var(--charcoal);
-  border-top: none;
-  background: var(--ink);
-}
-
-.proj-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--charcoal);
-  background: var(--charcoal);
-}
-
-.proj-header-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--cream);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
-.proj-header-sub {
-  font-size: 8px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--mist);
-}
-
-.proj-header-line {
-  flex: 1;
-  height: 1px;
-  background: var(--smoke);
-}
-
-.proj-body {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--charcoal);
-}
-
-.proj-col {
-  background: var(--ink);
-  padding: 12px 14px;
-}
-
-.proj-col-label {
-  font-size: 7.5px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--charcoal);
-}
-
-/* Accent couleur par colonne projets */
-.proj-col.films  { border-top: 2px solid var(--col-film); }
-.proj-col.clips  { border-top: 2px solid var(--col-clip); }
-.proj-col.brands { border-top: 2px solid var(--col-brand); }
-
-.proj-col.films  .proj-col-label { color: #7AAAC8; }
-.proj-col.clips  .proj-col-label { color: #C09A6A; }
-.proj-col.brands .proj-col-label { color: #7AB5A0; }
-
-.proj-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.proj-list li {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  padding: 5px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.025);
-  transition: padding-left 0.2s;
-  cursor: default;
-}
-
-.proj-list li:hover {
-  padding-left: 4px;
-}
-
-.proj-list li:last-child { border-bottom: none; }
-
-.proj-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 4px;
-}
-
-.proj-list li.p1 .proj-dot,
-.proj-list li.p2 .proj-dot,
-.proj-list li.p3 .proj-dot { background: var(--mist); }
-
-.proj-title {
-  font-size: 9.5px;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-}
-
-.proj-list li.p1 .proj-title,
-.proj-list li.p2 .proj-title,
-.proj-list li.p3 .proj-title { color: var(--offwhite); font-weight: 300; font-size: 9.5px; }
-
-.proj-by {
-  font-size: 8px;
-  color: var(--mist);
-  letter-spacing: 0.06em;
-  font-style: italic;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Brands section inside projects */
-.brands-grid {
-  padding: 10px 16px;
-  border-top: 1px solid var(--charcoal);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-items: center;
-}
-
-.brands-label {
-  font-size: 7.5px;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-right: 8px;
-  flex-basis: 100%;
-  margin-bottom: 8px;
-}
-
-.brand-tag {
-  font-size: 8px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--silver);
-  border: 1px solid var(--charcoal);
-  padding: 3px 8px;
-  transition: all 0.2s;
-}
-
-.brand-tag:hover {
-  color: var(--gold);
-  border-color: var(--gold-dim);
-}
-
-/* ─── FOOTER ─────────────────────────────────────── */
-.cv-footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 0;
-  border-top: 1px solid var(--charcoal);
-  margin-top: 0;
-}
-
-.cv-footer-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 12px;
-  color: var(--mist);
-  letter-spacing: 0.15em;
-}
-
-.cv-footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  justify-content: flex-end;
-}
-
-.cv-footer-links a {
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mist);
-  text-decoration: none;
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-
-.cv-footer-links a:hover { color: var(--gold); }
-
-
-
-/* ─── RESPONSIVE ─────────────────────────────────── */
-@media (max-width: 960px) {
-  .modules-grid { grid-template-columns: 1fr 1fr; }
-  .reco-strip { grid-template-columns: 1fr; }
-  .proj-body { grid-template-columns: repeat(3, 1fr); }
-  .cv-header { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 600px) {
-  .modules-grid { grid-template-columns: 1fr; }
-  .proj-body { grid-template-columns: 1fr; }
-  .cv-name { font-size: 36px; }
-}
-
-
 </style>
 </head>
 
@@ -1628,11 +907,10 @@
 
 <!-- ─── NAV ─────────────────────────────────────────────── -->
 <nav>
-  <a href="#" class="nav-logo">G. Chevallier</a>
+  <span class="nav-logo">Portfolio</span>
   <ul class="nav-links">
     <li><a href="#reels">Démo Reels</a></li>
     <li><a href="#cv">CV</a></li>
-    <li><a href="#recommandations">Recommandations</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -1642,45 +920,14 @@
   <div class="hero-bg"></div>
   <div class="hero-line"></div>
 
-  <!-- TAGLINE centré au-dessus du contenu principal -->
-  <p class="hero-tagline">18 ans dans l'industrie VFX et la Post-Production<span class="tagline-sub">de la Previs au Layout jusqu'à l'Animation CG, dans la publicité haut de gamme, le cinéma, le trailer et la série.</span></p>
-
   <div class="hero-content">
-
-    <p class="hero-label" style="margin-bottom: 4px;">CG Animation &nbsp;·&nbsp; Layout &nbsp;·&nbsp; Previs</p>
-    <p class="hero-label" style="margin-top: 0; color: var(--silver); font-size: 9px; letter-spacing: 0.3em;">Île-de-France / Remote</p>
+    <p class="hero-label">CG Animation &nbsp;·&nbsp; Layout &nbsp;·&nbsp; Previs <span class="hero-label-location">&nbsp;— &nbsp;Paris / Remote</span></p>
     <h1 class="hero-name">Ganaël<br><em>Chevallier</em></h1>
     <p class="hero-title">
-      <span class="line-jobs"><strong>Film</strong> &thinsp;·&thinsp; <strong>Trailer</strong> &thinsp;·&thinsp; <strong>Episodic</strong> &thinsp;·&thinsp; <strong>Advertising</strong></span>
-      <span class="line-studios">BUF &thinsp;·&thinsp; Eddy &thinsp;·&thinsp; The Mill &thinsp;·&thinsp; Mikros &thinsp;·&thinsp; MPC &thinsp;·&thinsp; Fortiche…</span>
+      <span class="hero-title-line"><strong>18 ans d'expérience</strong> &nbsp;·&nbsp; Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
+      <em class="hero-studios">BUF &nbsp;·&nbsp; Eddy &nbsp;·&nbsp; The Mill &nbsp;·&nbsp; Mikros &nbsp;·&nbsp; MPC &nbsp;·&nbsp; Fortiche…</em>
     </p>
-
-    <!-- SOFTS & SKILLS -->
-    <div class="hero-skills">
-      <span class="sk main"><span class="sk-name">Maya</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span></span></span>
-      <span class="sk main"><span class="sk-name">3ds Max</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span></span></span>
-      <span class="sk main"><span class="sk-name">Blender</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span></span></span>
-      <span class="sk main"><span class="sk-name">Unreal</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span><span class="sk-dot"></span><span class="sk-dot"></span></span></span>
-      <span class="sk main"><span class="sk-name">Motion Builder</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span><span class="sk-dot"></span></span></span>
-      <span class="sk main"><span class="sk-name">DaVinci Resolve</span><span class="sk-dots"><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot on"></span><span class="sk-dot"></span></span></span>
-    </div>
-    <!-- LANGUES -->
-    <div class="hero-langs">
-      <div class="lang-badge">
-        <strong>Français</strong>
-        <div class="lang-dots">
-          <span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span>
-        </div>
-      </div>
-      <div class="lang-badge">
-        <strong>English</strong>
-        <div class="lang-dots">
-          <span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot on"></span><span class="lang-dot"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-awards" style="flex-direction: row;">
+    <div class="hero-awards">
       <div class="award-badge">
         <span class="award-name">🏆 Genie Award</span>
         <span class="award-desc">Outstanding Achievement</span>
@@ -1690,7 +937,8 @@
         <span class="award-desc">Outstanding Achievement</span>
       </div>
     </div>
-  </div><!-- /hero-content -->
+  </div>
+
   <div class="hero-scroll">
     <span>Scroll</span>
     <div class="scroll-line"></div>
@@ -1709,8 +957,8 @@
 
   <div class="reels-grid">
 
-    <!-- REEL 1 : CG Stylised Animation -->
-    <div class="reel-card reveal">
+    <!-- REEL 1 : Full CG Animation — FEATURED -->
+    <div class="reel-card featured reveal">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
@@ -1719,35 +967,23 @@
           allowfullscreen="true"
           referrerpolicy="unsafe-url">
         </iframe>
-        <div class="reel-overlay" onclick="this.style.display='none'; this.previousElementSibling.style.pointerEvents='auto';"></div>
       </div>
       <div class="reel-info">
-        <p class="reel-title-text">CG Stylised Animation Reel</p>
-        <p class="reel-year">— 2025 —</p>
+        <div class="reel-meta">
+          <p class="reel-category">Animation 3D · Publicité · Cinéma</p>
+          <p class="reel-title-text">Full CG Animation Reel — 2025</p>
+        </div>
+        <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener">
+          Voir sur Videas
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <!-- REEL 2 : CG Realistic Animation (lien à venir) -->
-    <div class="reel-card reveal">
-      <div class="reel-video-wrap">
-        <iframe
-          src="about:blank"
-          frameborder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen="true"
-          referrerpolicy="unsafe-url"
-          data-src-pending="true">
-        </iframe>
-        <div class="reel-overlay" onclick="this.style.display='none'; this.previousElementSibling.style.pointerEvents='auto';"></div>
-      </div>
-      <div class="reel-info">
-        <p class="reel-title-text">CG Realistic Animation Reel</p>
-        <p class="reel-year">— 2025 —</p>
-      </div>
-    </div>
-
-    <!-- REEL 3 : CG Layout -->
-    <div class="reel-card reveal">
+    <!-- REEL 2 : Full CG Layout -->
+    <div class="reel-card reveal" style="grid-column: 1 / -1;">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
@@ -1756,55 +992,76 @@
           allowfullscreen="true"
           referrerpolicy="unsafe-url">
         </iframe>
-        <div class="reel-overlay" onclick="this.style.display='none'; this.previousElementSibling.style.pointerEvents='auto';"></div>
       </div>
       <div class="reel-info">
-        <p class="reel-title-text">CG Layout Reel</p>
-        <p class="reel-year">— 2025 —</p>
+        <div class="reel-meta">
+          <p class="reel-category">Layout 3D · Prévisualisation</p>
+          <p class="reel-title-text">Full CG Layout Reel — 2025</p>
+        </div>
+        <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener">
+          Voir sur Videas
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     </div>
 
   </div>
 </section>
 
-<div class="divider"></div>
-
 <!-- ─── CV ────────────────────────────────────────────────── -->
 <section id="cv">
   <div class="section-header reveal">
     
-    <h2 class="section-title">CV</h2>
+    <h2 class="section-title">Curriculum Vitae</h2>
     <div class="section-line"></div>
   </div>
 
-  <div class="cv-intro reveal">
-    <div class="cv-stats">
-      <div class="stat-item right">
-        <p class="stat-number">18<sup>+</sup></p>
-        <p class="stat-label">Années d'expérience</p>
+  <div class="cv-layout">
+    <div class="cv-text reveal">
+      <p class="cv-lead">
+        18 ans dans l'industrie VFX et la Post-Production — de la Prévisualisation au Layout jusqu'à l'Animation 3D, dans la publicité haut de gamme, le cinéma et la série.
+      </p>
+
+      <div class="cv-stats">
+        <div class="stat-item" style="text-align:right;">
+          <p class="stat-number">18<sup>+</sup></p>
+          <p class="stat-label">Années d'expérience</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">50<sup>+</sup></p>
+          <p class="stat-label">Marques & productions</p>
+        </div>
       </div>
-      <div class="stat-item">
-        <p class="stat-number">50<sup>+</sup></p>
-        <p class="stat-label">Marques & productions</p>
+
+      <div class="sk-grid">
+        <div class="sk-badge"><span class="sk-badge-name">Maya</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">3ds Max</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">Blender</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">M. Builder</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">Unreal</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">DaVinci</span><span class="sk-badge-dots"><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span></span></div>
+        <div class="sk-grid-sep"></div>
+        <div class="sk-badge"><span class="sk-badge-name">Français</span><span class="sk-badge-dots"><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span></span></div>
+        <div class="sk-badge"><span class="sk-badge-name">English</span><span class="sk-badge-dots"><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang"></span></span></div>
+      </div>
+
+      <a href="CV_Ganael_Chevallier_2026.pdf" download class="cv-download-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2v9M4 8l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Télécharger le CV (PDF)
+      </a>
+    </div>
+
+    <!-- CV PREVIEW -->
+    <div class="cv-frame-panel reveal">
+      <p class="cv-frame-label">Aperçu du CV</p>
+      <div class="cv-frame-wrap">
+        <iframe src="cv_graphique01.html" title="CV Ganaël Chevallier"></iframe>
       </div>
     </div>
-    <a href="CV.html" target="_blank" class="cv-download-btn">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M10 2h4v4M14 2L8 8M6 4H3a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Voir le CV
-    </a>
-  </div>
-
-  <!-- CV INTÉGRÉ -->
-  <div class="cv-embed reveal" style="margin-top: 48px;">
-    <iframe
-      src="CV.html"
-      id="cv-iframe"
-      style="width:100%; border:none; display:block;"
-      scrolling="no"
-      onload="this.style.height=(this.contentWindow.document.body.scrollHeight)+'px'">
-    </iframe>
   </div>
 </section>
 
@@ -1831,7 +1088,7 @@
 
     <div class="reco-card reveal">
       <span class="reco-quote-mark">"</span>
-      <p class="reco-text">J'ai eu le plaisir de collaborer avec Ganaël sur de nombreux projets de publicité. Sa maîtrise de la previs est un atout majeur pour n'importe quelle production : il possède cette capacité rare de transformer des concepts abstraits en séquences 3D fluides et lisibles très rapidement. Au-delà de ses compétences techniques impeccables en animation, Ganaël a un excellent sens de la mise en scène et du rythme. C'est un professionnel fiable, créatif et force de proposition que je recommande sans hésiter.</p>
+      <p class="reco-text">J'ai eu le plaisir de collaborer avec Ganaël sur de nombreux projets de publicité. Sa maîtrise de la prévisualisation est un atout majeur pour n'importe quelle production : il possède cette capacité rare de transformer des concepts abstraits en séquences 3D fluides et lisibles très rapidement. Au-delà de ses compétences techniques impeccables en animation, Ganaël a un excellent sens de la mise en scène et du rythme. C'est un professionnel fiable, créatif et force de proposition que je recommande sans hésiter.</p>
       <div class="reco-author">
         <p class="reco-name">Geoffroy Barbet Massin</p>
         <p class="reco-role">Director — The Mill</p>
@@ -1880,8 +1137,8 @@
     <p class="contact-label reveal">Contact</p>
     <h2 class="contact-headline reveal">Travaillons<br><em>ensemble</em></h2>
     <p class="contact-sub reveal">
-      Disponible pour des tâches :<br>
-      <strong>CG Animation, Layout et Previs</strong>
+      Disponible pour des projets en Layout 3D,<br>
+      Prévisualisation et Animation CG.
     </p>
     <p class="contact-location reveal">
       <span>📍</span> Houilles — 78800 · Paris / Remote
@@ -1917,7 +1174,7 @@
 <!-- ─── FOOTER ─────────────────────────────────────────────── -->
 <footer>
   <span class="footer-name">Ganaël Chevallier</span>
-  <span class="footer-copy">© 2026 · CG Animation · Layout · Previs · Île-de-France — Paris / Remote</span>
+  <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Houilles — Paris</span>
 </footer>
 
 <!-- ─── SCROLL REVEAL JS ──────────────────────────────────── -->
@@ -1931,25 +1188,5 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
-<script>
-  // Auto-resize CV iframe to its full content height
-  function resizeCvIframe() {
-    var iframe = document.getElementById('cv-iframe');
-    if (!iframe) return;
-    try {
-      var h = iframe.contentWindow.document.body.scrollHeight;
-      if (h > 100) iframe.style.height = h + 'px';
-    } catch(e) {}
-  }
-  var iframe = document.getElementById('cv-iframe');
-  if (iframe) {
-    iframe.addEventListener('load', function() {
-      resizeCvIframe();
-      // retry after fonts/images settle
-      setTimeout(resizeCvIframe, 400);
-      setTimeout(resizeCvIframe, 1000);
-    });
-  }
-</script>
 </body>
 </html>
