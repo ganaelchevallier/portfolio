@@ -10,26 +10,12 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --sepia:      #C4A882;
-  --sepia-dark: #8B6E4E;
-  --cream:      #F0E8D8;
-  --cream-lt:   #FAF5EC;
-  --ink:        #2A1F14;
-  --ink-mid:    #3D2E1E;
-  --ink-lt:     #5C4A35;
-  --dust:       #D4C4A8;
-  --rust:       #8B3A2A;
-  --strip-bg:   #2A1F14;
-  --dot-fill:   #2A1F14;
-  --dot-empty:  #D4C4A8;
-}
 
 html { font-size: 11px; }
 
 body {
-  background: var(--cream-lt);
-  color: var(--ink);
+  background: #FAF5EC;
+  color: #2A1F14;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   line-height: 1.5;
@@ -99,7 +85,7 @@ body::before {
 .hero-title-script {
   font-family: 'Dancing Script', cursive;
   font-size: 26px;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   line-height: 1;
   margin-bottom: 2px;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
@@ -109,7 +95,7 @@ body::before {
   font-family: 'Playfair Display', serif;
   font-size: 46px;
   font-weight: 900;
-  color: var(--ink);
+  color: #2A1F14;
   line-height: 0.9;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -122,14 +108,14 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   margin-top: 8px;
 }
 
 .hero-location {
   font-family: 'Dancing Script', cursive;
   font-size: 14px;
-  color: var(--ink-lt);
+  color: #5C4A35;
   margin-top: 2px;
 }
 
@@ -145,12 +131,12 @@ body::before {
 
 .bubble {
   position: relative;
-  background: var(--cream-lt);
-  border: 2.5px solid var(--ink);
+  background: #FAF5EC;
+  border: 2.5px solid #2A1F14;
   border-radius: 12px;
   padding: 10px 16px;
   text-align: center;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px 0 #2A1F14;
 }
 
 .bubble::before {
@@ -161,7 +147,7 @@ body::before {
   width: 0; height: 0;
   border-left: 8px solid transparent;
   border-right: 0px solid transparent;
-  border-top: 12px solid var(--ink);
+  border-top: 12px solid #2A1F14;
 }
 .bubble::after {
   content: '';
@@ -171,7 +157,7 @@ body::before {
   width: 0; height: 0;
   border-left: 6px solid transparent;
   border-right: 0px solid transparent;
-  border-top: 10px solid var(--cream-lt);
+  border-top: 10px solid #FAF5EC;
 }
 
 .bubble-top {
@@ -180,18 +166,18 @@ body::before {
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 .bubble-name {
   font-family: 'Dancing Script', cursive;
   font-size: 18px;
-  color: var(--ink-mid);
+  color: #3D2E1E;
 }
 
 .bubble-round {
-  background: var(--cream-lt);
-  border: 2.5px solid var(--ink);
+  background: #FAF5EC;
+  border: 2.5px solid #2A1F14;
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -199,7 +185,7 @@ body::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px 0 #2A1F14;
   position: relative;
 }
 
@@ -211,7 +197,7 @@ body::before {
   width: 0; height: 0;
   border-left: 0 solid transparent;
   border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--ink);
+  border-bottom: 12px solid #2A1F14;
 }
 .bubble-round::after {
   content: '';
@@ -221,20 +207,20 @@ body::before {
   width: 0; height: 0;
   border-left: 0 solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 10px solid var(--cream-lt);
+  border-bottom: 10px solid #FAF5EC;
 }
 
 .bubble-round .num {
   font-family: 'Dancing Script', cursive;
   font-size: 26px;
   line-height: 1;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 .bubble-round .unit {
   font-family: 'Dancing Script', cursive;
   font-size: 14px;
-  color: var(--ink-lt);
+  color: #5C4A35;
   line-height: 1;
 }
 
@@ -242,7 +228,7 @@ body::before {
    CONTACT STRIP
 ═══════════════════════════════════════ */
 .contact-strip {
-  background: var(--strip-bg);
+  background: #2A1F14;
   padding: 7px 20px;
   display: flex;
   align-items: center;
@@ -268,7 +254,7 @@ body::before {
 .strip-icon {
   width: 15px;
   height: 15px;
-  border: 1px solid var(--sepia-dark);
+  border: 1px solid #8B6E4E;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -281,7 +267,7 @@ body::before {
 .strip-sep {
   width: 1px;
   height: 12px;
-  background: var(--sepia-dark);
+  background: #8B6E4E;
   opacity: 0.5;
   margin: 0 10px;
   flex-shrink: 0;
@@ -295,10 +281,10 @@ body::before {
   grid-template-columns: 1fr 1.35fr;
   gap: 0;
   padding: 24px 24px 20px;
-  background: var(--cream-lt);
+  background: #FAF5EC;
 }
 
-.col-left { padding-right: 22px; border-right: 1.5px solid var(--dust); }
+.col-left { padding-right: 22px; border-right: 1.5px solid #D4C4A8; }
 .col-right { padding-left: 22px; }
 
 /* ═══════════════════════════════════════
@@ -310,10 +296,10 @@ body::before {
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #2A1F14;
   margin-bottom: 6px;
   padding-bottom: 4px;
-  border-bottom: 3px solid var(--ink);
+  border-bottom: 3px solid #2A1F14;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -331,13 +317,13 @@ section { margin-bottom: 20px; }
 .about-text {
   font-size: 10.5px;
   line-height: 1.7;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   font-weight: 400;
 }
 
 .about-text strong {
   font-weight: 700;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 /* ═══════════════════════════════════════
@@ -358,7 +344,7 @@ section { margin-bottom: 20px; }
 
 .skill-arrow {
   font-size: 8px;
-  color: var(--sepia-dark);
+  color: #8B6E4E;
   flex-shrink: 0;
   line-height: 1;
 }
@@ -367,7 +353,7 @@ section { margin-bottom: 20px; }
   font-family: 'Lato', sans-serif;
   font-size: 10.5px;
   font-weight: 400;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   flex: 1;
   min-width: 90px;
 }
@@ -382,13 +368,13 @@ section { margin-bottom: 20px; }
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--dot-empty);
+  background: #D4C4A8;
   border: 1px solid #BFB09A;
 }
 
 .dot.on {
-  background: var(--dot-fill);
-  border-color: var(--dot-fill);
+  background: #2A1F14;
+  border-color: #2A1F14;
 }
 
 .skill-group-label {
@@ -396,10 +382,10 @@ section { margin-bottom: 20px; }
   font-size: 8.5px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ink-lt);
+  color: #5C4A35;
   margin: 10px 0 5px;
   padding-left: 16px;
-  border-left: 2px solid var(--sepia);
+  border-left: 2px solid #C4A882;
 }
 
 /* ═══════════════════════════════════════
@@ -416,8 +402,8 @@ section { margin-bottom: 20px; }
   font-size: 9px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--ink-mid);
-  border: 1px solid var(--sepia);
+  color: #3D2E1E;
+  border: 1px solid #C4A882;
   padding: 4px 9px;
   background: rgba(196,168,130,0.12);
 }
@@ -461,7 +447,7 @@ section { margin-bottom: 20px; }
   font-family: 'Josefin Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
-  color: var(--ink);
+  color: #2A1F14;
   line-height: 1;
 }
 
@@ -476,14 +462,14 @@ section { margin-bottom: 20px; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 .lang-level {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 8px;
   letter-spacing: 0.1em;
-  color: var(--ink-lt);
+  color: #5C4A35;
   text-align: center;
 }
 
@@ -511,14 +497,14 @@ section { margin-bottom: 20px; }
 .award-text {
   font-size: 10px;
   line-height: 1.5;
-  color: var(--ink-mid);
+  color: #3D2E1E;
 }
 
 .award-text strong {
   display: block;
   font-size: 10.5px;
   font-weight: 700;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 /* ═══════════════════════════════════════
@@ -533,27 +519,27 @@ section { margin-bottom: 20px; }
 
 .formation-item {
   padding-left: 12px;
-  border-left: 2px solid var(--sepia);
+  border-left: 2px solid #C4A882;
 }
 
 .formation-school {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 9.5px;
   font-weight: 700;
-  color: var(--ink);
+  color: #2A1F14;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .formation-desc {
   font-size: 10px;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   line-height: 1.5;
 }
 
 .formation-year {
   font-size: 9px;
-  color: var(--ink-lt);
+  color: #5C4A35;
   font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -576,7 +562,7 @@ section { margin-bottom: 20px; }
 .exp-logo {
   width: 34px;
   height: 34px;
-  background: var(--ink);
+  background: #2A1F14;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -585,7 +571,7 @@ section { margin-bottom: 20px; }
   font-size: 7px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  color: var(--cream);
+  color: #F0E8D8;
   text-transform: uppercase;
   text-align: center;
   line-height: 1.2;
@@ -594,8 +580,8 @@ section { margin-bottom: 20px; }
 }
 
 .exp-logo.light {
-  background: var(--dust);
-  color: var(--ink);
+  background: #D4C4A8;
+  color: #2A1F14;
   border: 1px solid #BFB09A;
 }
 
@@ -607,19 +593,19 @@ section { margin-bottom: 20px; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: #2A1F14;
   line-height: 1.2;
 }
 
 .exp-role {
   font-size: 10px;
-  color: var(--ink-mid);
+  color: #3D2E1E;
   line-height: 1.5;
 }
 
 .exp-role strong {
   font-weight: 700;
-  color: var(--ink);
+  color: #2A1F14;
 }
 
 /* condensed big experience = lead */
@@ -635,7 +621,7 @@ section { margin-bottom: 20px; }
 /* separator line between exp groups */
 .exp-sep {
   height: 1px;
-  background: var(--dust);
+  background: #D4C4A8;
   margin: 4px 0;
 }
 
@@ -643,8 +629,8 @@ section { margin-bottom: 20px; }
    FOOTER
 ═══════════════════════════════════════ */
 .cv-footer {
-  background: var(--ink);
-  color: var(--dust);
+  background: #2A1F14;
+  color: #D4C4A8;
   padding: 8px 24px;
   display: flex;
   justify-content: space-between;
@@ -656,7 +642,7 @@ section { margin-bottom: 20px; }
 }
 
 .cv-footer a {
-  color: var(--sepia);
+  color: #C4A882;
   text-decoration: none;
 }
 
@@ -956,8 +942,8 @@ section { margin-bottom: 20px; }
 
         <!-- Brands condensés -->
         <li style="padding-left:0">
-          <div style="font-family:'Josefin Sans',sans-serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-lt);margin-bottom:5px;">Clients Advertising (sélection)</div>
-          <div style="font-size:10px;color:var(--ink-mid);line-height:2;">
+          <div style="font-family:'Josefin Sans',sans-serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#5C4A35;margin-bottom:5px;">Clients Advertising (sélection)</div>
+          <div style="font-size:10px;color:#3D2E1E;line-height:2;">
             Dior &thinsp;·&thinsp; Carolina Herrera &thinsp;·&thinsp; Prada &thinsp;·&thinsp; Grey Goose &thinsp;·&thinsp; Lacoste &thinsp;·&thinsp; Paco Rabanne &thinsp;·&thinsp; Mumm &thinsp;·&thinsp; Samsung &thinsp;·&thinsp; Michelin &thinsp;·&thinsp; Mercedes &thinsp;·&thinsp; Renault &thinsp;·&thinsp; Peugeot &thinsp;·&thinsp; Huawei &thinsp;·&thinsp; Duracell &thinsp;·&thinsp; Perrier &thinsp;·&thinsp; Danone &thinsp;·&thinsp; Shell &thinsp;·&thinsp; Qatar &thinsp;·&thinsp; La Poste &thinsp;·&thinsp; Planters SuperBowl 2020
           </div>
         </li>
