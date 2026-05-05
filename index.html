@@ -841,12 +841,35 @@
 
     @media (max-width: 600px) {
       nav              { padding: 16px 20px; }
-      .hero-content    { padding-left: 24px; }
+      .hero            { padding: 90px 20px 60px; min-height: auto; }
+      .hero-content    { padding-left: 20px; }
+      .hero-line       { display: none; }
+      .hero-scroll     { display: none; }
+      .hero-awards     { gap: 12px; margin-top: 32px; }
+      section          { padding: 64px 20px; }
+      .reel-info       { flex-direction: column; align-items: flex-start; gap: 16px; padding: 20px; }
+      .reel-cta        { align-self: flex-start; min-height: 44px; padding: 12px 20px; }
       .cv-stats        { grid-template-columns: 1fr 1fr; }
-      .btn-linkedin    { width: 100%; max-width: 360px; justify-content: center; }
+      .btn-linkedin    { width: 100%; max-width: 360px; justify-content: center; min-height: 52px; }
       .btn-email,
-      .btn-phone       { flex: 1; justify-content: center; }
+      .btn-phone       { flex: 1; justify-content: center; min-height: 52px; }
+      .contact-btn-row { width: 100%; max-width: 360px; }
       .reco-grid       { grid-template-columns: 1fr; }
+      .reco-card       { padding: 28px 20px; }
+      .divider         { width: calc(100% - 40px); margin: 0 20px; }
+      footer           { padding: 32px 20px; }
+      .footer-copy     { display: none; }
+      .cv-download-btn { width: 100%; max-width: 360px; justify-content: center; min-height: 52px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-name       { font-size: clamp(52px, 14vw, 80px); }
+      .sk-badge        { min-width: 60px; padding: 6px 8px 7px; }
+      .sk-badge-name   { font-size: 6.5px; }
+      .reco-text       { font-size: 15px; }
+      .contact-btn-row { flex-direction: column; }
+      .btn-email,
+      .btn-phone       { width: 100%; max-width: 360px; }
     }
   </style>
 </head>
@@ -855,7 +878,7 @@
 
 <!-- ─── NAV ──────────────────────────────────────────────── -->
 <nav>
-  <span class="nav-logo">Portfolio</span>
+  <a href="work.html" class="nav-logo">Portfolio</a>
   <button class="nav-burger" id="burger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
