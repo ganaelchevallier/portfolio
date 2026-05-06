@@ -211,6 +211,24 @@
 
     .video-card.playing .card-controls { display: flex; }
 
+    .card-controls {
+      transition: opacity 0.3s ease;
+    }
+    .card-controls.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Capte les mouvements souris par-dessus l'iframe */
+    .mouse-catcher {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      cursor: default;
+    }
+    .video-card.playing .mouse-catcher { display: block; }
+
     .ctrl-btn {
       width: 28px;
       height: 28px;
@@ -373,12 +391,14 @@
   const embed  = id => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
   const ytLink = id => `https://www.youtube.com/watch?v=${id}`;
 
-  // ─── État ───────────────────────────────────────────────────
+  // ─── État global ────────────────────────────────────────────
   let activeCard = null;
 
   function closeCard(card) {
-    card.querySelector('.card-iframe').src = '';
+    const iframe = card.querySelector('.card-iframe');
+    if (iframe) iframe.src = '';
     card.classList.remove('playing');
+    if (activeCard === card) activeCard = null;
   }
 
   // ─── Construction de la grille ──────────────────────────────
@@ -397,16 +417,15 @@
             </svg>
           </div>
         </div>
-        <iframe class="card-iframe" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe>
+        <iframe class="card-iframe" allowfullscreen></iframe>
+        <div class="mouse-catcher"></div>
         <div class="card-controls">
-          <a class="ctrl-btn" href="${ytLink(id)}" target="_blank" rel="noopener" title="YouTube"
-             onclick="event.stopPropagation()">
+          <a class="ctrl-btn" href="${ytLink(id)}" target="_blank" rel="noopener" title="YouTube">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
               <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"/>
             </svg>
           </a>
-          <button class="ctrl-btn" title="Fermer"
-                  onclick="event.stopPropagation(); closeCard(this.closest('.video-card'))">
+          <button class="ctrl-btn close-btn" title="Fermer">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
               <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
             </svg>
@@ -414,18 +433,49 @@
         </div>
       </div>`;
 
+    // ─── Références DOM (une seule fois par card) ────────────
+    const iframe    = card.querySelector('.card-iframe');
+    const controls  = card.querySelector('.card-controls');
+    const catcher   = card.querySelector('.mouse-catcher');
+    const ytBtn     = card.querySelector('.ctrl-btn[href]');
+    const closeBtn  = card.querySelector('.close-btn');
+    let   hideTimer = null;
+
+    // ─── Auto-hide controls ──────────────────────────────────
+    function showControls() {
+      controls.classList.remove('hidden');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => controls.classList.add('hidden'), 500);
+    }
+
+    catcher.addEventListener('mousemove', showControls);
+
+    card.addEventListener('mouseleave', () => {
+      clearTimeout(hideTimer);
+      controls.classList.add('hidden');
+    });
+
+    // ─── Bouton YouTube (stoppe la propagation vers la card) ─
+    ytBtn.addEventListener('click', e => e.stopPropagation());
+
+    // ─── Bouton Fermer ───────────────────────────────────────
+    closeBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      closeCard(card);
+    });
+
+    // ─── Clic sur la card → lecture ─────────────────────────
     card.addEventListener('click', () => {
       if (card.classList.contains('playing')) return;
       if (activeCard && activeCard !== card) closeCard(activeCard);
-      card.querySelector('.card-iframe').src = embed(id);
+      iframe.src = embed(id);
       card.classList.add('playing');
       activeCard = card;
+      showControls();
     });
 
     grid.appendChild(card);
   });
-
-  // ─── Burger menu supprimé ────────────────────────────────
 
 </script>
 
