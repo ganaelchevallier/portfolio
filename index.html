@@ -90,7 +90,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding: 68px 48px 80px;
+      padding: 68px 48px 32px;
       overflow: hidden;
     }
 
@@ -289,7 +289,8 @@
     }
 
     /* ─── REELS ──────────────────────────────────────────── */
-    #reels { background: var(--black); }
+    #reels { background: var(--black); padding-top: 32px; }
+    #reels .section-header { margin-bottom: 32px; }
 
     .reels-grid {
       display: grid;
@@ -848,7 +849,7 @@
 
   <div class="reels-grid">
 
-    <div class="reel-card featured reveal">
+    <div class="reel-card reveal">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
@@ -870,7 +871,7 @@
       </div>
     </div>
 
-    <div class="reel-card reveal" style="grid-column: 1 / -1;">
+    <div class="reel-card reveal">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
