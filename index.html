@@ -57,95 +57,27 @@
       top: 0;
       z-index: 200;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
-      padding: 20px 48px;
-      gap: 12px;
+      padding: 0 24px;
       background: rgba(8,8,8,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--charcoal);
     }
 
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 400;
-      letter-spacing: 0.3em;
+    .nav-link {
+      font-size: 11px;
+      letter-spacing: 0.4em;
       text-transform: uppercase;
       color: var(--offwhite);
       text-decoration: none;
-    }
-
-    /* ─── NAV MENU OVERLAY ───────────────────────────────── */
-    .nav-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(8,8,8,0.97);
-      z-index: 500;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-    }
-
-    .nav-menu.open { display: flex; }
-
-    .nav-menu a {
-      font-size: 13px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--silver);
-      text-decoration: none;
+      padding: 22px 16px;
       transition: color 0.25s;
+      white-space: nowrap;
     }
 
-    .nav-menu a:hover,
-    .nav-menu a.active { color: var(--gold-lt); }
-
-    .nav-menu-close {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .nav-menu-close span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--offwhite);
-      transition: all 0.28s;
-    }
-
-    .nav-menu-close span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .nav-menu-close span:nth-child(2) { opacity: 0; }
-    .nav-menu-close span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-    .nav-burger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .nav-burger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--silver);
-      transition: all 0.28s;
-    }
+    .nav-link:hover  { color: var(--gold-lt); }
+    .nav-link.active { color: var(--gold); }
 
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
@@ -830,7 +762,8 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 900px) {
-      nav                 { padding: 20px 24px; }
+      nav                 { padding: 0 4px; }
+      .nav-link           { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
       section             { padding: 80px 24px; }
       .hero               { padding: 68px 24px 60px; }
       .hero-content       { padding-left: 48px; }
@@ -844,13 +777,13 @@
     }
 
     @media (max-width: 600px) {
-      nav              { padding: 16px 20px; }
-      .hero-content    { padding-left: 24px; }
-      .cv-stats        { grid-template-columns: 1fr 1fr; }
-      .btn-linkedin    { width: 100%; max-width: 360px; justify-content: center; }
+      .nav-link           { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
+      .hero-content       { padding-left: 24px; }
+      .cv-stats           { grid-template-columns: 1fr 1fr; }
+      .btn-linkedin       { width: 100%; max-width: 360px; justify-content: center; }
       .btn-email,
-      .btn-phone       { flex: 1; justify-content: center; }
-      .reco-grid       { grid-template-columns: 1fr; }
+      .btn-phone          { flex: 1; justify-content: center; }
+      .reco-grid          { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -859,21 +792,12 @@
 
 <!-- ─── NAV ──────────────────────────────────────────────── -->
 <nav>
-  <a href="work.html" class="nav-logo">Work</a>
-  <button class="nav-burger" id="burger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="#reels"     class="nav-link">Demo</a>
+  <a href="#cv"        class="nav-link">CV</a>
+  <a href="work.html"  class="nav-link">Work</a>
+  <a href="#contact"   class="nav-link">Contact</a>
 </nav>
-
-<div class="nav-menu" id="nav-menu">
-  <button class="nav-menu-close" aria-label="Fermer">
-    <span></span><span></span><span></span>
-  </button>
-  <a href="#reels">Démo Reels</a>
-  <a href="#cv">CV</a>
-  <a href="work.html">Work</a>
-  <a href="#contact">Contact</a>
-</div>
 
 <!-- ─── HERO ─────────────────────────────────────────────── -->
 <section class="hero" id="top">
@@ -1166,17 +1090,6 @@
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // ─── Burger menu ───────────────────────────────────────────
-  const burger = document.getElementById('burger');
-  const menu   = document.getElementById('nav-menu');
-
-  burger.addEventListener('click', () => menu.classList.add('open'));
-  menu.addEventListener('click', e => {
-    if (e.target === menu || e.target.tagName === 'A' || e.target.closest('.nav-menu-close')) {
-      menu.classList.remove('open');
-    }
-  });
 </script>
 
 </body>
