@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Work — Projets d'animation 3D, layout et prévisualisation de Ganaël Chevallier, animateur freelance basé à Paris.">
+  <title>Work — Ganaël Chevallier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── VARIABLES ──────────────────────────────────────── */
+    :root {
+      --black:    #080808;
+      --ink:      #111111;
+      --charcoal: #1C1C1C;
+      --smoke:    #2E2E2E;
+      --silver:   #9A9A9A;
+      --offwhite: #E8E4DC;
+      --cream:    #F5F0E8;
+      --gold:     #B8983A;
+      --gold-lt:  #D4AF50;
+      --mist:     #5A5A5A;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      color: var(--offwhite);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* ─── GRAIN OVERLAY ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    /* ─── WRAPPER ────────────────────────────────────────── */
+    .site-wrap {
+      max-width: 1380px;
+      margin: 0 auto;
+      background: var(--black);
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+      min-height: 100vh;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 24px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--charcoal);
+    }
+
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      padding: 22px 16px;
+      transition: color 0.25s;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover  { color: var(--gold-lt); }
+    .nav-link.active { color: var(--gold); }
+
+    /* ─── PAGE HEADER ────────────────────────────────────── */
+    .page-header {
+      padding: 80px 48px 60px;
+      border-bottom: 1px solid var(--charcoal);
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── VIDEO GRID ─────────────────────────────────────── */
+    .videos-section {
+      padding: 1px;
+      background: #000;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: #000;
+    }
+
+    /* ─── CARD ───────────────────────────────────────────── */
+    .video-card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .thumb-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .thumb-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease, filter 0.4s, opacity 0.3s;
+      filter: brightness(0.88) saturate(0.85);
+    }
+
+    .video-card:hover .thumb-wrap img {
+      transform: scale(1.05);
+      filter: brightness(0.45) saturate(0.6);
+    }
+
+    .video-card.playing .thumb-wrap img { opacity: 0; pointer-events: none; }
+
+    /* ─── PLAY OVERLAY ───────────────────────────────────── */
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+    }
+
+    .video-card:hover .play-overlay { opacity: 1; }
+    .video-card.playing .play-overlay { display: none; }
+
+    .play-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: rgba(8,8,8,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .video-card:hover .play-btn {
+      transform: scale(1.1);
+      background: rgba(184,152,58,0.2);
+    }
+
+    .play-btn svg { margin-left: 3px; }
+
+    /* ─── CARD IFRAME ────────────────────────────────────── */
+    .card-iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+      z-index: 1;
+    }
+
+    .video-card.playing .card-iframe { display: block; }
+
+    /* ─── CARD CONTROLS ──────────────────────────────────── */
+    .card-controls {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display: none;
+      gap: 4px;
+      z-index: 10;
+    }
+
+    .video-card.playing .card-controls { display: flex; }
+
+    .ctrl-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(8,8,8,0.82);
+      color: var(--silver);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(6px);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .ctrl-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(8,8,8,0.95);
+    }
+
+    /* ─── GOLD BOTTOM LINE ON HOVER ──────────────────────── */
+    .video-card:not(.playing)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: 3;
+    }
+
+    .video-card:not(.playing):hover::after { transform: scaleX(1); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1100px) { .videos-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 900px)  {
+      nav       { padding: 0 8px; }
+      .nav-link { padding: 20px 6px; font-size: 10px; letter-spacing: 0.2em; }
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px)  {
+      .nav-link { padding: 18px 4px; font-size: 9px; letter-spacing: 0.1em; }
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+<div class="site-wrap">
+
+  <!-- ─── NAV ────────────────────────────────────────────── -->
+  <nav>
+    <a href="index.html"        class="nav-link">Home</a>
+    <a href="index.html#reels"  class="nav-link">Reels</a>
+    <a href="index.html#cv"     class="nav-link">CV</a>
+    <a href="work.html"         class="nav-link active">Work</a>
+    <a href="index.html#contact" class="nav-link">Contact</a>
+  </nav>
+
+  <!-- ─── PAGE HEADER ─────────────────────────────────────── -->
+  <div class="page-header">
+    <h1 class="page-title">Work</h1>
+  </div>
+
+  <!-- ─── VIDEO GRID ──────────────────────────────────────── -->
+  <section class="videos-section">
+    <div class="videos-grid" id="grid"></div>
+  </section>
+
+</div>
+
+<!-- AJOUTER DES VIDÉOS : ajouter l'ID YouTube dans le tableau V[] -->
+<script>
+  // ─── Données ────────────────────────────────────────────────
+  const V = [
+    // ── 2025 ──────────────────────────────────────────────────────
+    'U8gAgfimpzE',  // 2025/11 · Teamfight Tactics | Champion Highlight Trailer
+    '0UUYO-kGprA',  // 2025/07 · Peugeot E-208 | Le fun monte à bord
+    'sXJYNb4irSc',  // 2025/05 · ParaNorman | The Thrifting' Official Trailer
+    'n6iY-0KgHnk',  // 2025/03 · VALORANT | Masters Toronto Cinematic
+    // ── 2024 ──────────────────────────────────────────────────────
+    'S0OO6ZAkE3c',  // 2024/09 · Champions Tactics | Launch Trailer
+    'y64fItPkKVs',  // 2024/06 · Michelin | sur la route et au-delà !
+    'ccqn7r9WUHI',  // 2024/05 · Porsche | Dua Lipa for The all-electric Macan
+    'LDFkx2SxdOo',  // 2024/03 · Côte d'Or | Force de Caractère
+    'R59xb9vDDfE',  // 2024/02 · Anthony Joshua vs Francis Ngannou
+    // ── 2023 ──────────────────────────────────────────────────────
+    'maOO8oj3zsU',  // 2023/08 · Free Fire | Rampage: Finale
+    'K9kT526MfxA',  // 2023/06 · Renault | Rafale
+    'N7ey_DhYhZA',  // 2023/04 · VOLEUSES | Bande-annonce
+    'ZzIuV0d-cog',  // 2023/02 · Futuroscope | Chasseurs de Tornades
+    'TEaUIOQKAZw',  // 2023/01 · PHYTOVEX
+    // ── 2022 ──────────────────────────────────────────────────────
+    'Vh59SXy17Rw',  // 2022/05 · Duracell Optimum | Power Bunny 2022
+    '-aEYoGF9uOE',  // 2022/04 · Castorama | Changer nous fait avancer
+    'eVDzNeL5ztM',  // 2022/03 · Feu Vert | fête ses 50 ans
+    'XKWcAsT8Sqc',  // 2022/02 · Kanye West | Heaven and Hell
+    'IGFL5cHcpbo',  // 2022/01 · Samsung Exynos | Playtime is over
+    // ── 2021 ──────────────────────────────────────────────────────
+    'IDW0PBLf9JQ',  // 2021/12 · Duracell Optimum | Schroevendraaier 15s
+    'GZIQwOUTny4',  // 2021/11 · Duracell Optimum | Krachtige Bunny 15s
+    'exV1GCDvxQ4',  // 2021/10 · Qatar | Experience a World Beyond
+    'PH68kWX7hLk',  // 2021/09 · MINCE ALORS 2 | Bande Annonce
+    'TU-9_6l1xkM',  // 2021/08 · Prada | Luna Rossa Ocean
+    'EBJtqnKy1Ls',  // 2021/05 · ROBUSTE | Bande Annonce
+    'YXAes9ii0Aw',  // 2021/02 · Societe Generale | stands by its 175,000 business clients
+    // ── 2020 ──────────────────────────────────────────────────────
+    '6tCWBlSttVw',  // 2020/07 · Vittel | Source naturelle de vitalité
+    'JJR13qs6aHY',  // 2020/06 · Futuroscope | Objectif Mars
+    'B94mNfn6IUs',  // 2020/03 · INTO THE NIGHT | Bande Annonce
+    'P9nBzYbZ4uM',  // 2020/01 · DIESEL SS20 | For Successful Living
+    // ── 2019 ──────────────────────────────────────────────────────
+    'mWl33-IdOng',  // 2019/11 · DICK'S Sporting | The New Kid
+    // ── 2018 ──────────────────────────────────────────────────────
+    '_m3PIkZW6o8',  // 2018/09 · HUAWEI | It's in your hands
+    'tSbDO9TVeTg',  // 2018/03 · SPYCIES | Bande Annonce
+    // ── 2017 ──────────────────────────────────────────────────────
+    'lLmNL1I_QYU',  // 2017/11 · SEVEN & ME | Opening
+    'wj257x8ntBo',  // 2017/06 · Duracell | Cars 3
+    '-fycN9kNaXk',  // 2017/01 · LE SENS DE LA FETE | Bande-Annonce
+    // ── 2016 ──────────────────────────────────────────────────────
+    'Lg5KWEYs0YM',  // 2016/11 · Duracell | Waiting for Olaf
+    't8sFlno9Fs0',  // 2016/06 · Agents of Mayhem | Trailer
+    // ── 2015 ──────────────────────────────────────────────────────
+    '5dvIuXj4Gm4',  // 2015/09 · Wildstar | Trailer
+    '9z9Z1cg58no',  // 2015/03 · SFR Red fibre | Lag
+    '3vXWllzZOJA',  // 2015/02 · BALLERINA | Bande Annonce
+    // ── 2014 ──────────────────────────────────────────────────────
+    'R8nVKUhaDXc',  // 2014/02 · CNP | Assurances
+    'l9R1vLbBiDA',  // 2014/01 · DIESEL | Only the Brave Wild
+    // ── 2013 ──────────────────────────────────────────────────────
+    'oVsJcsv2pyQ',  // 2013/12 · Bein Sports | Ident Bumpers
+    // ── 2012 ──────────────────────────────────────────────────────
+    'Ysf12mAd2e0',  // 2012/07 · Garfield & Cie - saison 4
+    'qYNgcgTEC7k',  // 2012/03 · Garfield Left Speechless
+    // ── 2011 ──────────────────────────────────────────────────────
+    'HxR3reSdNho',  // 2011/06 · Garfield & Cie - saison 3
+    'QDEmPpvIumU',  // 2011/04 · THE PRODIGIES | Bande Annonce
+    // ── 2010 ──────────────────────────────────────────────────────
+    'd0389lPZdGU',  // 2010/03 · ADELE BLANC-SEC | Bande Annonce
+    'mOdxATJwad0',  // 2010/02 · ARTHUR 3 - LA GUERRE DES DEUX MONDES | Bande Annonce
+    // ── 2009 ──────────────────────────────────────────────────────
+    'jgCFy7kl9T8',  // 2009/01 · ARTHUR ET LA VENGEANCE DE MALTAZARD | Bande Annonce
+    // ── 2008 ──────────────────────────────────────────────────────
+    '41EFHlCWpnk',  // 2008/06 · BABYLON A.D. | Theatrical Trailer
+    'RBkXxMhc3kk',  // 2008/04 · SPEED RACER | Bande Annonce
+    // ── 2007 ──────────────────────────────────────────────────────
+    'khf1mj9gkqk',  // 2007/11 · ASTERIX AT THE OLYMPIC GAMES | Bande Annonce
+    '6KVsyZHKtRY',  // 2007/10 · Nissan | Rogue
+  ];
+
+  // ─── URL helpers ────────────────────────────────────────────
+  const thumb  = id => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+  const embed  = id => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+  const ytLink = id => `https://www.youtube.com/watch?v=${id}`;
+
+  // ─── État ───────────────────────────────────────────────────
+  let activeCard = null;
+
+  function closeCard(card) {
+    card.querySelector('.card-iframe').src = '';
+    card.classList.remove('playing');
+  }
+
+  // ─── Construction de la grille ──────────────────────────────
+  const grid = document.getElementById('grid');
+
+  V.forEach(id => {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.innerHTML = `
+      <div class="thumb-wrap">
+        <img src="${thumb(id)}" alt="" loading="lazy" decoding="async" width="320" height="180">
+        <div class="play-overlay">
+          <div class="play-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 2l9 5-9 5V2z" fill="var(--gold)"/>
+            </svg>
+          </div>
+        </div>
+        <iframe class="card-iframe" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen></iframe>
+        <div class="card-controls">
+          <a class="ctrl-btn" href="${ytLink(id)}" target="_blank" rel="noopener" title="YouTube"
+             onclick="event.stopPropagation()">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"/>
+            </svg>
+          </a>
+          <button class="ctrl-btn" title="Fermer"
+                  onclick="event.stopPropagation(); closeCard(this.closest('.video-card'))">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>`;
+
+    card.addEventListener('click', () => {
+      if (card.classList.contains('playing')) return;
+      if (activeCard && activeCard !== card) closeCard(activeCard);
+      card.querySelector('.card-iframe').src = embed(id);
+      card.classList.add('playing');
+      activeCard = card;
+    });
+
+    grid.appendChild(card);
+  });
+
+  // ─── Burger menu supprimé ────────────────────────────────
+
+</script>
+
+</body>
+</html>
