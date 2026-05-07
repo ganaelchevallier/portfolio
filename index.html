@@ -293,12 +293,13 @@
     #reels .section-header { margin-bottom: 32px; }
 
     .reels-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-wrap: wrap;
       gap: 32px;
     }
 
     .reel-card {
+      flex: 1 1 420px;
       background: var(--ink);
       border: 1px solid var(--charcoal);
       overflow: hidden;
@@ -311,7 +312,7 @@
       transform: translateY(-4px);
     }
 
-    .reel-card.featured { grid-column: 1 / -1; }
+    .reel-card.featured { flex: 1 1 100%; }
 
     .reel-video-wrap {
       position: relative;
@@ -774,8 +775,7 @@
       .hero-content       { padding-left: 48px; }
       .hero-line          { left: 24px; }
       .hero-awards        { flex-direction: column; gap: 16px; }
-      .reels-grid         { grid-template-columns: 1fr; }
-      .reel-card.featured { grid-column: 1; }
+      .reels-grid         { gap: 20px; }
       .cv-layout          { grid-template-columns: 1fr; gap: 48px; }
       .reco-grid          { grid-template-columns: 1fr; }
       footer              { flex-direction: column; gap: 12px; text-align: center; }
@@ -849,48 +849,48 @@
 
   <div class="reels-grid">
 
-    <div class="reel-card reveal">
-      <div class="reel-video-wrap">
-        <iframe
-          src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
-         
-          allowfullscreen referrerpolicy="unsafe-url">
-        </iframe>
-      </div>
-      <div class="reel-info">
-        <div class="reel-meta">
-          <p class="reel-category">Animation 3D · Publicité · Cinéma</p>
-          <p class="reel-title-text">Full CG Animation Reel — 2025</p>
+      <div class="reel-card reveal">
+        <div class="reel-video-wrap">
+          <iframe
+            src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
+            allowfullscreen referrerpolicy="unsafe-url">
+          </iframe>
         </div>
-        <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener">
-          Voir sur Videas
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="reel-info">
+          <div class="reel-meta">
+            <p class="reel-category">Animation 3D · Publicité · Cinéma</p>
+            <p class="reel-title-text">Full CG Animation Reel — 2025</p>
+          </div>
+          <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener">
+            Voir sur Videas
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <div class="reel-card reveal">
-      <div class="reel-video-wrap">
-        <iframe
-          src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
-         
-          allowfullscreen referrerpolicy="unsafe-url">
-        </iframe>
-      </div>
-      <div class="reel-info">
-        <div class="reel-meta">
-          <p class="reel-category">Layout 3D · Prévisualisation</p>
-          <p class="reel-title-text">Full CG Layout Reel — 2025</p>
+      <div class="reel-card reveal">
+        <div class="reel-video-wrap">
+          <iframe
+            src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
+            allowfullscreen referrerpolicy="unsafe-url">
+          </iframe>
         </div>
-        <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener">
-          Voir sur Videas
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="reel-info">
+          <div class="reel-meta">
+            <p class="reel-category">Layout 3D · Prévisualisation</p>
+            <p class="reel-title-text">Full CG Layout Reel — 2025</p>
+          </div>
+          <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener">
+            Voir sur Videas
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
       </div>
+
     </div>
 
   </div>
@@ -1095,6 +1095,7 @@
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
 </script>
 
 </body>
