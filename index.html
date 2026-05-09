@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Ganaël Chevallier — Animateur 3D freelance spécialisé en CG Animation, Layout et Prévisualisation. 18 ans d'expérience en publicité et cinéma. Basé à Paris / Remote.">
   <title>Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation</title>
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ganaelchevallier.com/">
+  <meta property="og:title"       content="Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation">
+  <meta property="og:description" content="18 ans d'expérience en VFX et Post-Production — publicité haut de gamme, cinéma, série. Genie Award · Thea Award. Basé à Paris / Remote.">
+  <meta property="og:image"       content="cv_preview.jpg">
+  <meta name="twitter:card"       content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
@@ -27,7 +34,7 @@
 
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 68px; }
 
     body {
       max-width: 1600px;
@@ -49,7 +56,7 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 1000;
+      z-index: 500;
       opacity: 0.35;
     }
 
@@ -295,7 +302,9 @@
     .reels-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      gap: 80px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
     .reel-card {
@@ -523,11 +532,7 @@
     }
 
     .cv-frame-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      display: none; /* remplacé par img */
     }
 
     /* ─── RECOMMANDATIONS ────────────────────────────────── */
@@ -660,7 +665,7 @@
     .contact-btn-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 1px;
+      gap: 12px;
       justify-content: center;
     }
 
@@ -774,7 +779,7 @@
       .hero-content       { padding-left: 48px; }
       .hero-line          { left: 24px; }
       .hero-awards        { flex-direction: column; gap: 16px; }
-      .reels-grid         { grid-template-columns: 1fr; row-gap: 88px; }
+      .reels-grid         { grid-template-columns: 1fr; row-gap: 48px; width: 80%; margin: 0 auto; }
       .reel-card.featured { grid-column: 1; }
       .cv-layout          { grid-template-columns: 1fr; gap: 48px; }
       .reco-grid          { grid-template-columns: 1fr; }
@@ -799,7 +804,7 @@
 <nav>
   <a href="index.html" class="nav-link active">Home</a>
   <a href="#reels"     class="nav-link">Reels</a>
-  <a href="#cv"        class="nav-link">CV</a>
+  <a href="Experience.html" class="nav-link">CV</a>
   <a href="work.html"  class="nav-link">Work</a>
   <a href="#contact"   class="nav-link">Contact</a>
 </nav>
@@ -838,6 +843,7 @@
   </div>
 </section>
 
+<main>
 <div class="divider"></div>
 
 <!-- ─── REELS ────────────────────────────────────────────── -->
@@ -853,8 +859,8 @@
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
-         
-          allowfullscreen referrerpolicy="unsafe-url">
+          title="Full CG Animation Reel 2025 — Ganaël Chevallier"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
       <div class="reel-info">
@@ -875,8 +881,8 @@
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
-         
-          allowfullscreen referrerpolicy="unsafe-url">
+          title="Full CG Layout Reel 2025 — Ganaël Chevallier"
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
       <div class="reel-info">
@@ -1081,6 +1087,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ─── FOOTER ─────────────────────────────────────────────── -->
 <footer>
