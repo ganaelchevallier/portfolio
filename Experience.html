@@ -15,22 +15,22 @@
       --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 4px 24px rgba(0,0,0,0.3);
       --radius: 12px;
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; padding: 0; max-width: 1600px; margin: 0 auto; }
-    .page-wrapper { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; padding: 32px 16px 64px; }
+    .page-wrapper { max-width: 760px; margin: 0 auto; }
     .profile-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 28px 32px 24px; margin-bottom: 16px; display: flex; align-items: center; gap: 20px; animation: fadeUp 0.5s ease both; }
     .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #0a66c2 0%, #004d99 100%); display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 26px; color: #fff; flex-shrink: 0; box-shadow: 0 2px 8px rgba(10,102,194,0.25); }
-    .profile-info h1 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: var(--text-primary); letter-spacing: -0.3px; }
-    .profile-info .subtitle { font-size: 14px; color: var(--text-secondary); margin-top: 3px; }
-    .profile-info .location { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .profile-info h1 { font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400; color: var(--text-primary); letter-spacing: -0.3px; }
+    .profile-info .subtitle { font-size: 15px; color: #e8923c; margin-top: 3px; }
+    .profile-info .location { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
     .exp-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 28px 32px; animation: fadeUp 0.5s ease 0.1s both; }
-    .section-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; color: var(--text-primary); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; color: var(--text-primary); margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
     .company-group { margin-bottom: 0; }
     .company-header { display: flex; align-items: flex-start; gap: 14px; }
     .company-logo { width: 44px; height: 44px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--text-secondary); background: #1e1e1e; flex-shrink: 0; overflow: hidden; }
     .company-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 7px; }
     .company-meta { flex: 1; padding-top: 2px; }
-    .company-name { font-size: 16px; font-weight: 600; color: var(--text-primary); }
-    .company-total { font-size: 13px; color: var(--text-muted); margin-top: 1px; }
+    .company-name { font-size: 17px; font-weight: 600; color: var(--text-primary); }
+    .company-total { font-size: 14px; color: var(--text-muted); margin-top: 1px; }
     .timeline { margin-left: 58px; margin-top: 16px; position: relative; }
     .timeline::before { content: ''; position: absolute; left: -22px; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
     .exp-item { position: relative; padding-bottom: 0; }
@@ -38,9 +38,9 @@
     .exp-item::before { content: ''; position: absolute; left: -26px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--card); border: 2px solid var(--dot); transition: border-color 0.2s; }
     .exp-item:hover::before { border-color: var(--dot-active); }
     .exp-item-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-    .exp-role { font-size: 15px; font-weight: 600; color: #3dcaab; line-height: 1.3; }
-    .exp-dates { font-size: 12.5px; color: var(--text-muted); margin-top: 3px; }
-    .exp-description { font-size: 13.5px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
+    .exp-role { font-size: 16px; font-weight: 600; color: #e8923c; line-height: 1.3; }
+    .exp-dates { font-size: 13.5px; color: var(--text-muted); margin-top: 3px; }
+    .exp-description { font-size: 14.5px; color: var(--text-secondary); margin-top: 8px; line-height: 1.6; }
     .video-link { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text-primary); background: #1a1a1a; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; }
     .video-link:hover { border-color: #3a3a3a; background: #202020; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
     .video-thumb { width: 64px; height: 42px; background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
@@ -49,7 +49,7 @@
     .video-link-title { font-size: 13px; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .video-link-domain { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
     .skills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .skill-tag { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: var(--tag-bg); color: var(--tag-text); border-radius: 14px; font-size: 11px; font-weight: 500; border: 1px solid #1a3a5c; }
+    .skill-tag { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: var(--tag-bg); color: var(--tag-text); border-radius: 14px; font-size: 12px; font-weight: 500; border: 1px solid #1a3a5c; }
     .skill-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: 0.6; }
     .divider { height: 1px; background: var(--border); margin: 28px 0; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -59,18 +59,24 @@
     .media-group { display: flex; flex-direction: column; }
     .media-group .video-link { display: none; }
     .media-group .video-link.media-visible { display: flex; }
+    @keyframes togglePulse {
+      0%   { border-color: #5a3c10; box-shadow: 0 0 0px rgba(201,125,46,0); color: #9a6420; }
+      50%  { border-color: #c87820; box-shadow: 0 0 7px rgba(201,125,46,0.35); color: #d4933a; }
+      100% { border-color: #5a3c10; box-shadow: 0 0 0px rgba(201,125,46,0); color: #9a6420; }
+    }
     .media-toggle {
       display: inline-flex; align-items: center; gap: 7px;
       margin-top: 8px; padding: 6px 14px;
       border: 1px solid #5a3c10; border-radius: 20px;
       background: rgba(201,125,46,0.04); color: #9a6420;
-      font-size: 12px; font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-family: 'DM Sans', sans-serif;
       cursor: pointer; transition: all 0.15s; width: fit-content;
+      animation: togglePulse 2.2s ease-in-out infinite;
     }
-    .media-toggle:hover { color: #d4933a; border-color: #9a6420; background: rgba(201,125,46,0.09); }
+    .media-toggle:hover { color: #d4933a; border-color: #9a6420; background: rgba(201,125,46,0.09); animation: none; }
     .media-toggle svg { width: 13px; height: 13px; flex-shrink:0; transition: transform 0.2s; }
     .media-toggle.open svg { transform: rotate(180deg); }
-    .media-toggle.open { color: #d4933a; border-color: #9a6420; background: rgba(201,125,46,0.09); }
+    .media-toggle.open { color: #d4933a; border-color: #9a6420; background: rgba(201,125,46,0.09); animation: none; }
 
     /* ─── NAV ─────────────────────────────────────────────── */
     nav {
@@ -83,12 +89,12 @@
       padding: 0 24px;
       background: rgba(8,8,8,0.92);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid #1C1C1C;
     }
     .nav-link {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.35em;
       text-transform: uppercase;
       color: #E8E4DC;
@@ -99,13 +105,6 @@
     }
     .nav-link:hover  { color: #D4AF50; }
     .nav-link.active { color: #B8983A; }
-    @media (max-width: 900px) {
-      nav       { padding: 0 4px; }
-      .nav-link { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
-    }
-    @media (max-width: 600px) {
-      .nav-link { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
-    }
 </style>
 </head>
 <body>
@@ -145,7 +144,7 @@
           <div class="exp-dates">oct. 2025 – Nov. 2025 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· TEAM FIGHT TACTICS | video game teaser</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· TEAM FIGHT TACTICS | video game teaser</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=U8gAgfimpzE" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/U8gAgfimpzE/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Champions of Runeterra | Champion Highlight Trailer – Teamfight Tactics</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -171,7 +170,7 @@
           <div class="exp-dates">juin 2025 – juil. 2025 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· PEUGEOT E-208 | “Cross over to the fun side” | commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· PEUGEOT E-208 | “Cross over to the fun side” | commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=0UUYO-kGprA" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/0UUYO-kGprA/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Peugeot E-208 | Le fun monte à bord</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -197,9 +196,9 @@
           <div class="exp-dates">mai 2025 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· LEICA&#x27;s | “PARANORMAN : The Thrifting” by Thibault Leclercq</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· LAIKA&#x27;s | “PARANORMAN : The Thrifting” by Thibault Leclercq</div></div>
       <div class="media-group">
-<a class="video-link" href="https://www.youtube.com/watch?v=sXJYNb4irSc" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/sXJYNb4irSc/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">LEICA | NORMAN – Feature Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
+<a class="video-link" href="https://www.youtube.com/watch?v=sXJYNb4irSc" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/sXJYNb4irSc/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">LAIKA | Paranorman – Feature Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
 
 </div>
       <div class="skills-row"><span class="skill-tag">Blender</span></div>
@@ -223,7 +222,7 @@
           <div class="exp-dates">mars 2025 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· VALORANT | Masters Toronto Cinematic</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· VALORANT | Masters Toronto Cinematic</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=n6iY-0KgHnk" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/n6iY-0KgHnk/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">VALORANT Masters Toronto Cinematic</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -249,8 +248,8 @@
           <div class="exp-dates">nov. 2024 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· DIOR | commercial</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· CAROLINA HERRERA | commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· DIOR | commercial</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· CAROLINA HERRERA | commercial</div></div>
       
       <div class="skills-row"><span class="skill-tag">Maya</span></div>
     </div>
@@ -273,7 +272,7 @@
           <div class="exp-dates">sept. 2024 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· CHAMPIONS TACTICS | video game teaser</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· CHAMPIONS TACTICS | video game teaser</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=S0OO6ZAkE3c" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/S0OO6ZAkE3c/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Champions Tactics – Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -299,7 +298,7 @@
           <div class="exp-dates">juil. 2024 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;COLD STORAGE&quot; by Jonny Campbell</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;COLD STORAGE&quot; by Jonny Campbell</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=MTVcT53FWSQ" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/MTVcT53FWSQ/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Cold Storage – Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -325,7 +324,7 @@
           <div class="exp-dates">mai 2024 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· PORSCHE | &quot;Dua Lipa for the all-electric Macan” | commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· PORSCHE | &quot;Dua Lipa for the all-electric Macan” | commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=ccqn7r9WUHI" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/ccqn7r9WUHI/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Porsche Macan Electric | Dua Lipa for The all-electric Macan</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -351,7 +350,7 @@
           <div class="exp-dates">mars 2024 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· CÔTE D&#x27;OR | “Force de caractère” | commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· CÔTE D&#x27;OR | “Force de caractère” | commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=LDFkx2SxdOo" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/LDFkx2SxdOo/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Côte d&#x27;Or – Commercial</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -402,14 +401,14 @@
       </div>
       <div class="exp-description"><div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#1e1040;color:#a78bfa;border:1px solid #3d2860;white-space:nowrap;width:fit-content;">CLIPS</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">Clip</span>
 <div style="display:flex;flex-direction:column;gap:3px;">
-<span style="font-size:12.5px;color:#c8c8c0;">· KANYE WEST's | "Heaven And Hell"</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· KANYE WEST's | "Heaven And Hell"</span>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
-<div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;"><span style="font-size:12.5px;color:#c8c8c0;">· JOSHUA VS FRANCIS NGANNOU</span><span style="font-size:12.5px;color:#c8c8c0;">· MICHELIN</span><span style="font-size:12.5px;color:#c8c8c0;">· PHYTOVEX</span><span style="font-size:12.5px;color:#c8c8c0;">· SHELL</span><span style="font-size:12.5px;color:#c8c8c0;">· CASTORAMA</span><span style="font-size:12.5px;color:#c8c8c0;">· FEU VERT</span><span style="font-size:12.5px;color:#c8c8c0;">· MERCEDES</span><span style="font-size:12.5px;color:#c8c8c0;">· SAMSUNG</span><span style="font-size:12.5px;color:#c8c8c0;">· RENAULT</span><span style="font-size:12.5px;color:#c8c8c0;">· PRADA</span><span style="font-size:12.5px;color:#c8c8c0;">· GREY GOOSE</span><span style="font-size:12.5px;color:#c8c8c0;">· LA POSTE</span><span style="font-size:12.5px;color:#c8c8c0;">· QATAR</span><span style="font-size:12.5px;color:#c8c8c0;">· DURACELL</span></div>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· JOSHUA VS FRANCIS NGANNOU · MICHELIN · PHYTOVEX · SHELL · CASTORAMA · FEU VERT · MERCEDES · SAMSUNG · RENAULT · PRADA · GREY GOOSE · LA POSTE · QATAR · DURACELL</span>
 </div>
 </div></div>
       <div class="media-group">
@@ -449,7 +448,7 @@
           <div class="exp-dates">juil. 2023 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· E-SPORT WORLD CUP 2024 | teaser</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· E-SPORT WORLD CUP 2024 | teaser</div></div>
       
       <div class="skills-row"><span class="skill-tag">Maya</span></div>
     </div>
@@ -472,7 +471,7 @@
           <div class="exp-dates">juin 2023 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· FREE FIRE RAMPAGE | video game teaser</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· FREE FIRE RAMPAGE | video game teaser</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=maOO8oj3zsU" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/maOO8oj3zsU/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Free Fire Rampage – Teaser</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -498,7 +497,7 @@
           <div class="exp-dates">avr. 2023 – mai 2023 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;VOLEUSES&quot; by Mélanie Laurent</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;VOLEUSES&quot; by Mélanie Laurent</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=N7ey_DhYhZA" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/N7ey_DhYhZA/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Voleuses – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -524,7 +523,7 @@
           <div class="exp-dates">sept. 2021 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;MINCE ALORS 2&quot; by Charlotte de Turckheim</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;MINCE ALORS 2&quot; by Charlotte de Turckheim</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=PH68kWX7hLk" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/PH68kWX7hLk/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Mince Alors 2 – Teaser</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -550,7 +549,7 @@
           <div class="exp-dates">mai 2021 – juin 2021 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;ROBUSTE&quot; by Constance Meyer</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;ROBUSTE&quot; by Constance Meyer</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=EBJtqnKy1Ls" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/EBJtqnKy1Ls/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Robuste – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -578,15 +577,15 @@
       </div>
       <div class="exp-description"><div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#1c1008;color:#fb923c;border:1px solid #3a2010;white-space:nowrap;width:fit-content;">MOVIES</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">MOVIES</span>
 <div style="display:flex;flex-direction:column;gap:3px;">
-<span style="font-size:12.5px;color:#c8c8c0;">· "ANNA" by Luc Besson</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "L'Odyssée" by Jérôme Salle</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "ANNA" by Luc Besson</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "L'Odyssée" by Jérôme Salle</span>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
-<div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;"><span style="font-size:12.5px;color:#c8c8c0;">· PERRIER</span><span style="font-size:12.5px;color:#c8c8c0;">· VITTEL</span><span style="font-size:12.5px;color:#c8c8c0;">· DANONE</span><span style="font-size:12.5px;color:#c8c8c0;">· DIESEL</span><span style="font-size:12.5px;color:#c8c8c0;">· DURACELL</span><span style="font-size:12.5px;color:#c8c8c0;">· SOCIETE GENERALE</span><span style="font-size:12.5px;color:#c8c8c0;">· JACOB'S</span><span style="font-size:12.5px;color:#c8c8c0;">· HUAWEI</span><span style="font-size:12.5px;color:#c8c8c0;">· MUMM</span><span style="font-size:12.5px;color:#c8c8c0;">· PACO RABANNE</span><span style="font-size:12.5px;color:#c8c8c0;">· LACOSTE</span><span style="font-size:12.5px;color:#c8c8c0;">· PEUGEOT</span><span style="font-size:12.5px;color:#c8c8c0;">· LECLERC</span><span style="font-size:12.5px;color:#c8c8c0;">· CAROLINA HERRERA</span><span style="font-size:12.5px;color:#c8c8c0;">· DICK'S SPORTING GOODS</span><span style="font-size:12.5px;color:#c8c8c0;">· JAEGER</span><span style="font-size:12.5px;color:#c8c8c0;">· NATURES's BOUNTY</span></div>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
+<div style="display:flex;flex-direction:row;flex-wrap:wrap;gap:0;"><span style="font-size:13.5px;color:#c8c8c0">· PERRIER · VITTEL · DANONE · DIESEL · DURACELL · SOCIETE GENERALE · JACOB'S · HUAWEI · MUMM · PACO RABANNE · LACOSTE · PEUGEOT · LECLERC · CAROLINA HERRERA · DICK'S SPORTING GOODS · JAEGER · NATURES's BOUNTY</span></div>
 </div>
 </div></div>
       <div class="media-group">
@@ -622,7 +621,7 @@
           <div class="exp-dates">avr. 2020 – juin 2020 · <span class="duration">3 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· FUTUROSCOPE | &quot;Chasseurs de Tornades” | 360° immersive content for nextgen attraction</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· FUTUROSCOPE | &quot;Chasseurs de Tornades” | 360° immersive content for nextgen attraction</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=ZzIuV0d-cog" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/ZzIuV0d-cog/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Chasseurs de Tornades – Futuroscope</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -648,7 +647,7 @@
           <div class="exp-dates">mars 2020 – avr. 2020 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;INTO THE NIGHT&quot; Season 1 | Netflix original series</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;INTO THE NIGHT&quot; Season 1 | Netflix original series</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=B94mNfn6IUs" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/B94mNfn6IUs/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Into the Night – Saison 1</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -674,7 +673,7 @@
           <div class="exp-dates">déc. 2019 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· PLANTERS | “Superbowl 2020&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· PLANTERS | “Superbowl 2020&quot; | Commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=_qO6O4Zw1oM" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/_qO6O4Zw1oM/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Planters Superbowl 2020</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -700,7 +699,7 @@
           <div class="exp-dates">nov. 2019 – déc. 2019 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· FUTUROSCOPE | “Objectif Mars” | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· FUTUROSCOPE | “Objectif Mars” | Commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=JJR13qs6aHY" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/JJR13qs6aHY/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Futuroscope – Advertising</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -726,8 +725,8 @@
           <div class="exp-dates">mai 2018 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· ESSILOR | Commercial</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· RENAULT | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· ESSILOR | Commercial</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· RENAULT | Commercial</div></div>
       
       <div class="skills-row"><span class="skill-tag">Maya</span></div>
     </div>
@@ -750,7 +749,7 @@
           <div class="exp-dates">juin 2017 – mars 2018 · <span class="duration">10 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;SPYCIES&quot; by Guillaume Ivernel</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;SPYCIES&quot; by Guillaume Ivernel</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=tSbDO9TVeTg" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/tSbDO9TVeTg/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Spycies – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -776,8 +775,8 @@
           <div class="exp-dates">déc. 2016 – janv. 2017 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;LE SENS DE LA FÊTE&quot; by Eric Toledano, Olivier Nakache</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· HOLLYWOOD | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;LE SENS DE LA FÊTE&quot; by Eric Toledano, Olivier Nakache</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· HOLLYWOOD | Commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=-fycN9kNaXk" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/-fycN9kNaXk/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Le Sens de la Fête – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -826,8 +825,8 @@
           <div class="exp-dates">mars 2016 – avr. 2016 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;CRUZCAMPO&quot; | Commercial</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;PEUGEOT&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;CRUZCAMPO&quot; | Commercial</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;PEUGEOT&quot; | Commercial</div></div>
       
       <div class="skills-row"><span class="skill-tag">3Dsmax</span></div>
     </div>
@@ -850,7 +849,7 @@
           <div class="exp-dates">mars 2016 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BEPANTHEN&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BEPANTHEN&quot; | Commercial</div></div>
       
       <div class="skills-row"><span class="skill-tag">3Dsmax</span></div>
     </div>
@@ -873,7 +872,7 @@
           <div class="exp-dates">janv. 2016 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;7 AND ME&quot; | France2 sitcom | TV Show</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;7 AND ME&quot; | France2 sitcom | TV Show</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=lLmNL1I_QYU" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/lLmNL1I_QYU/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">7 And Me – France 2 Sitcom</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -922,8 +921,8 @@
           <div class="exp-dates">mars 2015 – juil. 2015 · <span class="duration">5 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;WILDSTAR&quot; | video game teaser</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;SAINTS ROW 4&quot; | video game teaser</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;WILDSTAR&quot; | video game teaser</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;SAINTS ROW 4&quot; | video game teaser</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=t8sFlno9Fs0" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/t8sFlno9Fs0/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Wildstar – Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
 <a class="video-link" href="https://www.youtube.com/watch?v=5dvIuXj4Gm4" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/5dvIuXj4Gm4/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Saints Row 4 – Trailer</div><div class="video-link-domain">youtube.com</div></div></a>
@@ -950,7 +949,7 @@
           <div class="exp-dates">mars 2015 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· SFR | &quot;RED Fibre by SFR&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· SFR | &quot;RED Fibre by SFR&quot; | Commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=9z9Z1cg58no" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/9z9Z1cg58no/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">RED Fibre by SFR – Commercial</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -976,7 +975,7 @@
           <div class="exp-dates">avr. 2014 – févr. 2015 · <span class="duration">11 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BALLERINA&quot; by Eric Summer, Éric Warin</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BALLERINA&quot; by Eric Summer, Éric Warin</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=3vXWllzZOJA" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/3vXWllzZOJA/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Ballerina – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -1004,12 +1003,12 @@
       </div>
       <div class="exp-description"><div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
 <div style="display:flex;flex-direction:column;gap:3px;">
-<span style="font-size:12.5px;color:#c8c8c0;">· MOUNTAIN</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· PEUGEOT</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· CNP</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· DIESEL</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· MOUNTAIN</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· PEUGEOT</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· CNP</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· DIESEL</span>
 </div>
 </div>
 </div></div>
@@ -1039,7 +1038,7 @@
           <div class="exp-dates">janv. 2014 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;LINKERS&quot; by Stefania Raimondi | TV Show</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;LINKERS&quot; by Stefania Raimondi | TV Show</div></div>
       
       <div class="skills-row"><span class="skill-tag">XSI</span></div>
     </div>
@@ -1062,7 +1061,7 @@
           <div class="exp-dates">déc. 2013 · <span class="duration">1 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BEIN SPORTS&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;BEIN SPORTS&quot; | Commercial</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=oVsJcsv2pyQ" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/oVsJcsv2pyQ/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Bein Sports – Commercial</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -1088,8 +1087,8 @@
           <div class="exp-dates">juil. 2012 – avr. 2013 · <span class="duration">10 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | Making-Of TV</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | TV Show</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | Making-Of TV</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | TV Show</div></div>
       
       <div class="skills-row"><span class="skill-tag">XSI</span></div>
     </div>
@@ -1112,9 +1111,9 @@
           <div class="exp-dates">janv. 2012 – juin 2012 · <span class="duration">6 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;COMME UN CHAT SUR UN TOIT&quot; | Garfield&#x27;s game</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· “GARFIELD LEFT SPEECHLESS&quot; by Philippe Vidal | Garfield&#x27;s book promo</div>
-<div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | TV Show</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;COMME UN CHAT SUR UN TOIT&quot; | Garfield&#x27;s game</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· “GARFIELD LEFT SPEECHLESS&quot; by Philippe Vidal | Garfield&#x27;s book promo</div>
+<div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 4&quot; by Philippe Vidal | TV Show</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=Ysf12mAd2e0" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/Ysf12mAd2e0/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Garfield Show 4 – Extrait</div><div class="video-link-domain">youtube.com</div></div></a>
 <a class="video-link" href="https://www.youtube.com/watch?v=qYNgcgTEC7k" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/qYNgcgTEC7k/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Garfield Left Speechless – Promo</div><div class="video-link-domain">youtube.com</div></div></a>
@@ -1141,7 +1140,7 @@
           <div class="exp-dates">nov. 2011 – déc. 2011 · <span class="duration">2 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;RENAULT | “Megane Ballet&quot; | Commercial</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;RENAULT | “Megane Ballet&quot; | Commercial</div></div>
       
       <div class="skills-row"><span class="skill-tag">XSI</span></div>
     </div>
@@ -1164,7 +1163,7 @@
           <div class="exp-dates">juin 2011 – nov. 2011 · <span class="duration">6 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 3&quot; by Philippe Vidal | TV Show</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;GARFIELD SHOW 3&quot; by Philippe Vidal | TV Show</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=HxR3reSdNho" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/HxR3reSdNho/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">Garfield Show 3 – Extrait</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -1190,7 +1189,7 @@
           <div class="exp-dates">févr. 2011 – avr. 2011 · <span class="duration">3 mois</span></div>
         </div>
       </div>
-      <div class="exp-description"><div style="font-size:12.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;THE PRODIGIES&quot; by Antoine Charreyron</div></div>
+      <div class="exp-description"><div style="font-size:13.5px;color:#c8c8c0;margin-bottom:2px;">· &quot;THE PRODIGIES&quot; by Antoine Charreyron</div></div>
       <div class="media-group">
 <a class="video-link" href="https://www.youtube.com/watch?v=QDEmPpvIumU" target="_blank"><div class="video-thumb"><img src="https://img.youtube.com/vi/QDEmPpvIumU/mqdefault.jpg" alt="thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:5px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div style="display:none;align-items:center;justify-content:center;width:100%;height:100%;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg></div></div><div class="video-link-text"><div class="video-link-title">The Prodigies – Bande Annonce</div><div class="video-link-domain">youtube.com</div></div></a>
 
@@ -1218,21 +1217,21 @@
       </div>
       <div class="exp-description"><div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#1c1008;color:#fb923c;border:1px solid #3a2010;white-space:nowrap;width:fit-content;">MOVIES</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">MOVIES</span>
 <div style="display:flex;flex-direction:column;gap:3px;">
-<span style="font-size:12.5px;color:#c8c8c0;">· "ADELE BLANC SEC" by Luc Besson</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "ARTHUR AND THE MINIMOYS 3" by Luc Besson</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "ARTHUR AND THE MINIMOYS 2" by Luc Besson</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "SPEEDRACER" by Wachowski Brothers</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "BABYLON AD" by Mathieu Kassovitz</span>
-<span style="font-size:12.5px;color:#c8c8c0;">· "ASTERIX AND THE OLYMPIC GAMES" by Thomas Langmann</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "ADELE BLANC SEC" by Luc Besson</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "ARTHUR AND THE MINIMOYS 3" by Luc Besson</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "ARTHUR AND THE MINIMOYS 2" by Luc Besson</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "SPEEDRACER" by Wachowski Brothers</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "BABYLON AD" by Mathieu Kassovitz</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "ASTERIX AND THE OLYMPIC GAMES" by Thomas Langmann</span>
 
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:4px;">
-<span style="font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
+<span style="font-size:11px;font-weight:700;letter-spacing:0.08em;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;background:#0a2518;color:#34d399;border:1px solid #1a4030;white-space:nowrap;width:fit-content;">ADVERTISING</span>
 <div style="display:flex;flex-direction:column;gap:3px;">
-<span style="font-size:12.5px;color:#c8c8c0;">· "NISSAN-Rogue" | Commercial</span>
+<span style="font-size:13.5px;color:#c8c8c0;">· "NISSAN-Rogue" | Commercial</span>
 </div>
 </div>
 </div></div>
