@@ -111,10 +111,21 @@
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
     @media (max-width: 900px) {
+      nav       { padding: 0 4px; }
       .nav-link { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
     }
     @media (max-width: 600px) {
       .nav-link { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
+    }
+
+    
+    /* ─── PAGE TRANSITION : seul le contenu fade, pas la nav ── */
+    #page-content {
+      animation: pageFadeIn 0.35s ease both;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ─── GRAIN OVERLAY ──────────────────────────────────── */
@@ -138,6 +149,7 @@
   <a href="work.html"        class="nav-link">Work</a>
   <a href="index.html#contact" class="nav-link">Contact</a>
 </nav>
+<div id="page-content">
 
 <div class="page-wrapper">
   <div class="profile-card">
@@ -1296,6 +1308,23 @@
     else label.textContent = 'Voir ' + hidden + ' vidéo' + (hidden > 1 ? 's' : '') + ' de plus';
   };
 })();
+</script>
+</div>
+
+<script>
+  // ─── Fade-out du contenu (pas de la nav) au clic ──────────
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      e.preventDefault();
+      const content = document.getElementById('page-content');
+      content.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(6px)';
+      setTimeout(() => { window.location.href = href; }, 250);
+    });
+  });
 </script>
 </body>
 </html>
