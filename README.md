@@ -2,7 +2,7 @@
 
 > Portfolio officiel de Ganaël Chevallier, animateur 3D freelance avec **18 ans d'expérience** en CG Animation, Layout 3D et Prévisualisation pour la publicité haut de gamme, le cinéma et la série.
 
-🌐 **[ganaelchevallier.com](https://ganaelchevallier.com)**
+🌐 **[ganaelchevallier.com](https://ganaelchevallier.github.io/portfolio)**
 
 ---
 
@@ -44,9 +44,9 @@ Studios avec lesquels j'ai collaboré : **BUF · Eddy · The Mill · Mikros · M
 
 ## Pages du portfolio
 
-- [🏠 Accueil & Démo Reels](https://ganaelchevallier.com/)
-- [📋 CV & Expériences](https://ganaelchevallier.com/Experience.html)
-- [🎬 Work & Projets](https://ganaelchevallier.com/work.html)
+- [🏠 Accueil & Démo Reels](https://ganaelchevallier.github.io/portfolio/)
+- [📋 CV & Expériences](https://ganaelchevallier.github.io/portfolio/Experience.html)
+- [🎬 Work & Projets](https://ganaelchevallier.github.io/portfolio/work.html)
 
 ---
 
