@@ -212,45 +212,48 @@
 
     .play-btn svg { margin-left: 3px; }
 
-    /* ─── CARD IFRAME ────────────────────────────────────── */
-    .card-iframe {
+    /* ─── IFRAME WRAP ────────────────────────────────────── */
+    .iframe-wrap {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
       display: none;
       z-index: 1;
     }
 
-    .video-card.playing .card-iframe { display: block; }
+    .video-card.playing .iframe-wrap { display: block; }
+
+    .iframe-wrap > div,
+    .iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
 
     /* ─── CARD CONTROLS ──────────────────────────────────── */
     .card-controls {
       position: absolute;
       inset: 0;
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 20px;
       z-index: 10;
-      opacity: 1;
-      transition: opacity 0.12s ease;
-    }
-
-    .video-card.playing .card-controls { display: flex; }
-
-    /* État lecture  → seul Pause visible */
-    .card-controls [data-cmd="playVideo"]  { display: none; }
-    .card-controls [data-cmd="pauseVideo"] { display: flex; }
-    /* État pause    → seul Play visible  */
-    .card-controls.paused [data-cmd="pauseVideo"] { display: none; }
-    .card-controls.paused [data-cmd="playVideo"]  { display: flex; }
-
-    .card-controls.hidden {
       opacity: 0;
       pointer-events: none;
+      transition: opacity 0.15s ease;
     }
+
+    .video-card.playing .card-controls.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Lecture → Pause visible, Play caché */
+    .card-controls .ctrl-play  { display: none; }
+    .card-controls .ctrl-pause { display: flex; }
+    /* Pause → Play visible, Pause caché */
+    .card-controls.paused .ctrl-pause { display: none; }
+    .card-controls.paused .ctrl-play  { display: flex; }
 
     /* Capte les mouvements souris par-dessus l'iframe */
     .mouse-catcher {
@@ -343,6 +346,21 @@
 
 <!-- AJOUTER DES VIDÉOS : ajouter l'ID YouTube dans le tableau V[] -->
 <script>
+  // ─── Chargement API YouTube IFrame ──────────────────────────
+  (function () {
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  })();
+
+  var ytReady = false;
+  var ytQueue = [];
+  window.onYouTubeIframeAPIReady = function () {
+    ytReady = true;
+    ytQueue.forEach(fn => fn());
+    ytQueue = [];
+  };
+
   // ─── Données ────────────────────────────────────────────────
   const V = [
     // ── 2025 ──────────────────────────────────────────────────────
@@ -432,20 +450,21 @@
     '6KVsyZHKtRY',  // 2007/10 · Nissan | Rogue
   ];
 
-  // ─── URL helpers ────────────────────────────────────────────
-  const thumb  = id => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
-  const embed  = id => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
-
-  // ─── Commandes postMessage vers l'iframe YT ─────────────────
-  const ytCmd = (iframe, fn) =>
-    iframe.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: fn, args: [] }), '*');
+  // ─── Constantes ─────────────────────────────────────────────
+  const HIDE_DELAY = 600; // ms avant masquage automatique des contrôles
+  const thumb      = id => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
 
   // ─── État global ────────────────────────────────────────────
   let activeCard = null;
+  const cardState = new WeakMap(); // { player, hideTimer }
 
+  // ─── Fermer une carte ────────────────────────────────────────
   function closeCard(card) {
-    const iframe = card.querySelector('.card-iframe');
-    if (iframe) iframe.src = '';
+    const s = cardState.get(card);
+    clearTimeout(s.hideTimer);
+    if (s.player) { try { s.player.destroy(); } catch (e) {} s.player = null; }
+    card.querySelector('.iframe-wrap').innerHTML    = '';
+    card.querySelector('.card-controls').classList.remove('visible', 'paused');
     card.classList.remove('playing');
     if (activeCard === card) activeCard = null;
   }
@@ -466,15 +485,15 @@
             </svg>
           </div>
         </div>
-        <iframe class="card-iframe" allow="autoplay" allowfullscreen></iframe>
+        <div class="iframe-wrap"></div>
         <div class="mouse-catcher"></div>
         <div class="card-controls">
-          <button class="ctrl-btn" data-cmd="playVideo" title="Play">
+          <button class="ctrl-btn ctrl-play" title="Play">
             <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor" style="margin-left:2px">
               <path d="M2 1.5l7 3.5-7 3.5V1.5z"/>
             </svg>
           </button>
-          <button class="ctrl-btn" data-cmd="pauseVideo" title="Pause">
+          <button class="ctrl-btn ctrl-pause" title="Pause">
             <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor">
               <rect x="1.5" y="1.5" width="2.5" height="7" rx="0.5"/>
               <rect x="6"   y="1.5" width="2.5" height="7" rx="0.5"/>
@@ -483,68 +502,88 @@
         </div>
       </div>`;
 
-    const iframe   = card.querySelector('.card-iframe');
-    const controls = card.querySelector('.card-controls');
-    const catcher  = card.querySelector('.mouse-catcher');
-    let   hideTimer   = null;
-    let   justStarted = false;
-    let   justClicked = false;
+    const state     = { player: null, hideTimer: null };
+    cardState.set(card, state);
 
-    function showControls() {
-      if (justStarted || justClicked) return;
-      controls.classList.remove('hidden');
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => controls.classList.add('hidden'), 400);
-    }
+    const controls  = card.querySelector('.card-controls');
+    const btnPlay   = card.querySelector('.ctrl-play');
+    const btnPause  = card.querySelector('.ctrl-pause');
+    const catcher   = card.querySelector('.mouse-catcher');
+    const iframeWrap = card.querySelector('.iframe-wrap');
 
     const isTouch = () => window.matchMedia('(hover: none)').matches;
 
-    catcher.addEventListener('mousemove', () => { if (isTouch()) return; showControls(); });
-    controls.addEventListener('mouseenter', () => { if (isTouch() || justStarted || justClicked) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
-    controls.addEventListener('mouseleave', () => { if (isTouch()) return; showControls(); });
-    card.addEventListener('mouseleave', () => { if (isTouch()) return; clearTimeout(hideTimer); controls.classList.add('hidden'); });
+    // ── Afficher brièvement les contrôles puis masquer ──────────
+    function showControls() {
+      controls.classList.add('visible');
+      clearTimeout(state.hideTimer);
+      state.hideTimer = setTimeout(() => controls.classList.remove('visible'), HIDE_DELAY);
+    }
 
-    // Touch : tap sur le catcher → bascule affichage/masquage des contrôles
+    // ── Mise à jour état lecture / pause + auto-masquage ────────
+    function setPlaying(playing) {
+      controls.classList.toggle('paused', !playing);
+      showControls();
+    }
+
+    // ── Démarrer la lecture ─────────────────────────────────────
+    function openCard() {
+      if (activeCard && activeCard !== card) closeCard(activeCard);
+      card.classList.add('playing');
+      activeCard = card;
+
+      const init = () => {
+        const div = document.createElement('div');
+        iframeWrap.appendChild(div);
+        state.player = new YT.Player(div, {
+          videoId: id,
+          playerVars: { autoplay: 1, rel: 0 },
+          events: {
+            onReady:       e => { e.target.playVideo(); setPlaying(true); },
+            onStateChange: e => {
+              if (e.data === YT.PlayerState.PLAYING) setPlaying(true);
+              if (e.data === YT.PlayerState.PAUSED)  setPlaying(false);
+            }
+          }
+        });
+      };
+
+      if (ytReady) init(); else ytQueue.push(init);
+    }
+
+    // ── Clic sur la vignette → démarrer ─────────────────────────
+    card.addEventListener('click', () => {
+      if (!card.classList.contains('playing')) openCard();
+    });
+
+    // ── Desktop : mouvement souris → afficher contrôles ─────────
+    catcher.addEventListener('mousemove', () => {
+      if (!isTouch()) showControls();
+    });
+
+    // ── Mobile : tap → basculer affichage des contrôles ─────────
     catcher.addEventListener('touchend', e => {
       e.preventDefault();
-      clearTimeout(hideTimer);
-      if (controls.classList.contains('hidden')) {
-        controls.classList.remove('hidden');
-        hideTimer = setTimeout(() => controls.classList.add('hidden'), 3000);
+      clearTimeout(state.hideTimer);
+      if (controls.classList.contains('visible')) {
+        controls.classList.remove('visible');
       } else {
-        controls.classList.add('hidden');
+        showControls();
       }
     });
 
-    controls.querySelectorAll('.ctrl-btn').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        ytCmd(iframe, btn.dataset.cmd);
-        controls.classList.toggle('paused', btn.dataset.cmd === 'pauseVideo');
-        // Forcer le masquage des contrôles après le clic
-        justClicked = true;
-        clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => {
-          controls.classList.add('hidden');
-          justClicked = false;
-        }, 500);
-      });
+    // ── Bouton Play ──────────────────────────────────────────────
+    btnPlay.addEventListener('click', e => {
+      e.stopPropagation();
+      if (state.player) state.player.playVideo();
+      setPlaying(true);
     });
 
-    card.addEventListener('click', () => {
-      if (card.classList.contains('playing')) return;
-      if (activeCard && activeCard !== card) closeCard(activeCard);
-      iframe.src = embed(id);
-      card.classList.add('playing');
-      controls.classList.remove('paused');
-      activeCard = card;
-      // Masquer les contrôles très rapidement après le démarrage
-      justStarted = true;
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
-        controls.classList.add('hidden');
-        justStarted = false;
-      }, 280);
+    // ── Bouton Pause ─────────────────────────────────────────────
+    btnPause.addEventListener('click', e => {
+      e.stopPropagation();
+      if (state.player) state.player.pauseVideo();
+      setPlaying(false);
     });
 
     grid.appendChild(card);
