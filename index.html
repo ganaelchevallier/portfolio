@@ -1166,7 +1166,20 @@
 <footer>
   <span class="footer-name">Ganaël Chevallier</span>
   <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Houilles — Paris</span>
+  <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
+
+<style>
+  .footer-dot {
+    color: var(--charcoal);
+    font-size: 10px;
+    text-decoration: none;
+    transition: color 0.4s;
+    user-select: none;
+    cursor: default;
+  }
+  .footer-dot:hover { color: var(--mist); cursor: pointer; }
+</style>
 
 <script>
   // ─── Scroll reveal ─────────────────────────────────────────
