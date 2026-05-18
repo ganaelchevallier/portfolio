@@ -228,18 +228,25 @@
     /* ─── CARD CONTROLS ──────────────────────────────────── */
     .card-controls {
       position: absolute;
-      top: 6px;
-      right: 6px;
+      inset: 0;
       display: none;
-      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
       z-index: 10;
+      opacity: 1;
+      transition: opacity 0.12s ease;
     }
 
     .video-card.playing .card-controls { display: flex; }
 
-    .card-controls {
-      transition: opacity 0.3s ease;
-    }
+    /* État lecture  → seul Pause visible */
+    .card-controls [data-cmd="playVideo"]  { display: none; }
+    .card-controls [data-cmd="pauseVideo"] { display: flex; }
+    /* État pause    → seul Play visible  */
+    .card-controls.paused [data-cmd="pauseVideo"] { display: none; }
+    .card-controls.paused [data-cmd="playVideo"]  { display: flex; }
+
     .card-controls.hidden {
       opacity: 0;
       pointer-events: none;
@@ -256,26 +263,28 @@
     .video-card.playing .mouse-catcher { display: block; }
 
     .ctrl-btn {
-      width: 28px;
-      height: 28px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(8,8,8,0.82);
-      color: var(--silver);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: rgba(8,8,8,0.7);
+      color: var(--offwhite);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(6px);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      text-decoration: none;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, background 0.2s;
       flex-shrink: 0;
+      padding: 0;
     }
 
     .ctrl-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(8,8,8,0.95);
+      transform: scale(1.1);
+      background: rgba(184,152,58,0.2);
     }
+
+    .ctrl-btn svg { display: block; }
 
     /* ─── GOLD BOTTOM LINE ON HOVER ──────────────────────── */
     .video-card:not(.playing)::after {
@@ -425,8 +434,11 @@
 
   // ─── URL helpers ────────────────────────────────────────────
   const thumb  = id => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
-  const embed  = id => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
-  const ytLink = id => `https://www.youtube.com/watch?v=${id}`;
+  const embed  = id => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`;
+
+  // ─── Commandes postMessage vers l'iframe YT ─────────────────
+  const ytCmd = (iframe, fn) =>
+    iframe.contentWindow?.postMessage(JSON.stringify({ event: 'command', func: fn, args: [] }), '*');
 
   // ─── État global ────────────────────────────────────────────
   let activeCard = null;
@@ -457,56 +469,50 @@
         <iframe class="card-iframe" allow="autoplay" allowfullscreen></iframe>
         <div class="mouse-catcher"></div>
         <div class="card-controls">
-          <a class="ctrl-btn" href="${ytLink(id)}" target="_blank" rel="noopener" title="YouTube">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.8 15.5V8.5l6.2 3.5-6.2 3.5z"/>
+          <button class="ctrl-btn" data-cmd="playVideo" title="Play">
+            <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor" style="margin-left:2px">
+              <path d="M2 1.5l7 3.5-7 3.5V1.5z"/>
             </svg>
-          </a>
-          <button class="ctrl-btn close-btn" title="Fermer">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </button>
+          <button class="ctrl-btn" data-cmd="pauseVideo" title="Pause">
+            <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor">
+              <rect x="1.5" y="1.5" width="2.5" height="7" rx="0.5"/>
+              <rect x="6"   y="1.5" width="2.5" height="7" rx="0.5"/>
             </svg>
           </button>
         </div>
       </div>`;
 
-    // ─── Références DOM (une seule fois par card) ────────────
-    const iframe    = card.querySelector('.card-iframe');
-    const controls  = card.querySelector('.card-controls');
-    const catcher   = card.querySelector('.mouse-catcher');
-    const ytBtn     = card.querySelector('.ctrl-btn[href]');
-    const closeBtn  = card.querySelector('.close-btn');
+    const iframe   = card.querySelector('.card-iframe');
+    const controls = card.querySelector('.card-controls');
+    const catcher  = card.querySelector('.mouse-catcher');
     let   hideTimer = null;
 
-    // ─── Auto-hide controls ──────────────────────────────────
     function showControls() {
       controls.classList.remove('hidden');
       clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => controls.classList.add('hidden'), 500);
+      hideTimer = setTimeout(() => controls.classList.add('hidden'), 100);
     }
 
     catcher.addEventListener('mousemove', showControls);
+    controls.addEventListener('mouseenter', () => { clearTimeout(hideTimer); controls.classList.remove('hidden'); });
+    controls.addEventListener('mouseleave', showControls);
+    card.addEventListener('mouseleave', () => { clearTimeout(hideTimer); controls.classList.add('hidden'); });
 
-    card.addEventListener('mouseleave', () => {
-      clearTimeout(hideTimer);
-      controls.classList.add('hidden');
+    controls.querySelectorAll('.ctrl-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        ytCmd(iframe, btn.dataset.cmd);
+        controls.classList.toggle('paused', btn.dataset.cmd === 'pauseVideo');
+      });
     });
 
-    // ─── Bouton YouTube (stoppe la propagation vers la card) ─
-    ytBtn.addEventListener('click', e => e.stopPropagation());
-
-    // ─── Bouton Fermer ───────────────────────────────────────
-    closeBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      closeCard(card);
-    });
-
-    // ─── Clic sur la card → lecture ─────────────────────────
     card.addEventListener('click', () => {
       if (card.classList.contains('playing')) return;
       if (activeCard && activeCard !== card) closeCard(activeCard);
       iframe.src = embed(id);
       card.classList.add('playing');
+      controls.classList.remove('paused');
       activeCard = card;
       showControls();
     });
