@@ -266,8 +266,8 @@
     .video-card.playing .mouse-catcher { display: block; }
 
     .ctrl-btn {
-      width: 52px;
-      height: 52px;
+      width: 66px;
+      height: 66px;
       border-radius: 50%;
       border: 1.5px solid var(--gold);
       background: rgba(8,8,8,0.7);
@@ -489,12 +489,12 @@
         <div class="mouse-catcher"></div>
         <div class="card-controls">
           <button class="ctrl-btn ctrl-play" title="Play">
-            <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor" style="margin-left:2px">
+            <svg width="24" height="24" viewBox="0 0 10 10" fill="currentColor" style="margin-left:2px">
               <path d="M2 1.5l7 3.5-7 3.5V1.5z"/>
             </svg>
           </button>
           <button class="ctrl-btn ctrl-pause" title="Pause">
-            <svg width="18" height="18" viewBox="0 0 10 10" fill="currentColor">
+            <svg width="24" height="24" viewBox="0 0 10 10" fill="currentColor">
               <rect x="1.5" y="1.5" width="2.5" height="7" rx="0.5"/>
               <rect x="6"   y="1.5" width="2.5" height="7" rx="0.5"/>
             </svg>
@@ -561,14 +561,31 @@
       if (!isTouch()) showControls();
     });
 
-    // ── Mobile : tap → basculer affichage des contrôles ─────────
+    // ── Clic / tap sur la vidéo → basculer play / pause ─────────
+    catcher.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!state.player) return;
+      const playerState = state.player.getPlayerState();
+      if (playerState === YT.PlayerState.PLAYING) {
+        state.player.pauseVideo();
+        setPlaying(false);
+      } else {
+        state.player.playVideo();
+        setPlaying(true);
+      }
+    });
+
+    // ── Mobile : touchend → même bascule (évite le double-fire avec click) ──
     catcher.addEventListener('touchend', e => {
       e.preventDefault();
-      clearTimeout(state.hideTimer);
-      if (controls.classList.contains('visible')) {
-        controls.classList.remove('visible');
+      if (!state.player) return;
+      const playerState = state.player.getPlayerState();
+      if (playerState === YT.PlayerState.PLAYING) {
+        state.player.pauseVideo();
+        setPlaying(false);
       } else {
-        showControls();
+        state.player.playVideo();
+        setPlaying(true);
       }
     });
 
