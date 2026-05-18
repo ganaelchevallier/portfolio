@@ -486,16 +486,18 @@
     const iframe   = card.querySelector('.card-iframe');
     const controls = card.querySelector('.card-controls');
     const catcher  = card.querySelector('.mouse-catcher');
-    let   hideTimer = null;
+    let   hideTimer  = null;
+    let   justStarted = false;
 
     function showControls() {
+      if (justStarted) return;
       controls.classList.remove('hidden');
       clearTimeout(hideTimer);
       hideTimer = setTimeout(() => controls.classList.add('hidden'), 100);
     }
 
     catcher.addEventListener('mousemove', showControls);
-    controls.addEventListener('mouseenter', () => { clearTimeout(hideTimer); controls.classList.remove('hidden'); });
+    controls.addEventListener('mouseenter', () => { if (justStarted) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
     controls.addEventListener('mouseleave', showControls);
     card.addEventListener('mouseleave', () => { clearTimeout(hideTimer); controls.classList.add('hidden'); });
 
@@ -514,7 +516,13 @@
       card.classList.add('playing');
       controls.classList.remove('paused');
       activeCard = card;
-      showControls();
+      // Masquer les contrôles très rapidement après le démarrage
+      justStarted = true;
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        controls.classList.add('hidden');
+        justStarted = false;
+      }, 280);
     });
 
     grid.appendChild(card);
