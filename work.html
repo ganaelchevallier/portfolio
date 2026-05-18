@@ -496,10 +496,24 @@
       hideTimer = setTimeout(() => controls.classList.add('hidden'), 100);
     }
 
-    catcher.addEventListener('mousemove', showControls);
-    controls.addEventListener('mouseenter', () => { if (justStarted) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
-    controls.addEventListener('mouseleave', showControls);
-    card.addEventListener('mouseleave', () => { clearTimeout(hideTimer); controls.classList.add('hidden'); });
+    const isTouch = () => window.matchMedia('(hover: none)').matches;
+
+    catcher.addEventListener('mousemove', () => { if (isTouch()) return; showControls(); });
+    controls.addEventListener('mouseenter', () => { if (isTouch() || justStarted) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
+    controls.addEventListener('mouseleave', () => { if (isTouch()) return; showControls(); });
+    card.addEventListener('mouseleave', () => { if (isTouch()) return; clearTimeout(hideTimer); controls.classList.add('hidden'); });
+
+    // Touch : tap sur le catcher → bascule affichage/masquage des contrôles
+    catcher.addEventListener('touchend', e => {
+      e.preventDefault();
+      clearTimeout(hideTimer);
+      if (controls.classList.contains('hidden')) {
+        controls.classList.remove('hidden');
+        hideTimer = setTimeout(() => controls.classList.add('hidden'), 3000);
+      } else {
+        controls.classList.add('hidden');
+      }
+    });
 
     controls.querySelectorAll('.ctrl-btn').forEach(btn => {
       btn.addEventListener('click', e => {
