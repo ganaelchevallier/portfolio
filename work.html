@@ -486,20 +486,21 @@
     const iframe   = card.querySelector('.card-iframe');
     const controls = card.querySelector('.card-controls');
     const catcher  = card.querySelector('.mouse-catcher');
-    let   hideTimer  = null;
+    let   hideTimer   = null;
     let   justStarted = false;
+    let   justClicked = false;
 
     function showControls() {
-      if (justStarted) return;
+      if (justStarted || justClicked) return;
       controls.classList.remove('hidden');
       clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => controls.classList.add('hidden'), 100);
+      hideTimer = setTimeout(() => controls.classList.add('hidden'), 400);
     }
 
     const isTouch = () => window.matchMedia('(hover: none)').matches;
 
     catcher.addEventListener('mousemove', () => { if (isTouch()) return; showControls(); });
-    controls.addEventListener('mouseenter', () => { if (isTouch() || justStarted) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
+    controls.addEventListener('mouseenter', () => { if (isTouch() || justStarted || justClicked) return; clearTimeout(hideTimer); controls.classList.remove('hidden'); });
     controls.addEventListener('mouseleave', () => { if (isTouch()) return; showControls(); });
     card.addEventListener('mouseleave', () => { if (isTouch()) return; clearTimeout(hideTimer); controls.classList.add('hidden'); });
 
@@ -520,6 +521,13 @@
         e.stopPropagation();
         ytCmd(iframe, btn.dataset.cmd);
         controls.classList.toggle('paused', btn.dataset.cmd === 'pauseVideo');
+        // Forcer le masquage des contrôles après le clic
+        justClicked = true;
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => {
+          controls.classList.add('hidden');
+          justClicked = false;
+        }, 500);
       });
     });
 
