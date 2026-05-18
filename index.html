@@ -538,6 +538,18 @@
       margin: 4px 0;
     }
 
+    @keyframes btnGoldPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(212,175,80,0.6), 0 0 0 0 rgba(184,152,58,0.3); }
+      50%  { box-shadow: 0 0 16px 5px rgba(212,175,80,0.3), 0 0 36px 14px rgba(184,152,58,0.12); }
+      100% { box-shadow: 0 0 0 0 rgba(212,175,80,0), 0 0 0 0 rgba(184,152,58,0); }
+    }
+
+    @keyframes btnBorderShimmer {
+      0%   { border-color: rgba(184,152,58,0.35); }
+      50%  { border-color: rgba(212,175,80,0.95); }
+      100% { border-color: rgba(184,152,58,0.35); }
+    }
+
     .cv-download-btn {
       display: flex;
       align-items: center;
@@ -549,13 +561,22 @@
       color: var(--black);
       background: var(--offwhite);
       text-decoration: none;
-      padding: 16px 32px;
+      padding: 16px 36px;
       transition: all 0.3s;
       width: fit-content;
       margin: 0 auto;
+      border: 1px solid rgba(184,152,58,0.35);
+      animation: btnGoldPulse 2.8s ease-in-out infinite,
+                 btnBorderShimmer 2.8s ease-in-out infinite;
+      position: relative;
     }
 
-    .cv-download-btn:hover { background: var(--gold-lt); }
+    .cv-download-btn:hover {
+      background: var(--gold-lt);
+      animation: none;
+      box-shadow: 0 0 28px 8px rgba(184,152,58,0.35);
+      border-color: var(--gold-lt);
+    }
     .cv-download-btn svg { transition: transform 0.3s; }
     .cv-download-btn:hover svg { transform: translateY(2px); }
 
