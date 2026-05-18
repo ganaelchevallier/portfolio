@@ -11,19 +11,32 @@
 
   <style>
     :root {
-      --black:    #080808;
-      --ink:      #111111;
-      --charcoal: #1C1C1C;
-      --smoke:    #2E2E2E;
-      --mist:     #5A5A5A;
-      --silver:   #9A9A9A;
-      --offwhite: #E8E4DC;
-      --cream:    #F5F0E8;
-      --gold:     #B8983A;
-      --gold-lt:  #D4AF50;
-      --gold-dim: rgba(184,152,58,0.12);
-      --red:      #9B2235;
-      --green:    #4A7C59;
+      --black:        #05050A;
+      --ink:          #0B0B12;
+      --charcoal:     #121218;
+      --smoke:        #1A1A24;
+      --mist:         #44445A;
+      --silver:       #7A7A96;
+      --offwhite:     #E6E2DA;
+      --cream:        #F4EFE7;
+
+      --gold:         #C8962A;
+      --gold-lt:      #E0B840;
+      --gold-dim:     rgba(200,150,42,.13);
+      --gold-glow:    rgba(200,150,42,.30);
+
+      --cyan:         #00C8D4;
+      --cyan-dim:     rgba(0,200,212,.10);
+      --cyan-glow:    rgba(0,200,212,.25);
+
+      --purple:       #9B6EF7;
+      --purple-dim:   rgba(155,110,247,.10);
+
+      --emerald:      #2DD4A0;
+      --emerald-dim:  rgba(45,212,160,.10);
+
+      --red:          #FF4757;
+      --green:        #2DD4A0;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,122 +51,212 @@
       overflow-x: hidden;
     }
 
-    /* grain */
+    /* ── Grain overlay ── */
     body::before {
       content: '';
       position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 500; opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 900; opacity: 0.4;
     }
 
     ::selection { background: var(--gold); color: var(--black); }
 
-    /* ─── PASSWORD SCREEN ─── */
+    /* ════════════════════════════════
+       LOCK SCREEN
+    ════════════════════════════════ */
     #lock-screen {
       position: fixed; inset: 0;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       background: var(--black);
-      z-index: 400;
-      gap: 32px;
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 800;
+      gap: 0;
+      transition: opacity .5s ease, transform .5s ease;
+      overflow: hidden;
     }
 
     #lock-screen.hidden {
-      opacity: 0; transform: scale(1.02);
+      opacity: 0; transform: scale(1.03);
       pointer-events: none;
+    }
+
+    /* animated orbs background */
+    .lock-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orbDrift 12s ease-in-out infinite alternate;
+    }
+    .lock-orb-1 {
+      width: 400px; height: 400px;
+      background: var(--gold-glow);
+      top: -120px; left: -120px;
+      animation-delay: 0s;
+    }
+    .lock-orb-2 {
+      width: 300px; height: 300px;
+      background: var(--cyan-glow);
+      bottom: -80px; right: -60px;
+      animation-delay: -6s;
+    }
+    @keyframes orbDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.12); }
+    }
+
+    /* scanline */
+    .lock-scan {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,.08) 3px,
+        rgba(0,0,0,.08) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* center content */
+    .lock-center {
+      position: relative;
+      display: flex; flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      z-index: 1;
     }
 
     .lock-logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 11px;
-      letter-spacing: 0.4em;
+      font-size: 10px;
+      letter-spacing: .5em;
       text-transform: uppercase;
       color: var(--mist);
     }
 
-    .lock-icon {
-      color: var(--gold);
-      opacity: 0.6;
+    /* pulsing rings */
+    .lock-rings {
+      position: relative;
+      width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
     }
+
+    .lock-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      animation: ringPulse 3s ease-out infinite;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .lock-ring:nth-child(1) { animation-delay: 0s; }
+    .lock-ring:nth-child(2) { animation-delay: 1s; }
+    .lock-ring:nth-child(3) { animation-delay: 2s; }
+
+    @keyframes ringPulse {
+      0%   { width: 60px; height: 60px; opacity: .7; }
+      100% { width: 180px; height: 180px; opacity: 0; }
+    }
+
+    .lock-icon-wrap {
+      position: relative; z-index: 2;
+      width: 56px; height: 56px;
+      background: var(--charcoal);
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 24px var(--gold-glow);
+    }
+
+    .lock-icon { color: var(--gold); }
 
     .lock-title {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 13px;
-      letter-spacing: 0.3em;
+      font-size: 12px;
+      letter-spacing: .35em;
       text-transform: uppercase;
       color: var(--silver);
     }
 
     .lock-form {
       display: flex; flex-direction: column;
-      align-items: center; gap: 16px;
-      width: 100%; max-width: 320px; padding: 0 24px;
+      align-items: center; gap: 14px;
+      width: 100%; max-width: 300px; padding: 0 24px;
     }
 
     .lock-input {
       width: 100%;
       background: var(--charcoal);
       border: 1px solid var(--smoke);
-      border-radius: 2px;
+      border-radius: 3px;
       color: var(--offwhite);
       font-family: 'DM Mono', monospace;
       font-size: 14px;
       font-weight: 300;
-      letter-spacing: 0.1em;
+      letter-spacing: .2em;
       padding: 14px 16px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color .2s, box-shadow .2s;
       text-align: center;
     }
-
-    .lock-input:focus { border-color: var(--gold); }
-    .lock-input.error { border-color: var(--red); animation: shake 0.3s ease; }
+    .lock-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
+    }
+    .lock-input.error { border-color: var(--red); animation: shake .35s ease; }
 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
+      20%     { transform: translateX(-8px); }
+      60%     { transform: translateX(8px); }
     }
 
     .lock-btn {
       width: 100%;
       background: var(--gold-dim);
       border: 1px solid var(--gold);
-      border-radius: 2px;
+      border-radius: 3px;
       color: var(--gold-lt);
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.35em;
+      font-size: 10px;
+      letter-spacing: .4em;
       text-transform: uppercase;
-      padding: 14px;
+      padding: 13px;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: background .2s, color .2s, box-shadow .2s;
+    }
+    .lock-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      box-shadow: 0 4px 20px var(--gold-glow);
     }
 
-    .lock-btn:hover { background: var(--gold); color: var(--black); }
-
     .lock-error {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--red);
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
       opacity: 0;
-      transition: opacity 0.2s;
+      transition: opacity .2s;
+      text-align: center;
     }
     .lock-error.visible { opacity: 1; }
 
-    /* ─── MAIN DASHBOARD ─── */
-    #dashboard {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 32px 80px;
-      opacity: 0; transform: translateY(12px);
-      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
-    }
 
+    /* ════════════════════════════════
+       DASHBOARD
+    ════════════════════════════════ */
+    #dashboard {
+      display: none;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 56px 28px 80px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .5s ease .1s, transform .5s ease .1s;
+    }
     #dashboard.visible { opacity: 1; transform: translateY(0); }
 
     /* header */
@@ -161,27 +264,27 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
       padding-bottom: 20px;
-      border-bottom: 1px solid var(--charcoal);
+      border-bottom: 1px solid var(--smoke);
       flex-wrap: wrap; gap: 16px;
     }
 
     .dash-back {
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      letter-spacing: .2em;
       color: var(--mist);
       text-decoration: none;
       display: flex; align-items: center; gap: 8px;
-      transition: color 0.2s;
+      transition: color .2s;
     }
     .dash-back:hover { color: var(--gold); }
 
     .dash-title-wrap { display: flex; flex-direction: column; gap: 6px; }
 
     .dash-eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.4em;
+      font-size: 9px;
+      letter-spacing: .45em;
       text-transform: uppercase;
       color: var(--mist);
     }
@@ -189,34 +292,33 @@
     .dash-title {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(22px, 3vw, 32px);
+      font-size: clamp(22px, 3vw, 30px);
       color: var(--offwhite);
-      letter-spacing: 0.02em;
+      letter-spacing: .02em;
     }
-
     .dash-title span { color: var(--gold); }
 
     .dash-meta {
-      font-size: 11px;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+      font-size: 10px;
       color: var(--mist);
-      letter-spacing: 0.1em;
-      text-align: right;
+      letter-spacing: .1em;
     }
 
     /* token section */
     .token-section {
       background: var(--charcoal);
       border: 1px solid var(--smoke);
-      border-radius: 4px;
-      padding: 20px 24px;
-      margin-bottom: 40px;
-      display: flex; align-items: center; gap: 16px;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin-bottom: 36px;
+      display: flex; align-items: center; gap: 14px;
       flex-wrap: wrap;
     }
 
     .token-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-size: 10px;
+      letter-spacing: .25em;
       text-transform: uppercase;
       color: var(--silver);
       white-space: nowrap;
@@ -226,15 +328,18 @@
       flex: 1; min-width: 200px;
       background: var(--ink);
       border: 1px solid var(--smoke);
-      border-radius: 2px;
+      border-radius: 3px;
       color: var(--offwhite);
       font-family: 'DM Mono', monospace;
       font-size: 12px;
       padding: 10px 14px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color .2s, box-shadow .2s;
     }
-    .token-input:focus { border-color: var(--gold); }
+    .token-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-dim);
+    }
 
     .token-btn {
       background: var(--gold-dim);
@@ -242,256 +347,130 @@
       color: var(--gold-lt);
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 10px;
-      letter-spacing: 0.3em;
+      font-size: 9px;
+      letter-spacing: .3em;
       text-transform: uppercase;
       padding: 10px 20px;
       cursor: pointer;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
+      border-radius: 3px;
+      transition: background .2s, color .2s, box-shadow .2s;
       white-space: nowrap;
     }
-    .token-btn:hover { background: var(--gold); color: var(--black); }
+    .token-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+      box-shadow: 0 4px 16px var(--gold-glow);
+    }
 
     .token-status {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--mist);
       width: 100%;
-      letter-spacing: 0.1em;
+      letter-spacing: .1em;
     }
-    .token-status.ok { color: var(--green); }
+    .token-status.ok  { color: var(--emerald); }
     .token-status.err { color: var(--red); }
 
-    /* KPI grid */
+    /* ── KPI grid ── */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 48px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
     }
 
     .kpi-card {
       background: var(--charcoal);
       border: 1px solid var(--smoke);
-      border-radius: 4px;
-      padding: 24px 20px;
+      border-radius: 6px;
+      padding: 22px 20px;
       position: relative; overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
     }
-    .kpi-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .kpi-card:hover { transform: translateY(-3px); }
 
+    /* colored top bar */
     .kpi-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
-      opacity: 0; transition: opacity 0.2s;
+      border-radius: 6px 6px 0 0;
     }
-    .kpi-card:hover::before { opacity: 1; }
+    .kpi-card--gold  { --accent: var(--gold); --accent-dim: var(--gold-dim); --accent-glow: var(--gold-glow); }
+    .kpi-card--cyan  { --accent: var(--cyan); --accent-dim: var(--cyan-dim); --accent-glow: var(--cyan-glow); }
+    .kpi-card--purple{ --accent: var(--purple); --accent-dim: var(--purple-dim); --accent-glow: rgba(155,110,247,.25); }
+    .kpi-card--emerald{ --accent: var(--emerald); --accent-dim: var(--emerald-dim); --accent-glow: rgba(45,212,160,.25); }
+
+    .kpi-card::before  { background: var(--accent); opacity: .85; }
+    .kpi-card:hover    { border-color: var(--accent); box-shadow: 0 8px 32px var(--accent-glow); }
+
+    /* corner glow */
+    .kpi-card::after {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 80px; height: 80px;
+      border-radius: 0 6px;
+      background: radial-gradient(circle at top right, var(--accent-dim, transparent), transparent 70%);
+      pointer-events: none;
+    }
+
+    .kpi-icon {
+      color: var(--accent);
+      opacity: .7;
+      margin-bottom: 14px;
+    }
 
     .kpi-label {
-      font-size: 10px;
-      letter-spacing: 0.3em;
+      font-size: 9px;
+      letter-spacing: .35em;
       text-transform: uppercase;
       color: var(--mist);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .kpi-value {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(28px, 4vw, 40px);
-      color: var(--offwhite);
+      font-size: clamp(30px, 4vw, 44px);
+      color: var(--accent);
       line-height: 1;
       margin-bottom: 8px;
+      letter-spacing: -.01em;
     }
-
-    .kpi-value.gold { color: var(--gold); }
 
     .kpi-sub {
-      font-size: 11px;
-      color: var(--silver);
-      letter-spacing: 0.05em;
+      font-size: 10px;
+      color: var(--mist);
+      letter-spacing: .08em;
     }
 
-    /* chart section */
+    /* ── Chart section ── */
     .chart-section {
       background: var(--charcoal);
       border: 1px solid var(--smoke);
-      border-radius: 4px;
-      padding: 28px 24px;
-      margin-bottom: 32px;
+      border-radius: 6px;
+      padding: 26px 24px;
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap; gap: 12px;
     }
 
     .section-label {
-      font-size: 10px;
-      letter-spacing: 0.4em;
+      font-size: 9px;
+      letter-spacing: .45em;
       text-transform: uppercase;
       color: var(--mist);
-      margin-bottom: 24px;
       display: flex; align-items: center; gap: 12px;
     }
     .section-label::after {
       content: '';
-      flex: 1; height: 1px;
+      width: 32px; height: 1px;
       background: var(--smoke);
-    }
-
-    .chart-wrap {
-      height: 160px;
-      display: flex; align-items: flex-end;
-      gap: 6px;
-      padding: 0 4px;
-    }
-
-    .bar-group {
-      flex: 1;
-      display: flex; flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      height: 100%;
-      justify-content: flex-end;
-    }
-
-    .bar {
-      width: 100%;
-      border-radius: 2px 2px 0 0;
-      transition: height 0.6s cubic-bezier(0.34,1.56,0.64,1);
-      cursor: pointer;
-      position: relative;
-    }
-    .bar.views { background: var(--gold); opacity: 0.7; }
-    .bar.uniques { background: var(--gold-lt); opacity: 0.4; }
-    .bar:hover { opacity: 1 !important; }
-
-    .bar-tooltip {
-      position: absolute;
-      bottom: calc(100% + 6px); left: 50%;
-      transform: translateX(-50%);
-      background: var(--smoke);
-      border: 1px solid var(--gold);
-      border-radius: 3px;
-      padding: 6px 10px;
-      font-size: 11px;
-      color: var(--offwhite);
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-      z-index: 10;
-    }
-    .bar:hover .bar-tooltip { opacity: 1; }
-
-    .bar-date {
-      font-size: 9px;
-      color: var(--mist);
-      letter-spacing: 0.05em;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    /* two-col */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-
-    /* list table */
-    .stat-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 12px;
-      border-radius: 3px;
-      transition: background 0.15s;
-    }
-    .stat-row:hover { background: var(--smoke); }
-
-    .stat-name {
-      font-size: 12px;
-      color: var(--offwhite);
-      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-
-    .stat-count {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--gold);
-      text-align: right;
-    }
-
-    .stat-uniq {
-      font-size: 11px;
-      color: var(--mist);
-      text-align: right;
-      min-width: 40px;
-    }
-
-    .stat-bar-bg {
-      grid-column: 1 / -1;
-      height: 2px;
-      background: var(--smoke);
-      border-radius: 2px;
-      margin-top: 2px;
-    }
-    .stat-bar-fill {
-      height: 100%;
-      background: var(--gold);
-      border-radius: 2px;
-      opacity: 0.5;
-      transition: width 0.8s ease;
-    }
-
-    /* loading / empty states */
-    .state-msg {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 12px;
-      padding: 40px;
-      color: var(--mist);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-align: center;
-    }
-
-    .spinner {
-      width: 20px; height: 20px;
-      border: 2px solid var(--smoke);
-      border-top-color: var(--gold);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* refresh btn */
-    .refresh-btn {
-      background: transparent;
-      border: 1px solid var(--smoke);
-      border-radius: 2px;
-      color: var(--silver);
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .refresh-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* footer */
-    .dash-footer {
-      margin-top: 60px;
-      padding-top: 20px;
-      border-top: 1px solid var(--charcoal);
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 10px; color: var(--mist); letter-spacing: 0.15em;
-      flex-wrap: wrap; gap: 8px;
     }
 
     .legend {
@@ -499,142 +478,332 @@
     }
     .legend-item {
       display: flex; gap: 6px; align-items: center;
-      font-size: 10px; color: var(--mist);
+      font-size: 9px; color: var(--mist);
     }
     .legend-dot {
-      width: 8px; height: 8px; border-radius: 1px;
+      width: 20px; height: 2px; border-radius: 2px;
     }
-    .legend-dot.views { background: var(--gold); opacity: 0.7; }
-    .legend-dot.uniques { background: var(--gold-lt); opacity: 0.4; }
+    .legend-dot.views   { background: var(--gold); }
+    .legend-dot.uniques { background: var(--cyan); }
+
+    /* SVG chart */
+    .chart-svg-wrap {
+      width: 100%;
+      height: 200px;
+      position: relative;
+    }
+    #views-svg {
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+
+    /* ── Two-col ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+    .stat-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 4px;
+      transition: background .15s;
+      cursor: default;
+    }
+    .stat-row:hover { background: var(--smoke); }
+
+    .stat-rank {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 9px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .stat-name-wrap { display: flex; align-items: center; min-width: 0; }
+
+    .stat-name {
+      font-size: 11px;
+      color: var(--offwhite);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+
+    .stat-count {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .stat-uniq {
+      font-size: 10px;
+      color: var(--mist);
+      text-align: right;
+      min-width: 38px;
+    }
+
+    .stat-bar-bg {
+      grid-column: 1 / -1;
+      height: 2px;
+      background: var(--smoke);
+      border-radius: 2px;
+      margin-top: 1px;
+      overflow: hidden;
+    }
+    .stat-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width .9s cubic-bezier(.16,1,.3,1);
+    }
+
+    /* loading / empty */
+    .state-msg {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      padding: 48px 24px;
+      color: var(--mist);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 22px; height: 22px;
+      border: 2px solid var(--smoke);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* refresh / back buttons */
+    .refresh-btn {
+      background: transparent;
+      border: 1px solid var(--smoke);
+      border-radius: 3px;
+      color: var(--silver);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .15em;
+      padding: 7px 14px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .refresh-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* footer */
+    .dash-footer {
+      margin-top: 56px;
+      padding-top: 20px;
+      border-top: 1px solid var(--charcoal);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 9px; color: var(--mist); letter-spacing: .15em;
+      flex-wrap: wrap; gap: 8px;
+    }
+
+    /* stagger fade-in for cards */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .kpi-card { animation: fadeUp .5s ease both; }
+    .kpi-card:nth-child(1) { animation-delay: .05s; }
+    .kpi-card:nth-child(2) { animation-delay: .12s; }
+    .kpi-card:nth-child(3) { animation-delay: .19s; }
+    .kpi-card:nth-child(4) { animation-delay: .26s; }
   </style>
 </head>
 <body>
 
-<!-- ─── LOCK SCREEN ─── -->
+<!-- ════ LOCK SCREEN ════ -->
 <div id="lock-screen">
-  <div class="lock-logo">Ganaël Chevallier · Portfolio</div>
-  <svg class="lock-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-  </svg>
-  <div class="lock-title">Accès Privé</div>
-  <div class="lock-form">
-    <input type="password" id="pwd-input" class="lock-input" placeholder="mot de passe" autocomplete="current-password">
-    <div id="lock-error" class="lock-error">Mot de passe incorrect</div>
-    <button class="lock-btn" onclick="checkPassword()">Entrer</button>
+  <div class="lock-orb lock-orb-1"></div>
+  <div class="lock-orb lock-orb-2"></div>
+  <div class="lock-scan"></div>
+
+  <div class="lock-center">
+    <div class="lock-logo">Ganaël Chevallier · Portfolio</div>
+
+    <div class="lock-rings">
+      <div class="lock-ring"></div>
+      <div class="lock-ring"></div>
+      <div class="lock-ring"></div>
+      <div class="lock-icon-wrap">
+        <svg class="lock-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="lock-title">Accès Privé</div>
+
+    <div class="lock-form">
+      <input type="password" id="pwd-input" class="lock-input" placeholder="mot de passe" autocomplete="current-password">
+      <div id="lock-error" class="lock-error">Mot de passe incorrect ✕</div>
+      <button class="lock-btn" onclick="checkPassword()">Entrer</button>
+    </div>
   </div>
 </div>
 
-<!-- ─── DASHBOARD ─── -->
+
+<!-- ════ DASHBOARD ════ -->
 <div id="dashboard">
 
+  <!-- Header -->
   <div class="dash-header">
-    <div>
-      <a href="index.html" class="dash-back">
-        ← Retour au portfolio
-      </a>
-    </div>
+    <a href="index.html" class="dash-back">← Retour au portfolio</a>
+
     <div class="dash-title-wrap">
       <div class="dash-eyebrow">Analytics · GitHub Pages</div>
       <h1 class="dash-title">Stats <span>Portfolio</span></h1>
     </div>
+
     <div class="dash-meta">
       <div id="last-updated">—</div>
-      <button class="refresh-btn" style="margin-top:8px" onclick="fetchAllStats()">↻ Actualiser</button>
+      <button class="refresh-btn" onclick="fetchAllStats()">↻ Actualiser</button>
     </div>
   </div>
 
-  <!-- TOKEN -->
+  <!-- Token -->
   <div class="token-section">
     <span class="token-label">GitHub Token</span>
     <input type="password" id="gh-token" class="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
     <button class="token-btn" onclick="saveAndFetch()">Charger les stats</button>
     <div id="token-status" class="token-status">
-      Entrez votre Personal Access Token GitHub (scope : <code>repo</code> ou <code>read:project</code>)
+      Entrez votre Personal Access Token GitHub (scope : <code>repo</code>)
     </div>
   </div>
 
   <!-- KPIs -->
-  <div class="kpi-grid" id="kpi-grid">
-    <div class="kpi-card"><div class="kpi-label">Vues · 14 jours</div><div class="kpi-value" id="kpi-views">—</div><div class="kpi-sub">pages vues</div></div>
-    <div class="kpi-card"><div class="kpi-label">Visiteurs uniques</div><div class="kpi-value gold" id="kpi-uniques">—</div><div class="kpi-sub">14 derniers jours</div></div>
-    <div class="kpi-card"><div class="kpi-label">Clones repo</div><div class="kpi-value" id="kpi-clones">—</div><div class="kpi-sub">14 derniers jours</div></div>
-    <div class="kpi-card"><div class="kpi-label">Cloneurs uniques</div><div class="kpi-value gold" id="kpi-clone-uniq">—</div><div class="kpi-sub">14 derniers jours</div></div>
+  <div class="kpi-grid">
+    <div class="kpi-card kpi-card--gold">
+      <svg class="kpi-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+      <div class="kpi-label">Vues · 14 jours</div>
+      <div class="kpi-value" id="kpi-views">—</div>
+      <div class="kpi-sub">pages vues</div>
+    </div>
+
+    <div class="kpi-card kpi-card--cyan">
+      <svg class="kpi-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <div class="kpi-label">Visiteurs uniques</div>
+      <div class="kpi-value" id="kpi-uniques">—</div>
+      <div class="kpi-sub">14 derniers jours</div>
+    </div>
+
+    <div class="kpi-card kpi-card--purple">
+      <svg class="kpi-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <polyline points="16 18 22 12 16 6"/>
+        <polyline points="8 6 2 12 8 18"/>
+      </svg>
+      <div class="kpi-label">Clones repo</div>
+      <div class="kpi-value" id="kpi-clones">—</div>
+      <div class="kpi-sub">14 derniers jours</div>
+    </div>
+
+    <div class="kpi-card kpi-card--emerald">
+      <svg class="kpi-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <div class="kpi-label">Cloneurs uniques</div>
+      <div class="kpi-value" id="kpi-clone-uniq">—</div>
+      <div class="kpi-sub">14 derniers jours</div>
+    </div>
   </div>
 
-  <!-- CHART -->
+  <!-- Chart -->
   <div class="chart-section">
-    <div class="section-label">Vues par jour · 14 jours</div>
-    <div class="chart-wrap" id="views-chart">
-      <div class="state-msg">
-        <div>En attente du token GitHub</div>
+    <div class="section-header">
+      <div class="section-label">Vues par jour · 14 jours</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot views"></div>Vues</div>
+        <div class="legend-item"><div class="legend-dot uniques"></div>Uniques</div>
       </div>
     </div>
-    <div class="legend" style="margin-top:16px;">
-      <div class="legend-item"><div class="legend-dot views"></div> Vues</div>
-      <div class="legend-item"><div class="legend-dot uniques"></div> Uniques</div>
+    <div class="chart-svg-wrap">
+      <svg id="views-svg" preserveAspectRatio="none">
+        <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+          fill="var(--mist)" font-family="DM Mono" font-size="12"
+          letter-spacing="2">En attente du token GitHub</text>
+      </svg>
     </div>
   </div>
 
-  <!-- REFERRERS + PATHS -->
+  <!-- Referrers + Paths -->
   <div class="two-col">
     <div class="chart-section" style="margin-bottom:0">
-      <div class="section-label">Provenance (Referrers)</div>
+      <div class="section-header"><div class="section-label">Provenance</div></div>
       <ul class="stat-list" id="referrers-list">
-        <div class="state-msg"><div>En attente du token GitHub</div></div>
+        <div class="state-msg">En attente du token</div>
       </ul>
     </div>
     <div class="chart-section" style="margin-bottom:0">
-      <div class="section-label">Pages populaires</div>
+      <div class="section-header"><div class="section-label">Pages populaires</div></div>
       <ul class="stat-list" id="paths-list">
-        <div class="state-msg"><div>En attente du token GitHub</div></div>
+        <div class="state-msg">En attente du token</div>
       </ul>
     </div>
   </div>
 
+  <!-- Footer -->
   <div class="dash-footer">
     <span>ganaelchevallier.github.io/portfolio</span>
     <span>Données via API GitHub Traffic · fenêtre 14 jours</span>
   </div>
 
-</div>
+</div><!-- /#dashboard -->
+
 
 <script>
   /* ─── CONFIG ─── */
   const OWNER = 'ganaelchevallier';
   const REPO  = 'portfolio';
 
-  /* ─── PASSWORD (SHA-256 de "ganael2026") ─── */
-  /* Pour changer le mot de passe : remplacez le hash ci-dessous.
-     Générez-en un nouveau avec : https://emn178.github.io/online-tools/sha256.html */
-  const PWD_HASH = '5e7c3d2b8a1f6e9d4c0b5a7f2e8d1c6b3a9f4e7d2c5b8a1f6e9d4c0b5a7f2e8';
-  /* Mot de passe par défaut : ganael2026
-     (hash réel calculé à l'exécution) */
+  /* ─── MOT DE PASSE (SHA-256 de "___?ganael_2026?___") ───
+     Pour changer : générez un nouveau hash sur https://emn178.github.io/online-tools/sha256.html
+     et remplacez la valeur ci-dessous.                       */
+  const PWD_HASH = '6b5e2c5dd056b2b0cb9faf2272366f926efce96ceb545a26b204cf906e8ee56d';
 
   async function sha256(msg) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
   async function checkPassword() {
-    const val = document.getElementById('pwd-input').value;
-    const hash = await sha256(val);
-    // On accepte le mot de passe si le hash correspond OU si le hash stocké est le placeholder
-    const stored = localStorage.getItem('gc_stats_pwd_hash');
-    if (stored) {
-      if (hash === stored) { unlock(); return; }
-    } else {
-      // Premier accès : on accepte "ganael2026" par défaut
-      if (val === 'ganael2026') {
-        localStorage.setItem('gc_stats_pwd_hash', hash);
-        unlock();
-        return;
-      }
-    }
+    const val   = document.getElementById('pwd-input').value;
+    const hash  = await sha256(val);
     const input = document.getElementById('pwd-input');
+    const errEl = document.getElementById('lock-error');
+
+    if (hash === PWD_HASH) {
+      sessionStorage.setItem('gc_stats_unlocked', '1');
+      unlock();
+      return;
+    }
     input.classList.add('error');
-    document.getElementById('lock-error').classList.add('visible');
-    setTimeout(() => { input.classList.remove('error'); }, 400);
+    errEl.classList.add('visible');
+    setTimeout(() => input.classList.remove('error'), 400);
   }
 
   document.getElementById('pwd-input').addEventListener('keydown', e => {
@@ -643,14 +812,14 @@
   });
 
   function unlock() {
-    document.getElementById('lock-screen').classList.add('hidden');
+    const ls = document.getElementById('lock-screen');
+    ls.classList.add('hidden');
     setTimeout(() => {
-      document.getElementById('lock-screen').style.display = 'none';
+      ls.style.display = 'none';
       const dash = document.getElementById('dashboard');
       dash.style.display = 'block';
       requestAnimationFrame(() => dash.classList.add('visible'));
-    }, 400);
-    // Restore saved token
+    }, 500);
     const saved = sessionStorage.getItem('gc_gh_token');
     if (saved) {
       document.getElementById('gh-token').value = saved;
@@ -658,11 +827,12 @@
     }
   }
 
-  // Auto-unlock if recently authenticated
+  /* auto-unlock if session still active */
   window.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.getItem('gc_stats_unlocked') === '1') {
       document.getElementById('lock-screen').style.display = 'none';
       const dash = document.getElementById('dashboard');
+      dash.style.display = 'block';
       requestAnimationFrame(() => dash.classList.add('visible'));
       const saved = sessionStorage.getItem('gc_gh_token');
       if (saved) { document.getElementById('gh-token').value = saved; fetchAllStats(); }
@@ -707,114 +877,181 @@
       ]);
       setTokenStatus(`✓ Données mises à jour — ${new Date().toLocaleTimeString('fr-FR')}`, 'ok');
       document.getElementById('last-updated').textContent =
-        new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'long', hour:'2-digit', minute:'2-digit' });
+        new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
       renderKPIs(views, clones);
       renderChart(views.views || []);
       renderReferrers(referrers);
       renderPaths(paths);
       sessionStorage.setItem('gc_stats_unlocked', '1');
     } catch (err) {
-      setTokenStatus(`Erreur : ${err.message} — vérifiez votre token et ses permissions`, 'err');
+      setTokenStatus(`Erreur : ${err.message} — vérifiez votre token`, 'err');
       showError();
     }
   }
 
   function showLoading() {
-    ['views-chart','referrers-list','paths-list'].forEach(id => {
+    document.getElementById('views-svg').innerHTML =
+      `<foreignObject x="0" y="0" width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:12px;color:var(--mist);font-family:'DM Mono';font-size:11px;letter-spacing:.1em">
+          <div class="spinner"></div><div>Chargement…</div>
+        </div>
+       </foreignObject>`;
+    ['referrers-list','paths-list'].forEach(id => {
       document.getElementById(id).innerHTML =
         `<div class="state-msg"><div class="spinner"></div><div>Chargement…</div></div>`;
     });
   }
 
   function showError() {
-    ['views-chart','referrers-list','paths-list'].forEach(id => {
+    ['referrers-list','paths-list'].forEach(id => {
       document.getElementById(id).innerHTML =
-        `<div class="state-msg" style="color:var(--red)">Impossible de charger les données</div>`;
+        `<div class="state-msg" style="color:var(--red)">Impossible de charger</div>`;
     });
   }
 
-  /* ─── RENDER KPIs ─── */
+  /* ─── KPIs ─── */
   function renderKPIs(views, clones) {
-    animateCount('kpi-views',       views.count  || 0);
-    animateCount('kpi-uniques',     views.uniques || 0);
-    animateCount('kpi-clones',      clones.count  || 0);
-    animateCount('kpi-clone-uniq',  clones.uniques || 0);
+    animateCount('kpi-views',      views.count    || 0);
+    animateCount('kpi-uniques',    views.uniques  || 0);
+    animateCount('kpi-clones',     clones.count   || 0);
+    animateCount('kpi-clone-uniq', clones.uniques || 0);
   }
 
   function animateCount(id, target) {
-    const el = document.getElementById(id);
-    let start = 0;
-    const dur = 800;
-    const t0 = performance.now();
+    const el  = document.getElementById(id);
+    const dur = 900;
+    const t0  = performance.now();
     function step(now) {
-      const p = Math.min((now - t0) / dur, 1);
+      const p    = Math.min((now - t0) / dur, 1);
       const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(start + (target - start) * ease).toLocaleString('fr-FR');
+      el.textContent = Math.round(target * ease).toLocaleString('fr-FR');
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
   }
 
-  /* ─── RENDER CHART ─── */
+  /* ─── SVG CHART ─── */
   function renderChart(dailyViews) {
-    const chart = document.getElementById('views-chart');
+    const svg = document.getElementById('views-svg');
     if (!dailyViews.length) {
-      chart.innerHTML = `<div class="state-msg">Aucune donnée de trafic disponible</div>`;
+      svg.innerHTML = `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+        fill="var(--mist)" font-family="DM Mono" font-size="12" letter-spacing="2">Aucune donnée</text>`;
       return;
     }
+
+    const W  = svg.parentElement.clientWidth || 800;
+    const H  = 200;
+    const PL = 10, PR = 10, PT = 20, PB = 32;
+    const chartW = W - PL - PR;
+    const chartH = H - PT - PB;
+
     const maxVal = Math.max(...dailyViews.map(d => d.count), 1);
-    chart.innerHTML = '';
+    const n = dailyViews.length;
 
-    dailyViews.forEach(day => {
-      const date = new Date(day.timestamp);
-      const label = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
-      const hViews   = Math.max((day.count   / maxVal) * 130, 2);
-      const hUniques = Math.max((day.uniques / maxVal) * 130, 1);
+    const xS = i => PL + (n === 1 ? chartW / 2 : (i / (n - 1)) * chartW);
+    const yS = v => PT + (1 - v / maxVal) * chartH;
+    const btm = PT + chartH;
 
-      const group = document.createElement('div');
-      group.className = 'bar-group';
-      group.innerHTML = `
-        <div style="display:flex;gap:2px;align-items:flex-end;height:140px;width:100%">
-          <div class="bar views"   style="height:${hViews}px;flex:1">
-            <div class="bar-tooltip">${day.count} vues</div>
-          </div>
-          <div class="bar uniques" style="height:${hUniques}px;flex:1">
-            <div class="bar-tooltip">${day.uniques} uniques</div>
-          </div>
-        </div>
-        <div class="bar-date">${label}</div>
-      `;
-      chart.appendChild(group);
-    });
+    /* grid lines */
+    const grid = [0.25, 0.5, 0.75, 1].map(t => {
+      const y = yS(t * maxVal);
+      const label = Math.round(t * maxVal);
+      return `<line x1="${PL}" y1="${y}" x2="${W - PR}" y2="${y}"
+                stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+              <text x="${PL}" y="${y - 4}" font-size="8" fill="var(--mist)"
+                font-family="DM Mono">${label}</text>`;
+    }).join('');
+
+    /* views area */
+    const vPts = dailyViews.map((d, i) => `${xS(i)},${yS(d.count)}`).join(' ');
+    const vArea = `M ${xS(0)},${yS(dailyViews[0].count)} ` +
+      dailyViews.slice(1).map((d, i) => `L ${xS(i+1)},${yS(d.count)}`).join(' ') +
+      ` L ${xS(n-1)},${btm} L ${xS(0)},${btm} Z`;
+
+    /* uniques area */
+    const uPts = dailyViews.map((d, i) => `${xS(i)},${yS(d.uniques)}`).join(' ');
+    const uArea = `M ${xS(0)},${yS(dailyViews[0].uniques)} ` +
+      dailyViews.slice(1).map((d, i) => `L ${xS(i+1)},${yS(d.uniques)}`).join(' ') +
+      ` L ${xS(n-1)},${btm} L ${xS(0)},${btm} Z`;
+
+    /* x-axis labels (every 2nd) */
+    const xlabels = dailyViews.map((d, i) => {
+      if (n > 7 && i % 2 !== 0) return '';
+      const lbl = new Date(d.timestamp).toLocaleDateString('fr-FR', {day:'numeric', month:'short'});
+      return `<text x="${xS(i)}" y="${H - 8}" text-anchor="middle"
+        font-size="8.5" fill="var(--mist)" font-family="DM Mono">${lbl}</text>`;
+    }).join('');
+
+    /* dots with tooltips */
+    const dots = dailyViews.map((d, i) =>
+      `<circle cx="${xS(i)}" cy="${yS(d.count)}" r="3.5" fill="var(--gold)"
+        stroke="var(--charcoal)" stroke-width="1.5">
+        <title>${d.count} vues · ${d.uniques} uniques</title>
+      </circle>`
+    ).join('');
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="gv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="var(--gold)"  stop-opacity=".45"/>
+          <stop offset="100%" stop-color="var(--gold)"  stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="gu" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="var(--cyan)"  stop-opacity=".3"/>
+          <stop offset="100%" stop-color="var(--cyan)"  stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      ${grid}
+      <path d="${uArea}" fill="url(#gu)"/>
+      <path d="${vArea}" fill="url(#gv)"/>
+      <polyline points="${vPts}" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>
+      <polyline points="${uPts}" fill="none" stroke="var(--cyan)" stroke-width="1.5" stroke-linejoin="round" stroke-dasharray="5 3"/>
+      ${dots}
+      ${xlabels}
+    `;
   }
 
-  /* ─── RENDER REFERRERS ─── */
+  /* ─── REFERRERS ─── */
+  const RANK_COLORS = ['var(--gold)','var(--cyan)','var(--purple)','var(--emerald)','var(--silver)'];
+
   function renderReferrers(refs) {
     const list = document.getElementById('referrers-list');
     if (!refs.length) { list.innerHTML = `<div class="state-msg">Aucun referrer</div>`; return; }
     const max = Math.max(...refs.map(r => r.count), 1);
-    list.innerHTML = refs.slice(0,10).map(r => `
+    list.innerHTML = refs.slice(0, 8).map((r, i) => `
       <li class="stat-row">
-        <span class="stat-name" title="${r.referrer}">${r.referrer || '(direct)'}</span>
-        <span class="stat-count">${r.count.toLocaleString('fr-FR')}</span>
+        <div class="stat-name-wrap">
+          <span class="stat-rank" style="background:${RANK_COLORS[i] || 'var(--smoke)'};
+            color:var(--black); opacity:${i < 3 ? 1 : .6}">${i+1}</span>
+          <span class="stat-name" title="${r.referrer}">${r.referrer || '(direct)'}</span>
+        </div>
+        <span class="stat-count" style="color:${RANK_COLORS[i] || 'var(--silver)'}">${r.count.toLocaleString('fr-FR')}</span>
         <span class="stat-uniq">${r.uniques} uniq</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(r.count/max*100).toFixed(1)}%"></div></div>
+        <div class="stat-bar-bg">
+          <div class="stat-bar-fill" style="width:${(r.count/max*100).toFixed(1)}%;background:${RANK_COLORS[i] || 'var(--mist)'}"></div>
+        </div>
       </li>`).join('');
   }
 
-  /* ─── RENDER PATHS ─── */
+  /* ─── PATHS ─── */
   function renderPaths(paths) {
     const list = document.getElementById('paths-list');
     if (!paths.length) { list.innerHTML = `<div class="state-msg">Aucune page</div>`; return; }
     const max = Math.max(...paths.map(p => p.count), 1);
-    list.innerHTML = paths.slice(0,10).map(p => {
+    list.innerHTML = paths.slice(0, 8).map((p, i) => {
       const name = p.path.replace('/ganaelchevallier/portfolio','').replace('/portfolio','') || '/';
       return `
       <li class="stat-row">
-        <span class="stat-name" title="${p.path}">${name || '/'}</span>
-        <span class="stat-count">${p.count.toLocaleString('fr-FR')}</span>
+        <div class="stat-name-wrap">
+          <span class="stat-rank" style="background:${RANK_COLORS[i] || 'var(--smoke)'};
+            color:var(--black); opacity:${i < 3 ? 1 : .6}">${i+1}</span>
+          <span class="stat-name" title="${p.path}">${name}</span>
+        </div>
+        <span class="stat-count" style="color:${RANK_COLORS[i] || 'var(--silver)'}">${p.count.toLocaleString('fr-FR')}</span>
         <span class="stat-uniq">${p.uniques} uniq</span>
-        <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${(p.count/max*100).toFixed(1)}%"></div></div>
+        <div class="stat-bar-bg">
+          <div class="stat-bar-fill" style="width:${(p.count/max*100).toFixed(1)}%;background:${RANK_COLORS[i] || 'var(--mist)'}"></div>
+        </div>
       </li>`;
     }).join('');
   }
