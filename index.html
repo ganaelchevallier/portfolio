@@ -783,11 +783,19 @@
     /* ─── FOOTER ─────────────────────────────────────────── */
     footer {
       background: var(--black);
-      padding: 40px 48px;
+      padding: 40px 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 1px solid var(--charcoal);
+    }
+
+    .footer-top {
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--charcoal);
+      margin-bottom: 20px;
     }
 
     .footer-name {
@@ -853,6 +861,7 @@
       .cv-layout          { grid-template-columns: 1fr; gap: 48px; }
       .reco-grid          { grid-template-columns: 1fr; }
       footer              { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-top         { flex-direction: column; gap: 12px; text-align: center; }
     }
 
     @media (max-width: 600px) {
@@ -1164,8 +1173,10 @@
 
 <!-- ─── FOOTER ─────────────────────────────────────────────── -->
 <footer>
-  <span class="footer-name">Ganaël Chevallier</span>
-  <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Houilles — Paris</span>
+  <div class="footer-top">
+    <span class="footer-name">Ganaël Chevallier</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Houilles — Paris</span>
+  </div>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
 

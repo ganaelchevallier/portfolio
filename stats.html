@@ -624,9 +624,75 @@
     .kpi-card:nth-child(2) { animation-delay: .12s; }
     .kpi-card:nth-child(3) { animation-delay: .19s; }
     .kpi-card:nth-child(4) { animation-delay: .26s; }
+
+    /* ── NAV — identique à index.html ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 24px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--charcoal);
+    }
+
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      padding: 22px 16px;
+      transition: color 0.25s;
+      white-space: nowrap;
+    }
+    .nav-link:hover  { color: #D4AF50; }
+    .nav-link.active { color: var(--gold); }
+
+    /* liens fantômes pour conserver le même espacement que l'index */
+    .nav-ghost {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: transparent;
+      padding: 22px 16px;
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @media (max-width: 900px) {
+      nav           { padding: 0 4px; }
+      .nav-link     { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
+      .nav-ghost    { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .nav-link     { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
+      .nav-ghost    { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
+    }
+
+    /* décalage du contenu sous la nav (hauteur nav ≈ 60px) */
+    #lock-screen { padding-top: 60px; }
+    #dashboard   { padding-top: 60px; }
   </style>
 </head>
 <body>
+
+<!-- ════ NAV — identique à index.html ════ -->
+<nav>
+  <a href="index.html" class="nav-link active">Home</a>
+  <span class="nav-ghost">Reels</span>
+  <span class="nav-ghost">CV</span>
+  <span class="nav-ghost">Work</span>
+  <span class="nav-ghost">Contact</span>
+</nav>
 
 <!-- ════ LOCK SCREEN ════ -->
 <div id="lock-screen">
@@ -635,8 +701,6 @@
   <div class="lock-scan"></div>
 
   <div class="lock-center">
-    <div class="lock-logo">Ganaël Chevallier · Portfolio</div>
-
     <div class="lock-rings">
       <div class="lock-ring"></div>
       <div class="lock-ring"></div>
@@ -665,8 +729,6 @@
 
   <!-- Header -->
   <div class="dash-header">
-    <a href="index.html" class="dash-back">← Retour au portfolio</a>
-
     <div class="dash-title-wrap">
       <div class="dash-eyebrow">Analytics · GitHub Pages</div>
       <h1 class="dash-title">Stats <span>Portfolio</span></h1>
@@ -678,10 +740,10 @@
     </div>
   </div>
 
-  <!-- Token -->
-  <div class="token-section">
+  <!-- Token (masqué — token intégré directement) -->
+  <div class="token-section" style="display:none">
     <span class="token-label">GitHub Token</span>
-    <input type="password" id="gh-token" class="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+    <input type="password" id="gh-token" class="token-input" placeholder="token GitHub (non utilisé)">
     <button class="token-btn" onclick="saveAndFetch()">Charger les stats</button>
     <div id="token-status" class="token-status">
       Entrez votre Personal Access Token GitHub (scope : <code>repo</code>)
@@ -780,14 +842,45 @@
   const OWNER = 'ganaelchevallier';
   const REPO  = 'portfolio';
 
-  /* ─── MOT DE PASSE (SHA-256 de "___?ganael_2026?___") ───
+  /* ─── TOKEN CHIFFRÉ (AES-256-GCM · clé dérivée du mot de passe via PBKDF2) ───
+     Le token GitHub n'est jamais stocké en clair dans ce fichier.
+     Il est déchiffré en mémoire uniquement après authentification réussie.
+     Pour régénérer : voir l'outil encrypt-token.html fourni séparément.        */
+  const ENC_TOKEN = 'Tev7qyI3sOkEFrR1aCMkluxzyTCOt6ZnZ6SqXD7jE5fw21x3PjLu5r1B6sEWwI2FWgAd1jBaT6lU/a184bE0am+tYz0smS0BBBW5ZJFOaMeBlPob';
+
+  /* Token déchiffré, disponible après unlock() — jamais persisté */
+  let GH_TOKEN = null;
+
+  /* ─── MOT DE PASSE (SHA-256 de votre mot de passe) ───
      Pour changer : générez un nouveau hash sur https://emn178.github.io/online-tools/sha256.html
-     et remplacez la valeur ci-dessous.                       */
+     et remplacez la valeur ci-dessous.
+     Régénérez aussi ENC_TOKEN avec l'outil encrypt-token.html.                 */
   const PWD_HASH = '6b5e2c5dd056b2b0cb9faf2272366f926efce96ceb545a26b204cf906e8ee56d';
 
   async function sha256(msg) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  /* ─── Déchiffrement AES-GCM ─── */
+  async function decryptToken(password) {
+    const enc      = new TextEncoder();
+    const combined = Uint8Array.from(atob(ENC_TOKEN), c => c.charCodeAt(0));
+    const salt      = combined.slice(0, 16);
+    const iv        = combined.slice(16, 28);
+    const cipher    = combined.slice(28);
+
+    const baseKey = await crypto.subtle.importKey(
+      'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
+    );
+    const aesKey = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt, iterations: 200000, hash: 'SHA-256' },
+      baseKey,
+      { name: 'AES-GCM', length: 256 },
+      false, ['decrypt']
+    );
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, aesKey, cipher);
+    return new TextDecoder().decode(plain);
   }
 
   async function checkPassword() {
@@ -797,6 +890,16 @@
     const errEl = document.getElementById('lock-error');
 
     if (hash === PWD_HASH) {
+      try {
+        GH_TOKEN = await decryptToken(val);
+      } catch {
+        /* En cas d'échec inattendu du déchiffrement */
+        input.classList.add('error');
+        errEl.textContent = 'Erreur de déchiffrement — token invalide';
+        errEl.classList.add('visible');
+        setTimeout(() => input.classList.remove('error'), 400);
+        return;
+      }
       sessionStorage.setItem('gc_stats_unlocked', '1');
       unlock();
       return;
@@ -820,38 +923,27 @@
       dash.style.display = 'block';
       requestAnimationFrame(() => dash.classList.add('visible'));
     }, 500);
-    const saved = sessionStorage.getItem('gc_gh_token');
-    if (saved) {
-      document.getElementById('gh-token').value = saved;
-      fetchAllStats();
-    }
+    fetchAllStats();
   }
 
-  /* auto-unlock if session still active */
+  /* auto-unlock : le token AES doit etre dechiffre a chaque chargement via le mot de passe.
+     La sessionStorage signale que l'utilisateur connait le mot de passe (focus auto). */
   window.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.getItem('gc_stats_unlocked') === '1') {
-      document.getElementById('lock-screen').style.display = 'none';
-      const dash = document.getElementById('dashboard');
-      dash.style.display = 'block';
-      requestAnimationFrame(() => dash.classList.add('visible'));
-      const saved = sessionStorage.getItem('gc_gh_token');
-      if (saved) { document.getElementById('gh-token').value = saved; fetchAllStats(); }
+      document.getElementById('pwd-input').focus();
     }
   });
 
   function saveAndFetch() {
-    const token = document.getElementById('gh-token').value.trim();
-    if (!token) { setTokenStatus('Veuillez entrer un token', 'err'); return; }
-    sessionStorage.setItem('gc_gh_token', token);
+    /* Le token est géré via le mot de passe — ce bloc n'est plus utilisé */
     fetchAllStats();
   }
 
   /* ─── GITHUB API ─── */
   async function ghFetch(path) {
-    const token = sessionStorage.getItem('gc_gh_token') || document.getElementById('gh-token').value.trim();
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
       headers: {
-        'Authorization': `token ${token}`,
+        'Authorization': `token ${GH_TOKEN}`,
         'Accept': 'application/vnd.github.v3+json'
       }
     });
