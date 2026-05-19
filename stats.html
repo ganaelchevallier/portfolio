@@ -625,6 +625,91 @@
     .kpi-card:nth-child(3) { animation-delay: .19s; }
     .kpi-card:nth-child(4) { animation-delay: .26s; }
 
+    /* ── Sélecteur de période ── */
+    .period-tabs {
+      display: flex; gap: 4px;
+    }
+    .period-btn {
+      background: transparent;
+      border: 1px solid var(--smoke);
+      border-radius: 3px;
+      color: var(--mist);
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .15em;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    .period-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .period-btn.active {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold-lt);
+    }
+
+    /* ── Gist config ── */
+    .gist-section {
+      background: var(--charcoal);
+      border: 1px solid var(--smoke);
+      border-radius: 6px;
+      padding: 16px 22px;
+      margin-bottom: 36px;
+      display: flex; align-items: center; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .gist-label {
+      font-size: 9px; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--silver); white-space: nowrap;
+    }
+    .gist-input {
+      flex: 1; min-width: 180px;
+      background: var(--ink);
+      border: 1px solid var(--smoke);
+      border-radius: 3px;
+      color: var(--offwhite);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 8px 12px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .gist-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+    .gist-btn {
+      background: var(--gold-dim); border: 1px solid var(--gold);
+      color: var(--gold-lt); font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 9px; letter-spacing: .3em;
+      text-transform: uppercase; padding: 8px 16px; cursor: pointer;
+      border-radius: 3px; transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .gist-btn:hover { background: var(--gold); color: var(--black); }
+    .gist-status {
+      font-size: 10px; width: 100%; letter-spacing: .1em;
+      color: var(--mist);
+    }
+    .gist-status.ok  { color: var(--emerald); }
+    .gist-status.err { color: var(--red); }
+    .gist-status.warn { color: var(--gold); }
+
+    /* ── Badge historique dans le header ── */
+    .history-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--emerald-dim);
+      border: 1px solid rgba(45,212,160,.25);
+      border-radius: 20px;
+      font-size: 9px; letter-spacing: .15em;
+      color: var(--emerald); padding: 4px 12px;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* ── KPI all-time sub ── */
+    .kpi-alltime {
+      font-size: 10px; color: var(--emerald);
+      letter-spacing: .06em; margin-top: 2px;
+    }
+
     /* ── NAV — identique à index.html ── */
     nav {
       position: fixed;
@@ -800,6 +885,19 @@
     </div>
   </div>
 
+  <!-- Gist historique -->
+  <div class="gist-section">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" style="flex-shrink:0">
+      <ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M2 12c0 2.21 4.48 4 10 4s10-1.79 10-4"/><path d="M2 12v6c0 2.21 4.48 4 10 4s10-1.79 10-4v-6"/>
+    </svg>
+    <span class="gist-label">Gist historique</span>
+    <input type="text" id="gist-id-input" class="gist-input" placeholder="ID du gist (auto-créé à la première ouverture)">
+    <button class="gist-btn" onclick="applyGistId()">Appliquer</button>
+    <div id="gist-status" class="gist-status">
+      L'historique est sauvegardé automatiquement dans un Gist privé GitHub à chaque chargement.
+    </div>
+  </div>
+
   <!-- KPIs -->
   <div class="kpi-grid">
     <div class="kpi-card kpi-card--gold">
@@ -810,6 +908,7 @@
       <div class="kpi-label">Vues · 14 jours</div>
       <div class="kpi-value" id="kpi-views">—</div>
       <div class="kpi-sub">pages vues</div>
+      <div class="kpi-alltime" id="kpi-views-total" style="display:none"></div>
     </div>
 
     <div class="kpi-card kpi-card--cyan">
@@ -822,6 +921,7 @@
       <div class="kpi-label">Visiteurs uniques</div>
       <div class="kpi-value" id="kpi-uniques">—</div>
       <div class="kpi-sub">14 derniers jours</div>
+      <div class="kpi-alltime" id="kpi-uniques-total" style="display:none"></div>
     </div>
 
     <div class="kpi-card kpi-card--purple">
@@ -847,10 +947,24 @@
   <!-- Chart -->
   <div class="chart-section">
     <div class="section-header">
-      <div class="section-label">Vues par jour · 14 jours</div>
-      <div class="legend">
-        <div class="legend-item"><div class="legend-dot views"></div>Vues</div>
-        <div class="legend-item"><div class="legend-dot uniques"></div>Uniques</div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div class="section-label" id="chart-label">Vues par jour · 14 jours</div>
+        <div id="history-badge" style="display:none" class="history-badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span id="history-badge-text">—</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div class="period-tabs" id="period-tabs">
+          <button class="period-btn active" onclick="setPeriod(14)">14j</button>
+          <button class="period-btn" onclick="setPeriod(30)">30j</button>
+          <button class="period-btn" onclick="setPeriod(90)">90j</button>
+          <button class="period-btn" onclick="setPeriod(0)">Tout</button>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot views"></div>Vues</div>
+          <div class="legend-item"><div class="legend-dot uniques"></div>Uniques</div>
+        </div>
       </div>
     </div>
     <div class="chart-svg-wrap">
@@ -881,7 +995,7 @@
   <!-- Footer -->
   <div class="dash-footer">
     <span>ganaelchevallier.github.io/portfolio</span>
-    <span>Données via API GitHub Traffic · fenêtre 14 jours</span>
+    <span>GitHub Traffic API (14j) · Historique cumulé via Gist privé</span>
   </div>
 
 </div><!-- /#dashboard -->
@@ -975,7 +1089,125 @@
     fetchAllStats();
   }
 
-  /* ─── GITHUB API ─── */
+  /* ══════════════════════════════════════
+     GIST — HISTORIQUE INFINI
+  ══════════════════════════════════════ */
+  const GIST_FILENAME = 'gc_portfolio_traffic.json';
+  let GIST_ID = localStorage.getItem('gc_stats_gist_id') || null;
+
+  /* Met à jour le champ UI avec le gist ID connu */
+  function updateGistUI() {
+    const input = document.getElementById('gist-id-input');
+    if (GIST_ID) input.value = GIST_ID;
+  }
+
+  function applyGistId() {
+    const val = document.getElementById('gist-id-input').value.trim();
+    if (!val) return;
+    GIST_ID = val;
+    localStorage.setItem('gc_stats_gist_id', GIST_ID);
+    setGistStatus('ID appliqué — rechargez les stats', 'warn');
+  }
+
+  function setGistStatus(msg, type = '') {
+    const el = document.getElementById('gist-status');
+    el.textContent = msg;
+    el.className = 'gist-status' + (type ? ' ' + type : '');
+  }
+
+  async function ghGist(method, body) {
+    const url = GIST_ID
+      ? `https://api.github.com/gists/${GIST_ID}`
+      : 'https://api.github.com/gists';
+    const opts = {
+      method,
+      headers: {
+        'Authorization': `token ${GH_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      }
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (!res.ok) throw new Error(`Gist API ${res.status}`);
+    return res.json();
+  }
+
+  /* Charge l'historique depuis le Gist */
+  async function loadHistory() {
+    if (!GIST_ID) {
+      setGistStatus('Aucun Gist configuré — un nouveau sera créé automatiquement', 'warn');
+      return { views: [], clones: [] };
+    }
+    try {
+      setGistStatus('Lecture de l\'historique…');
+      const gist = await ghGist('GET');
+      const file = gist.files[GIST_FILENAME];
+      if (!file) { setGistStatus('Fichier historique introuvable dans ce Gist', 'err'); return { views: [], clones: [] }; }
+      /* Le contenu peut être tronqué → utiliser raw_url */
+      const raw = await fetch(file.raw_url, {
+        headers: { 'Authorization': `token ${GH_TOKEN}` }
+      }).then(r => r.json());
+      return raw;
+    } catch (e) {
+      setGistStatus(`Erreur lecture historique : ${e.message}`, 'err');
+      return { views: [], clones: [] };
+    }
+  }
+
+  /* Sauvegarde (crée ou met à jour le Gist) */
+  async function saveHistory(data) {
+    const body = {
+      description: 'GC Portfolio — Historique trafic GitHub Pages',
+      public: false,
+      files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
+    };
+    if (!GIST_ID) {
+      const gist = await ghGist('POST', body);
+      GIST_ID = gist.id;
+      localStorage.setItem('gc_stats_gist_id', GIST_ID);
+      updateGistUI();
+      setGistStatus(`✓ Gist créé : ${GIST_ID}`, 'ok');
+    } else {
+      await ghGist('PATCH', body);
+    }
+  }
+
+  /* Fusionne deux séries sans doublons (par jour YYYY-MM-DD) */
+  function mergeSeries(existing, fresh) {
+    const map = new Map();
+    for (const d of existing) {
+      const key = (d.timestamp || '').slice(0, 10);
+      if (key) map.set(key, { timestamp: key + 'T00:00:00Z', count: d.count, uniques: d.uniques });
+    }
+    /* Les données fraîches écrasent l'historique pour les jours récents */
+    for (const d of fresh) {
+      const key = (d.timestamp || '').slice(0, 10);
+      if (key) map.set(key, { timestamp: key + 'T00:00:00Z', count: d.count, uniques: d.uniques });
+    }
+    return Array.from(map.values()).sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+  }
+
+  /* ── Filtre par période (0 = tout) ── */
+  let _currentPeriod = 14;
+  let _allViews = [];
+
+  function setPeriod(days) {
+    _currentPeriod = days;
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    const labels = { 14:'14j', 30:'30j', 90:'90j', 0:'Tout' };
+    document.querySelectorAll('.period-btn').forEach(b => {
+      if (b.textContent === labels[days]) b.classList.add('active');
+    });
+    const filtered = days === 0 ? _allViews : _allViews.slice(-days);
+    const label = days === 0
+      ? `Vues par jour · Tout l'historique (${_allViews.length} jours)`
+      : `Vues par jour · ${days} derniers jours`;
+    document.getElementById('chart-label').textContent = label;
+    renderChart(filtered);
+  }
+
+  /* ── GITHUB API ── */
   async function ghFetch(path) {
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
       headers: {
@@ -996,21 +1228,56 @@
   async function fetchAllStats() {
     setTokenStatus('Chargement…');
     showLoading();
+    updateGistUI();
+
     try {
-      const [views, clones, referrers, paths] = await Promise.all([
+      /* Chargement en parallèle : API fraîche + historique Gist */
+      const [views, clones, referrers, paths, history] = await Promise.all([
         ghFetch('traffic/views'),
         ghFetch('traffic/clones'),
         ghFetch('traffic/popular/referrers'),
         ghFetch('traffic/popular/paths'),
+        loadHistory(),
       ]);
+
+      /* Fusion */
+      const mergedViews  = mergeSeries(history.views  || [], views.views   || []);
+      const mergedClones = mergeSeries(history.clones || [], clones.clones || []);
+
+      /* Sauvegarde asynchrone (ne bloque pas l'affichage) */
+      saveHistory({
+        views: mergedViews, clones: mergedClones,
+        lastSync: new Date().toISOString()
+      }).then(() => {
+        const days = mergedViews.length;
+        setGistStatus(`✓ Historique sauvegardé — ${days} jour${days > 1 ? 's' : ''} accumulé${days > 1 ? 's' : ''}`, 'ok');
+      }).catch(e => setGistStatus(`Erreur sauvegarde : ${e.message}`, 'err'));
+
+      /* Données en mémoire pour les filtres */
+      _allViews = mergedViews;
+
+      /* KPIs 14j + totaux */
+      renderKPIs(views, clones, mergedViews, mergedClones);
+
+      /* Graphique selon période active */
+      const filtered = _currentPeriod === 0 ? mergedViews : mergedViews.slice(-_currentPeriod);
+      renderChart(filtered);
+
+      /* Badge historique */
+      if (mergedViews.length > 14) {
+        const first = new Date(mergedViews[0].timestamp).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' });
+        document.getElementById('history-badge-text').textContent = `depuis le ${first}`;
+        document.getElementById('history-badge').style.display = 'inline-flex';
+      }
+
+      renderReferrers(referrers);
+      renderPaths(paths);
+
       setTokenStatus(`✓ Données mises à jour — ${new Date().toLocaleTimeString('fr-FR')}`, 'ok');
       document.getElementById('last-updated').textContent =
         new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
-      renderKPIs(views, clones);
-      renderChart(views.views || []);
-      renderReferrers(referrers);
-      renderPaths(paths);
       sessionStorage.setItem('gc_stats_unlocked', '1');
+
     } catch (err) {
       setTokenStatus(`Erreur : ${err.message} — vérifiez votre token`, 'err');
       showError();
@@ -1038,11 +1305,21 @@
   }
 
   /* ─── KPIs ─── */
-  function renderKPIs(views, clones) {
+  function renderKPIs(views, clones, mergedViews, mergedClones) {
     animateCount('kpi-views',      views.count    || 0);
     animateCount('kpi-uniques',    views.uniques  || 0);
     animateCount('kpi-clones',     clones.count   || 0);
     animateCount('kpi-clone-uniq', clones.uniques || 0);
+
+    /* Totaux all-time si l'historique dépasse la fenêtre de 14j */
+    if (mergedViews && mergedViews.length > 14) {
+      const totalViews   = mergedViews.reduce((s, d) => s + d.count, 0);
+      const totalUniques = mergedViews.reduce((s, d) => s + d.uniques, 0);
+      const el1 = document.getElementById('kpi-views-total');
+      const el2 = document.getElementById('kpi-uniques-total');
+      if (el1) { el1.textContent = `↑ ${totalViews.toLocaleString('fr-FR')} au total`; el1.style.display = ''; }
+      if (el2) { el2.textContent = `↑ ${totalUniques.toLocaleString('fr-FR')} au total`; el2.style.display = ''; }
+    }
   }
 
   function animateCount(id, target) {
@@ -1113,10 +1390,14 @@
       dailyViews.slice(1).map((d, i) => `L ${xS(i+1)},${yS(d.uniques)}`).join(' ') +
       ` L ${xS(n-1)},${btm} L ${xS(0)},${btm} Z`;
 
-    /* x-axis labels (every 2nd) */
+    /* x-axis labels — adapte la densité selon le nombre de points */
+    const skipEvery = n > 60 ? 14 : n > 30 ? 7 : n > 14 ? 3 : n > 7 ? 2 : 1;
     const xlabels = dailyViews.map((d, i) => {
-      if (n > 7 && i % 2 !== 0) return '';
-      const lbl = new Date(d.timestamp).toLocaleDateString('fr-FR', {day:'numeric', month:'short'});
+      if (i % skipEvery !== 0 && i !== n - 1) return '';
+      const fmt = n > 60
+        ? { month: 'short', year: '2-digit' }
+        : { day: 'numeric', month: 'short' };
+      const lbl = new Date(d.timestamp).toLocaleDateString('fr-FR', fmt);
       return `<text x="${xS(i)}" y="${H - 8}" text-anchor="middle"
         font-size="8.5" fill="var(--mist)" font-family="DM Mono">${lbl}</text>`;
     }).join('');
