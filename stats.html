@@ -896,29 +896,21 @@
      Le token GitHub n'est jamais stocké en clair dans ce fichier.
      Il est déchiffré en mémoire uniquement après authentification réussie.
      Pour régénérer : voir l'outil encrypt-token.html fourni séparément.        */
-  const ENC_TOKEN = 'Tev7qyI3sOkEFrR1aCMkluxzyTCOt6ZnZ6SqXD7jE5fw21x3PjLu5r1B6sEWwI2FWgAd1jBaT6lU/a184bE0am+tYz0smS0BBBW5ZJFOaMeBlPob';
+  const ENC_TOKEN = 'HrAko5eJhMTNRBpHKjcV3ls63hq+eqKjH0LbqVOEK/+sJGSCWwHMwxejQIKj5uUOsINlzBRq4IxIlvSNXNXkWLIs5uh8ona6v4Ti0JrY05G00XYQ';
 
   /* Token déchiffré, disponible après unlock() — jamais persisté */
   let GH_TOKEN = null;
 
-  /* ─── MOT DE PASSE (SHA-256 de votre mot de passe) ───
-     Pour changer : générez un nouveau hash sur https://emn178.github.io/online-tools/sha256.html
-     et remplacez la valeur ci-dessous.
-     Régénérez aussi ENC_TOKEN avec l'outil encrypt-token.html.                 */
-  const PWD_HASH = '6b5e2c5dd056b2b0cb9faf2272366f926efce96ceb545a26b204cf906e8ee56d';
-
-  async function sha256(msg) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  }
-
-  /* ─── Déchiffrement AES-GCM ─── */
+  /* ─── Déchiffrement AES-256-GCM · PBKDF2 (200 000 itérations) ───
+     Le déchiffrement sert aussi de vérification du mot de passe :
+     un mauvais mot de passe produit une clé AES incorrecte → échec garanti.
+     Aucun hash ni trace du mot de passe n'est stocké dans ce fichier.      */
   async function decryptToken(password) {
     const enc      = new TextEncoder();
     const combined = Uint8Array.from(atob(ENC_TOKEN), c => c.charCodeAt(0));
-    const salt      = combined.slice(0, 16);
-    const iv        = combined.slice(16, 28);
-    const cipher    = combined.slice(28);
+    const salt     = combined.slice(0, 16);
+    const iv       = combined.slice(16, 28);
+    const cipher   = combined.slice(28);
 
     const baseKey = await crypto.subtle.importKey(
       'raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']
@@ -934,29 +926,20 @@
   }
 
   async function checkPassword() {
-    const val   = document.getElementById('pwd-input').value;
-    const hash  = await sha256(val);
     const input = document.getElementById('pwd-input');
     const errEl = document.getElementById('lock-error');
+    errEl.textContent = 'Mot de passe incorrect ✕';
 
-    if (hash === PWD_HASH) {
-      try {
-        GH_TOKEN = await decryptToken(val);
-      } catch {
-        /* En cas d'échec inattendu du déchiffrement */
-        input.classList.add('error');
-        errEl.textContent = 'Erreur de déchiffrement — token invalide';
-        errEl.classList.add('visible');
-        setTimeout(() => input.classList.remove('error'), 400);
-        return;
-      }
+    try {
+      /* Tenter le déchiffrement — réussit uniquement avec le bon mot de passe */
+      GH_TOKEN = await decryptToken(input.value);
       sessionStorage.setItem('gc_stats_unlocked', '1');
       unlock();
-      return;
+    } catch {
+      input.classList.add('error');
+      errEl.classList.add('visible');
+      setTimeout(() => input.classList.remove('error'), 400);
     }
-    input.classList.add('error');
-    errEl.classList.add('visible');
-    setTimeout(() => input.classList.remove('error'), 400);
   }
 
   document.getElementById('pwd-input').addEventListener('keydown', e => {
