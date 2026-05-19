@@ -678,6 +678,56 @@
       .nav-ghost    { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
     }
 
+    /* ── Mobile (≤ 480px) ── */
+    @media (max-width: 480px) {
+      /* Nav : supprimer les ghost inutiles, garder "Home" centré */
+      .nav-ghost { display: none; }
+      nav { justify-content: center; }
+      .nav-link { padding: 18px 24px; font-size: 11px; letter-spacing: 0.25em; }
+
+      /* Dashboard container */
+      #dashboard { padding: 0 12px 48px; }
+
+      /* Header */
+      .dash-header { margin-bottom: 28px; padding-bottom: 16px; flex-direction: column; align-items: flex-start; }
+      .dash-meta { align-items: flex-start; }
+      .dash-title { font-size: clamp(20px, 7vw, 26px); }
+
+      /* KPI grid : 2 colonnes fixes sur mobile */
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .kpi-card { padding: 16px 14px; }
+      .kpi-value { font-size: clamp(26px, 8vw, 36px); }
+      .kpi-sub { font-size: 9px; }
+
+      /* Chart */
+      .chart-section { padding: 16px 12px; margin-bottom: 16px; }
+      .chart-svg-wrap { height: 160px; }
+
+      /* Stat rows : réduire le padding */
+      .stat-row { padding: 8px 6px; gap: 6px; }
+      .stat-count { font-size: 12px; }
+      .stat-uniq { font-size: 9px; min-width: 30px; }
+      .stat-name { font-size: 10px; }
+      .stat-rank { width: 15px; height: 15px; font-size: 8px; margin-right: 5px; }
+
+      /* Two-col déjà en 1 col à 680px, rien à faire */
+
+      /* Token section */
+      .token-section { padding: 12px 14px; }
+
+      /* Footer */
+      .dash-footer { margin-top: 32px; flex-direction: column; align-items: flex-start; gap: 4px; }
+
+      /* Lock screen */
+      .lock-orb-1 { width: 240px; height: 240px; }
+      .lock-orb-2 { width: 180px; height: 180px; }
+      .lock-form { padding: 0 16px; max-width: 100%; }
+    }
+
     /* décalage du contenu sous la nav (hauteur nav ≈ 60px) */
     #lock-screen { padding-top: 60px; }
     #dashboard   { padding-top: 60px; }
@@ -1106,6 +1156,21 @@
   /* ─── REFERRERS ─── */
   const RANK_COLORS = ['var(--gold)','var(--cyan)','var(--purple)','var(--emerald)','var(--silver)'];
 
+  function referrerDomain(ref) {
+    if (!ref) return '';
+    try { return new URL('https://' + ref).hostname.replace(/^www\./, ''); }
+    catch { return ref; }
+  }
+
+  function referrerIcon(ref) {
+    const d = referrerDomain(ref);
+    if (!d) return '';
+    return `<img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(d)}&sz=16"
+      width="14" height="14"
+      style="border-radius:2px;flex-shrink:0;image-rendering:auto"
+      onerror="this.style.display='none'" alt="${d}">`;
+  }
+
   function renderReferrers(refs) {
     const list = document.getElementById('referrers-list');
     if (!refs.length) { list.innerHTML = `<div class="state-msg">Aucun referrer</div>`; return; }
@@ -1115,7 +1180,8 @@
         <div class="stat-name-wrap">
           <span class="stat-rank" style="background:${RANK_COLORS[i] || 'var(--smoke)'};
             color:var(--black); opacity:${i < 3 ? 1 : .6}">${i+1}</span>
-          <span class="stat-name" title="${r.referrer}">${r.referrer || '(direct)'}</span>
+          ${referrerIcon(r.referrer)}
+          <span class="stat-name" style="margin-left:6px" title="${r.referrer}">${r.referrer || '(direct)'}</span>
         </div>
         <span class="stat-count" style="color:${RANK_COLORS[i] || 'var(--silver)'}">${r.count.toLocaleString('fr-FR')}</span>
         <span class="stat-uniq">${r.uniques} uniq</span>
@@ -1126,8 +1192,15 @@
   }
 
   /* ─── PATHS ─── */
-  function renderPaths(paths) {
+  const EXCLUDED_PATHS = [
+    '/actions/runs/25430141642/job/74593950016',
+    '/actions/runs/25430141642/job/74594026334',
+    '/blob/main/CV.html'
+  ];
+
+  function renderPaths(allPaths) {
     const list = document.getElementById('paths-list');
+    const paths = allPaths.filter(p => !EXCLUDED_PATHS.some(ex => p.path.includes(ex)));
     if (!paths.length) { list.innerHTML = `<div class="state-msg">Aucune page</div>`; return; }
     const max = Math.max(...paths.map(p => p.count), 1);
     list.innerHTML = paths.slice(0, 8).map((p, i) => {
