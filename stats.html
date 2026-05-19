@@ -127,15 +127,6 @@
       z-index: 1;
     }
 
-    .lock-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 10px;
-      letter-spacing: .5em;
-      text-transform: uppercase;
-      color: var(--mist);
-    }
-
     /* pulsing rings */
     .lock-rings {
       position: relative;
@@ -304,72 +295,6 @@
       color: var(--mist);
       letter-spacing: .1em;
     }
-
-    /* token section */
-    .token-section {
-      background: var(--charcoal);
-      border: 1px solid var(--smoke);
-      border-radius: 6px;
-      padding: 18px 22px;
-      margin-bottom: 36px;
-      display: flex; align-items: center; gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .token-label {
-      font-size: 10px;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--silver);
-      white-space: nowrap;
-    }
-
-    .token-input {
-      flex: 1; min-width: 200px;
-      background: var(--ink);
-      border: 1px solid var(--smoke);
-      border-radius: 3px;
-      color: var(--offwhite);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      padding: 10px 14px;
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .token-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px var(--gold-dim);
-    }
-
-    .token-btn {
-      background: var(--gold-dim);
-      border: 1px solid var(--gold);
-      color: var(--gold-lt);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 9px;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 3px;
-      transition: background .2s, color .2s, box-shadow .2s;
-      white-space: nowrap;
-    }
-    .token-btn:hover {
-      background: var(--gold);
-      color: var(--black);
-      box-shadow: 0 4px 16px var(--gold-glow);
-    }
-
-    .token-status {
-      font-size: 10px;
-      color: var(--mist);
-      width: 100%;
-      letter-spacing: .1em;
-    }
-    .token-status.ok  { color: var(--emerald); }
-    .token-status.err { color: var(--red); }
 
     /* ── KPI grid ── */
     .kpi-grid {
@@ -801,8 +726,6 @@
 
       /* Two-col déjà en 1 col à 680px, rien à faire */
 
-      /* Token section */
-      .token-section { padding: 12px 14px; }
 
       /* Footer */
       .dash-footer { margin-top: 32px; flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -872,16 +795,6 @@
     <div class="dash-meta">
       <div id="last-updated">—</div>
       <button class="refresh-btn" onclick="fetchAllStats()">↻ Actualiser</button>
-    </div>
-  </div>
-
-  <!-- Token (masqué — token intégré directement) -->
-  <div class="token-section" style="display:none">
-    <span class="token-label">GitHub Token</span>
-    <input type="password" id="gh-token" class="token-input" placeholder="token GitHub (non utilisé)">
-    <button class="token-btn" onclick="saveAndFetch()">Charger les stats</button>
-    <div id="token-status" class="token-status">
-      Entrez votre Personal Access Token GitHub (scope : <code>repo</code>)
     </div>
   </div>
 
@@ -1076,18 +989,14 @@
     }, 500);
   }
 
-  /* auto-unlock : le token AES doit etre dechiffre a chaque chargement via le mot de passe.
-     La sessionStorage signale que l'utilisateur connait le mot de passe (focus auto). */
+  /* Si l'utilisateur a déjà déverrouillé dans cette session,
+     on place le focus sur le champ mot de passe pour qu'il n'ait
+     qu'à retaper son mot de passe sans chercher le champ. */
   window.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.getItem('gc_stats_unlocked') === '1') {
       document.getElementById('pwd-input').focus();
     }
   });
-
-  function saveAndFetch() {
-    /* Le token est géré via le mot de passe — ce bloc n'est plus utilisé */
-    fetchAllStats();
-  }
 
   /* ══════════════════════════════════════
      GIST — HISTORIQUE INFINI
@@ -1122,8 +1031,8 @@
     const opts = {
       method,
       headers: {
-        'Authorization': `token ${GH_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': `Bearer ${GH_TOKEN}`,
+        'Accept': 'application/vnd.github+json',
         'Content-Type': 'application/json'
       }
     };
@@ -1146,7 +1055,7 @@
       if (!file) { setGistStatus('Fichier historique introuvable dans ce Gist', 'err'); return { views: [], clones: [] }; }
       /* Le contenu peut être tronqué → utiliser raw_url */
       const raw = await fetch(file.raw_url, {
-        headers: { 'Authorization': `token ${GH_TOKEN}` }
+        headers: { 'Authorization': `Bearer ${GH_TOKEN}` }
       }).then(r => r.json());
       return raw;
     } catch (e) {
@@ -1207,28 +1116,97 @@
     renderChart(filtered);
   }
 
+  /* ── DIAGNOSTIC PRÉ-FLIGHT ──────────────────────────────────────────
+     Avant tout appel authentifié, on effectue deux tests rapides :
+     1. Ping public (sans auth) → détecte réseau/CORS/file://
+     2. Ping authentifié        → détecte token invalide / scope manquant
+  ──────────────────────────────────────────────────────────────────── */
+  async function runDiagnostic() {
+    /* Cause 1 : ouverture depuis file:// (CORS null-origin bloqué par Chrome) */
+    if (location.protocol === 'file:') {
+      throw new Error(
+        'Fichier ouvert en local (file://) — les requêtes CORS sont bloquées par le navigateur. ' +
+        'Hébergez la page sur GitHub Pages ou un serveur local (ex: npx serve .).'
+      );
+    }
+
+    /* Cause 2 : api.github.com injoignable (réseau / pare-feu / extension) */
+    try {
+      await fetch('https://api.github.com', { method: 'GET' });
+    } catch {
+      throw new Error(
+        'api.github.com est injoignable. Vérifiez votre connexion internet, ' +
+        'un éventuel pare-feu d\'entreprise, ou désactivez les extensions de blocage (uBlock, etc.).'
+      );
+    }
+
+    /* Cause 3 : token invalide ou expiré */
+    let probe;
+    try {
+      probe = await fetch('https://api.github.com/user', {
+        headers: {
+          'Authorization': `Bearer ${GH_TOKEN}`,
+          'Accept': 'application/vnd.github+json'
+        }
+      });
+    } catch {
+      throw new Error('Erreur réseau lors de la vérification du token.');
+    }
+    if (probe.status === 401) {
+      throw new Error(
+        'Token GitHub expiré ou révoqué (401). ' +
+        'Régénérez un PAT (scope : repo) et re-chiffrez-le via encrypt-token.html.'
+      );
+    }
+    if (probe.status === 403) {
+      throw new Error(
+        'Token valide mais scope insuffisant (403). ' +
+        'Assurez-vous que le PAT a bien le scope repo ou read:org.'
+      );
+    }
+    /* token OK — on peut continuer */
+  }
+
   /* ── GITHUB API ── */
   async function ghFetch(path) {
-    const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
-      headers: {
-        'Authorization': `token ${GH_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    });
-    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    let res;
+    try {
+      res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
+        headers: {
+          'Authorization': `Bearer ${GH_TOKEN}`,
+          'Accept': 'application/vnd.github+json'
+        }
+      });
+    } catch {
+      throw new Error('Requête interrompue — réseau instable ou extension bloquante.');
+    }
+    if (res.status === 401) throw new Error('Token expiré ou invalide (401)');
+    if (res.status === 403) throw new Error('Accès refusé — scope insuffisant (403)');
+    if (res.status === 404) throw new Error('Dépôt introuvable ou trafic indisponible (404)');
+    if (!res.ok) throw new Error(`Erreur API GitHub : ${res.status} ${res.statusText}`);
     return res.json();
   }
 
-  function setTokenStatus(msg, type = '') {
-    const el = document.getElementById('token-status');
-    el.textContent = msg;
-    el.className = 'token-status' + (type ? ' ' + type : '');
-  }
-
   async function fetchAllStats() {
-    setTokenStatus('Chargement…');
     showLoading();
     updateGistUI();
+
+    /* Diagnostic avant tout appel de données */
+    try {
+      await runDiagnostic();
+    } catch (diagErr) {
+      const msg = diagErr.message;
+      const upd = document.getElementById('last-updated');
+      upd.textContent = `⚠ ${msg}`;
+      upd.style.color = 'var(--red)';
+      document.getElementById('views-svg').innerHTML =
+        `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+          fill="var(--red)" font-family="DM Mono" font-size="10" letter-spacing=".5"
+          style="white-space:pre-wrap">Diagnostic échoué</text>`;
+      showError();
+      console.error('Diagnostic:', msg);
+      return;
+    }
 
     try {
       /* Chargement en parallèle : API fraîche + historique Gist */
@@ -1273,14 +1251,24 @@
       renderReferrers(referrers);
       renderPaths(paths);
 
-      setTokenStatus(`✓ Données mises à jour — ${new Date().toLocaleTimeString('fr-FR')}`, 'ok');
-      document.getElementById('last-updated').textContent =
+      const upd = document.getElementById('last-updated');
+      upd.style.color = '';
+      upd.textContent =
         new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
       sessionStorage.setItem('gc_stats_unlocked', '1');
 
     } catch (err) {
-      setTokenStatus(`Erreur : ${err.message} — vérifiez votre token`, 'err');
+      const msg = err.message || 'Erreur inconnue';
+      /* Affiche l'erreur dans la zone "dernière mise à jour" */
+      const upd = document.getElementById('last-updated');
+      upd.textContent = `⚠ Erreur : ${msg}`;
+      upd.style.color = 'var(--red)';
+      /* Affiche l'erreur dans le graphique */
+      const svg = document.getElementById('views-svg');
+      svg.innerHTML = `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+        fill="var(--red)" font-family="DM Mono" font-size="11" letter-spacing="1">${msg}</text>`;
       showError();
+      console.error('fetchAllStats:', msg);
     }
   }
 
@@ -1480,15 +1468,15 @@
   }
 
   /* ─── PATHS ─── */
-  const EXCLUDED_PATHS = [
-    '/actions/runs/25430141642/job/74593950016',
-    '/actions/runs/25430141642/job/74594026334',
-    '/blob/main/CV.html'
+  /* Chemins à exclure des stats (CI, blobs internes) */
+  const EXCLUDED_PATH_PATTERNS = [
+    /^\/actions\//,
+    /^\/blob\/main\//
   ];
 
   function renderPaths(allPaths) {
     const list = document.getElementById('paths-list');
-    const paths = allPaths.filter(p => !EXCLUDED_PATHS.some(ex => p.path.includes(ex)));
+    const paths = allPaths.filter(p => !EXCLUDED_PATH_PATTERNS.some(rx => rx.test(p.path)));
     if (!paths.length) { list.innerHTML = `<div class="state-msg">Aucune page</div>`; return; }
     const max = Math.max(...paths.map(p => p.count), 1);
     list.innerHTML = paths.slice(0, 8).map((p, i) => {
