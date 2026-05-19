@@ -739,6 +739,107 @@
     /* décalage du contenu sous la nav (hauteur nav ≈ 60px) */
     #lock-screen { padding-top: 60px; }
     #dashboard   { padding-top: 60px; }
+
+    /* ════════════════════════════════
+       DONUT CHARTS
+    ════════════════════════════════ */
+    .donuts-section { margin-bottom: 28px; }
+
+    .donuts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px) { .donuts-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .donuts-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
+
+    .donut-card {
+      background: var(--charcoal);
+      border: 1px solid var(--smoke);
+      border-radius: 6px;
+      padding: 20px 16px 18px;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .donut-card:hover { transform: translateY(-3px); border-color: var(--mist); }
+
+    .donut-card-label {
+      font-size: 9px; letter-spacing: .38em;
+      text-transform: uppercase; color: var(--mist);
+      align-self: flex-start;
+    }
+
+    .donut-body {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+
+    .donut-ring-wrap {
+      width: 130px; height: 130px; flex-shrink: 0;
+    }
+    .donut-ring-wrap svg { width: 100%; height: 100%; }
+
+    .donut-legend {
+      width: 100%;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+
+    .donut-legend-item {
+      display: flex; align-items: center; gap: 7px;
+    }
+
+    .donut-legend-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .donut-legend-name {
+      flex: 1;
+      color: var(--offwhite);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-size: 10px; letter-spacing: .02em;
+    }
+
+    .donut-legend-pct {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-align: right;
+      min-width: 38px;
+    }
+
+    /* empty state inside card */
+    .donut-no-data {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 10px;
+      width: 100%; min-height: 150px;
+      color: var(--mist); font-size: 10px;
+      text-align: center; line-height: 1.7;
+    }
+
+    /* tracker info banner */
+    .tracker-info {
+      background: var(--charcoal);
+      border: 1px solid var(--smoke);
+      border-radius: 6px;
+      padding: 14px 20px;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 10px; color: var(--mist); letter-spacing: .08em;
+    }
+    .tracker-info code {
+      background: var(--ink); border: 1px solid var(--smoke);
+      border-radius: 3px; padding: 2px 7px;
+      color: var(--gold); font-size: 10px; letter-spacing: .05em;
+    }
+    .tracker-count-badge {
+      margin-left: auto; flex-shrink: 0;
+      background: var(--gold-dim); border: 1px solid rgba(200,150,42,.3);
+      border-radius: 20px; font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 9px; letter-spacing: .2em;
+      color: var(--gold); padding: 3px 10px; text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
@@ -905,6 +1006,73 @@
     </div>
   </div>
 
+  <!-- ════ DONUTS : Navigateurs / Appareils / OS / Langues ════ -->
+  <div class="chart-section donuts-section">
+    <div class="section-header" style="margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div class="section-label">Audience · Distribution</div>
+        <div id="donut-tracker-badge" style="display:none" class="history-badge">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="donut-tracker-count">—</span>
+        </div>
+      </div>
+      <button class="refresh-btn" onclick="clearTrackerLog()" style="font-size:9px">⌫ Vider le log</button>
+    </div>
+
+    <!-- Info tracker -->
+    <div class="tracker-info" id="tracker-info-banner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.6" style="flex-shrink:0">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>Ajouter <code>&lt;script src="tracker.js" defer&gt;&lt;/script&gt;</code> dans chaque page pour collecter les visites.</span>
+    </div>
+
+    <!-- 4 donuts -->
+    <div class="donuts-grid">
+
+      <div class="donut-card">
+        <div class="donut-card-label">Navigateurs</div>
+        <div class="donut-body" id="donut-browsers">
+          <div class="donut-no-data">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--smoke)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/></svg>
+            <span>En attente des données<br>tracker.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="donut-card">
+        <div class="donut-card-label">Appareils</div>
+        <div class="donut-body" id="donut-devices">
+          <div class="donut-no-data">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--smoke)" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span>En attente des données<br>tracker.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="donut-card">
+        <div class="donut-card-label">Systèmes</div>
+        <div class="donut-body" id="donut-os">
+          <div class="donut-no-data">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--smoke)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>En attente des données<br>tracker.js</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="donut-card">
+        <div class="donut-card-label">Langues</div>
+        <div class="donut-body" id="donut-langs">
+          <div class="donut-no-data">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--smoke)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>En attente des données<br>tracker.js</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Footer -->
   <div class="dash-footer">
     <span>ganaelchevallier.github.io/portfolio</span>
@@ -984,6 +1152,7 @@
       /* ↓ fetchAllStats APRÈS display:block pour que clientWidth soit lisible */
       requestAnimationFrame(() => {
         dash.classList.add('visible');
+        renderDonuts();   /* donuts locaux — pas besoin du token GitHub */
         fetchAllStats();
       });
     }, 500);
@@ -1467,7 +1636,168 @@
       </li>`).join('');
   }
 
-  /* ─── PATHS ─── */
+  /* ══════════════════════════════════════════════════════════════
+     DONUTS — Distribution navigateurs / appareils / OS / langues
+     Données issues de localStorage['gc_tracker_log'] (tracker.js)
+  ══════════════════════════════════════════════════════════════ */
+
+  const DONUT_PALETTES = {
+    browsers: ['var(--gold)',    'var(--cyan)',    'var(--purple)',  'var(--emerald)', 'var(--silver)', '#FF8C42'],
+    devices:  ['var(--cyan)',    'var(--gold)',    'var(--purple)',  'var(--silver)'],
+    os:       ['var(--purple)',  'var(--emerald)', 'var(--gold)',    'var(--cyan)',    'var(--silver)', 'var(--red)'],
+    langs:    ['var(--emerald)', 'var(--gold)',    'var(--cyan)',    'var(--purple)',  'var(--silver)', '#FF8C42'],
+  };
+
+  /* Compte les occurrences d'un champ dans le log */
+  function countField(log, key) {
+    const map = {};
+    log.forEach(e => {
+      const v = (e[key] || 'Inconnu');
+      map[v] = (map[v] || 0) + 1;
+    });
+    return Object.entries(map)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
+  }
+
+  /* Dessine un donut SVG + légende dans #containerId */
+  function renderDonut(containerId, data, paletteKey) {
+    const wrap = document.getElementById(containerId);
+    if (!wrap) return;
+    if (!data || !data.length) return; /* garde le placeholder */
+
+    const palette = DONUT_PALETTES[paletteKey] || DONUT_PALETTES.browsers;
+    const total   = data.reduce((s, d) => s + d.count, 0);
+
+    const R   = 46;           /* rayon de la bague */
+    const SW  = 13;           /* épaisseur du trait */
+    const C   = 2 * Math.PI * R;
+    const cx  = 65, cy = 65;
+    const SZ  = 130;          /* taille du viewBox */
+    const GAP = data.length > 1 ? 2.5 : 0;  /* espace entre segments */
+
+    /* ── Segments ── */
+    let cumulative = 0;
+    const segEls = data.slice(0, 5).map((d, i) => {
+      const frac    = d.count / total;
+      const dash    = Math.max(frac * C - GAP, 0);
+      const offset  = -(cumulative / total) * C;
+      cumulative   += d.count;
+      const color   = palette[i % palette.length];
+      return `<circle
+        class="donut-seg-el"
+        cx="${cx}" cy="${cy}" r="${R}"
+        fill="none"
+        stroke="${color}"
+        stroke-width="${SW}"
+        stroke-dasharray="${dash} ${C}"
+        stroke-dashoffset="${C}"
+        data-dash="${dash}"
+        data-offset="${offset}"
+        stroke-linecap="butt"
+        transform="rotate(-90 ${cx} ${cy})"
+      />`;
+    }).join('');
+
+    /* ── Centre ── */
+    const center = `
+      <circle cx="${cx}" cy="${cy}" r="${R - SW / 2 - 2}" fill="var(--ink)" opacity=".6"/>
+      <text x="${cx}" y="${cy - 7}" text-anchor="middle"
+        fill="var(--offwhite)" font-family="Syne,sans-serif"
+        font-weight="800" font-size="18">${total.toLocaleString('fr-FR')}</text>
+      <text x="${cx}" y="${cy + 10}" text-anchor="middle"
+        fill="var(--mist)" font-family="DM Mono,monospace"
+        font-size="8" letter-spacing="2">visites</text>`;
+
+    /* ── SVG ── */
+    const svg = `<svg viewBox="0 0 ${SZ} ${SZ}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${cx}" cy="${cy}" r="${R}" fill="none"
+        stroke="var(--smoke)" stroke-width="${SW - 3}" opacity=".6"/>
+      ${segEls}
+      ${center}
+    </svg>`;
+
+    /* ── Légende ── */
+    const legend = data.slice(0, 5).map((d, i) => {
+      const pct   = ((d.count / total) * 100).toFixed(1);
+      const color = palette[i % palette.length];
+      return `<div class="donut-legend-item">
+        <span class="donut-legend-dot" style="background:${color}"></span>
+        <span class="donut-legend-name" title="${d.name}">${d.name}</span>
+        <span class="donut-legend-pct" style="color:${color}">${pct}%</span>
+      </div>`;
+    }).join('');
+
+    wrap.innerHTML = `
+      <div class="donut-ring-wrap">${svg}</div>
+      <div class="donut-legend">${legend}</div>`;
+
+    /* ── Animation : chaque segment s'enroule progressivement ── */
+    const segs = wrap.querySelectorAll('.donut-seg-el');
+    segs.forEach((seg, i) => {
+      const finalDash   = parseFloat(seg.getAttribute('data-dash'));
+      const finalOffset = parseFloat(seg.getAttribute('data-offset'));
+
+      setTimeout(() => {
+        seg.setAttribute('stroke-dasharray', `0 ${C}`);
+        seg.setAttribute('stroke-dashoffset', finalOffset.toString());
+
+        const t0  = performance.now();
+        const dur = 750;
+        function step(now) {
+          const p    = Math.min((now - t0) / dur, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          const currentDash = finalDash * ease;
+          seg.setAttribute('stroke-dasharray', `${currentDash} ${C}`);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }, 120 + i * 90);
+    });
+  }
+
+  /* ── Entrée principale ── */
+  function renderDonuts() {
+    let log = [];
+    try {
+      const raw = localStorage.getItem('gc_tracker_log');
+      if (raw) log = JSON.parse(raw);
+      if (!Array.isArray(log)) log = [];
+    } catch (e) { log = []; }
+
+    const banner   = document.getElementById('tracker-info-banner');
+    const badge    = document.getElementById('donut-tracker-badge');
+    const badgeText = document.getElementById('donut-tracker-count');
+
+    if (log.length > 0) {
+      if (banner)    banner.style.display = 'none';
+      if (badge)     badge.style.display  = 'inline-flex';
+      if (badgeText) badgeText.textContent = log.length.toLocaleString('fr-FR') + ' entrées trackées';
+
+      renderDonut('donut-browsers', countField(log, 'browser'), 'browsers');
+      renderDonut('donut-devices',  countField(log, 'device'),  'devices');
+      renderDonut('donut-os',       countField(log, 'os'),      'os');
+      renderDonut('donut-langs',    countField(log, 'lang'),    'langs');
+    } else {
+      /* Données absentes : la bannière d'aide reste visible */
+    }
+  }
+
+  /* ── Vider le log tracker (bouton dans l'UI) ── */
+  function clearTrackerLog() {
+    if (!confirm('Vider tout le log tracker ? Cette action est irréversible.')) return;
+    try { localStorage.removeItem('gc_tracker_log'); } catch(e) {}
+    /* Remettre les placeholders */
+    ['donut-browsers','donut-devices','donut-os','donut-langs'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = `<div class="donut-no-data" style="color:var(--mist);font-size:10px">Log vidé</div>`;
+    });
+    const badge = document.getElementById('donut-tracker-badge');
+    if (badge) badge.style.display = 'none';
+    const banner = document.getElementById('tracker-info-banner');
+    if (banner) banner.style.display = 'flex';
+  }
+
   /* Chemins à exclure des stats (CI, blobs internes) */
   const EXCLUDED_PATH_PATTERNS = [
     /^\/actions\//,
