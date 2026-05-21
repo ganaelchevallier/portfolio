@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ganaelchevallier.github.io/portfolio/sitemap.xml
