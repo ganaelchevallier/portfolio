@@ -148,8 +148,8 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      padding: 68px 48px 32px;
+      justify-content: center;
+      padding: 0;
       overflow: hidden;
     }
 
@@ -159,36 +159,121 @@
       position: absolute;
       left: 0;
       right: 0;
-      height: 60px;
-      background: var(--black);
-      z-index: 2;
+      height: 80px;
+      z-index: 4;
+      pointer-events: none;
     }
 
-    .hero::before { top: 0; }
-    .hero::after  { bottom: 0; }
+    .hero::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--black) 0%, transparent 100%);
+    }
+    .hero::after  {
+      bottom: 0;
+      background: linear-gradient(to top, var(--black) 0%, transparent 100%);
+    }
 
-    .hero-bg {
+    /* ─── HERO SPLIT ─────────────────────────────────────── */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 0.72fr 0.82fr;
+      align-items: stretch;
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-left {
+      position: relative;
+      padding: 80px 24px 72px 48px;
+    }
+
+    /* ─── HERO BANNER ────────────────────────────────────── */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner-wrap {
+      position: absolute;
+      top: 80px; bottom: 72px; left: 0; right: 48px;
+      overflow: hidden;
+      clip-path: polygon(16px 0%, 100% 0%, 100% 100%, 0% 100%);
+      opacity: 0;
+      animation: fadeUp 1.1s 0.5s ease forwards;
+    }
+
+    /* fondu noir sur le bord gauche + droite + assombrissement bas */
+    .hero-banner-wrap::before {
+      content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(184,152,58,0.04) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(155,35,53,0.03) 0%, transparent 50%);
+        linear-gradient(to right,  var(--black) 0%, rgba(8,8,8,0.85) 8%,  transparent 18%),
+        linear-gradient(to left,   var(--black) 0%, rgba(8,8,8,0.75) 6%,  transparent 16%),
+        linear-gradient(to top,    rgba(8,8,8,0.9) 0%, transparent 20%),
+        linear-gradient(to bottom, rgba(8,8,8,0.8) 0%, transparent 14%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      filter: brightness(0.82) contrast(1.10) saturate(0.85);
+      transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.6s ease;
+      will-change: transform;
+    }
+
+    .hero-banner-wrap:hover .hero-banner-img {
+      transform: scale(1.04);
+      filter: brightness(0.90) contrast(1.06) saturate(0.92);
     }
 
     .hero-line {
       position: absolute;
-      left: 48px;
-      top: 68px;
-      bottom: 80px;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 48px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s ease forwards;
+    }
+
+    .hero-line span {
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      writing-mode: vertical-rl;
+      animation: scrollGlow 3s ease-in-out 2.2s infinite;
+    }
+
+    .hero-line-bar {
       width: 1px;
-      background: linear-gradient(to bottom, transparent, var(--smoke) 20%, var(--smoke) 80%, transparent);
+      height: 60px;
+      background: linear-gradient(to bottom, var(--silver), transparent);
+      animation: scrollDrop 3s ease-in-out 2.2s infinite;
+    }
+
+    .hero-line-bar--top {
+      background: linear-gradient(to top, var(--silver), transparent);
+      animation: scrollRise 3s ease-in-out 2.2s infinite;
     }
 
     .hero-content {
       position: relative;
       z-index: 3;
-      max-width: 1100px;
-      padding-left: 80px;
+      padding-left: 8px;
     }
 
     .hero-label {
@@ -281,34 +366,7 @@
       margin-top: 4px;
     }
 
-    .hero-scroll {
-      position: absolute;
-      bottom: 90px;
-      right: 48px;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      opacity: 0;
-      animation: fadeIn 1s 1.2s ease forwards;
-    }
 
-    .hero-scroll span {
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--silver);
-      writing-mode: vertical-rl;
-      animation: scrollGlow 3s ease-in-out 2.2s infinite;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, var(--silver), transparent);
-      animation: scrollDrop 3s ease-in-out 2.2s infinite;
-    }
 
     /* ─── SECTION COMMONS ────────────────────────────────── */
     section {
@@ -604,6 +662,20 @@
       overflow: hidden;
     }
 
+    /* gradient à la manière de la bannière hero */
+    .cv-frame-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  rgba(8,8,8,0.35) 0%, transparent 10%),
+        linear-gradient(to left,   rgba(8,8,8,0.30) 0%, transparent 8%),
+        linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, transparent 9%),
+        linear-gradient(to top,    rgba(8,8,8,0.35) 0%, transparent 8%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
     .cv-frame-wrap iframe {
       display: none; /* remplacé par img */
     }
@@ -839,6 +911,13 @@
       100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
     }
 
+    @keyframes scrollRise {
+      0%   { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+      30%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      70%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: top;    opacity: 0; }
+    }
+
     /* ─── SCROLL REVEAL ──────────────────────────────────── */
     .reveal {
       opacity: 0;
@@ -856,10 +935,47 @@
       nav                 { padding: 0 4px; }
       .nav-link           { padding: 20px 6px; font-size: 11px; letter-spacing: 0.2em; }
       section             { padding: 80px 24px; }
-      .hero               { padding: 68px 24px 60px; }
-      .hero-content       { padding-left: 48px; }
-      .hero-line          { left: 24px; }
+
+      /* Hero split → empilé verticalement */
+      .hero-split {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        min-height: 100vh;
+      }
+      .hero-left {
+        padding: 100px 24px 52px 48px;
+        order: 1;
+      }
+      .hero-right {
+        order: 2;
+        min-height: 46vw;
+        max-height: 340px;
+        height: 46vw;
+        margin-top: 8px;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+      .hero-banner-wrap {
+        clip-path: none;
+        position: relative;
+        inset: unset;
+        width: 100%;
+        height: 100%;
+      }
+      .hero-banner-wrap::after { display: none; }
+      .hero-banner-wrap::before {
+        background:
+          linear-gradient(to right,  var(--black) 0%, rgba(8,8,8,0.5) 10%, transparent 28%),
+          linear-gradient(to left,   var(--black) 0%, rgba(8,8,8,0.5) 10%, transparent 28%),
+          linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, transparent 30%),
+          linear-gradient(to top,    rgba(8,8,8,0.65) 0%, transparent 35%);
+      }
+      .hero-banner-img {
+        object-position: center 25%;
+      }
+      .hero-line          { width: 40px; }
       .hero-awards        { flex-direction: column; gap: 16px; }
+      .hero-content       { padding-left: 8px; }
       .reels-grid         { grid-template-columns: 1fr; row-gap: 48px; width: 80%; margin: 0 auto; }
       .reel-card.featured { grid-column: 1; }
       .cv-layout          { grid-template-columns: 1fr; gap: 48px; }
@@ -870,7 +986,10 @@
 
     @media (max-width: 600px) {
       .nav-link           { padding: 18px 4px; font-size: 10px; letter-spacing: 0.1em; }
-      .hero-content       { padding-left: 24px; }
+      .hero-line          { display: none; }
+      .hero-content       { padding-left: 0; }
+      .hero-left          { padding: 90px 16px 44px 24px; }
+      .hero-right         { min-height: 52vw; max-height: 260px; height: 52vw; margin-top: 4px; }
       .cv-stats           { grid-template-columns: 1fr 1fr; }
       .btn-linkedin       { width: 100%; max-width: 360px; justify-content: center; }
       .btn-email,
@@ -897,36 +1016,56 @@
 
 <!-- ─── HERO ─────────────────────────────────────────────── -->
 <section class="hero" id="top">
-  <div class="hero-bg"></div>
-  <div class="hero-line"></div>
 
-  <div class="hero-content">
-    <p class="hero-label">
-      CG Animation &nbsp;·&nbsp; Layout &nbsp;·&nbsp; Previs
-      <span class="hero-label-location" style="display:block; margin-top:6px;">Paris / Remote</span>
-    </p>
-    <h1 class="hero-name">Ganaël<br><em>Chevallier</em></h1>
-    <p class="hero-title">
-      <span class="hero-title-line"><strong>18 ans d'expérience</strong></span>
-      <span class="hero-title-line">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
-      <em class="hero-studios">BUF &nbsp;·&nbsp; Eddy &nbsp;·&nbsp; The Mill &nbsp;·&nbsp; Mikros &nbsp;·&nbsp; MPC &nbsp;·&nbsp; Fortiche........</em>
-    </p>
-    <div class="hero-awards">
-      <div class="award-badge">
-        <span class="award-name">🏆 Genie Award</span>
-        <span class="award-desc">Outstanding Achievement</span>
+  <div class="hero-split">
+
+    <!-- ─ gauche : texte ─ -->
+    <div class="hero-left">
+      <div class="hero-line">
+        <div class="hero-line-bar hero-line-bar--top"></div>
+        <span>Scroll</span>
+        <div class="hero-line-bar"></div>
       </div>
-      <div class="award-badge">
-        <span class="award-name">🏆 Thea Award</span>
-        <span class="award-desc">Outstanding Achievement</span>
+      <div class="hero-content">
+        <p class="hero-label">
+          CG Animation &nbsp;·&nbsp; Layout &nbsp;·&nbsp; Previs
+          <span class="hero-label-location" style="display:block; margin-top:6px;">Paris / Remote</span>
+        </p>
+        <h1 class="hero-name">Ganaël<br><em>Chevallier</em></h1>
+        <p class="hero-title">
+          <span class="hero-title-line"><strong>18 ans d'expérience</strong></span>
+          <span class="hero-title-line">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
+          <em class="hero-studios">BUF &nbsp;·&nbsp; Eddy &nbsp;·&nbsp; The Mill &nbsp;·&nbsp; Mikros &nbsp;·&nbsp; MPC &nbsp;·&nbsp; Fortiche........</em>
+        </p>
+        <div class="hero-awards">
+          <div class="award-badge">
+            <span class="award-name">🏆 Genie Award</span>
+            <span class="award-desc">Outstanding Achievement</span>
+          </div>
+          <div class="award-badge">
+            <span class="award-name">🏆 Thea Award</span>
+            <span class="award-desc">Outstanding Achievement</span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
+    <!-- ─ droite : bannière ─ -->
+    <div class="hero-right">
+      <div class="hero-banner-wrap">
+        <img
+          src="Portfolio_Banniere_02.jpg"
+          alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
+          class="hero-banner-img"
+          loading="eager"
+          decoding="async"
+        >
+      </div>
+    </div>
+
+  </div><!-- /.hero-split -->
+
+
 </section>
 
 <main>
