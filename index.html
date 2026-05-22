@@ -35,7 +35,6 @@
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Île-de-France",
-      "postalCode": "78800",
       "addressRegion": "Île-de-France",
       "addressCountry": "FR"
     },
@@ -76,10 +75,10 @@
 
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 68px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 68px; overflow-x: hidden; }
 
     body {
-      max-width: 1600px;
+      max-width: 1100px;
       margin: 0 auto;
       background: var(--black);
       color: var(--offwhite);
@@ -145,7 +144,7 @@
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -328,6 +327,36 @@
       font-weight: 400;
     }
 
+    /* ─── 18+ XP — traitement typographique élégant ─── */
+    .hero-exp {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .hero-exp-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .hero-exp-plus {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: var(--gold);
+      vertical-align: super;
+      line-height: 1;
+    }
+    .hero-exp-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
     .hero-studios {
       display: block;
       font-style: italic;
@@ -370,26 +399,22 @@
 
 
     /* ─── REELS — séparateur scrollable entre cards en mode wrap ─── */
-    .reel-sep {
-      display: none; /* invisible sur desktop (grid 2 colonnes) */
+    .reel-sep { display: none; }
+
+    /* ─── FOOTER DOT ─────────────────────────────────────── */
+    .footer-dot {
+      color: var(--charcoal);
+      font-size: 10px;
+      text-decoration: none;
+      transition: color 0.4s;
+      user-select: none;
+      cursor: default;
     }
-    @media (max-width: 900px) {
-      .reel-sep {
-        display: block;
-        height: 80px;              /* zone libre d'iframe, le doigt peut scroller ici */
-        position: relative;
-      }
-      /* trait doré centré dans l'espace */
-      .reel-sep::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 48px;
-        height: 1px;
-        background: var(--gold-dim);
-      }
+    .footer-dot:hover { color: var(--mist); cursor: pointer; }
+
+    /* ─── SCROLL HINT MOBILE ─────────────────────────────── */
+    .hero-scroll-hint {
+      display: none;
     }
 
     /* ─── SECTION COMMONS ────────────────────────────────── */
@@ -962,6 +987,7 @@
       .section-title      { font-size: clamp(26px, 5vw, 40px); }
 
       /* Hero split → empilé verticalement */
+      .hero               { min-height: auto; }
       .hero-split {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
@@ -1005,6 +1031,30 @@
       .reels-grid         { grid-template-columns: 1fr; row-gap: 0; width: 82%; margin: 0 auto; }
       .reel-card.featured { grid-column: 1; }
       .reel-info          { padding: 20px 20px 24px; flex-wrap: wrap; gap: 12px; }
+      .reel-sep {
+        display: block;
+        height: 80px;
+        position: relative;
+      }
+      .reel-sep::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 48px; height: 1px;
+        background: var(--gold-dim);
+      }
+
+      /* Gradient du hero::before trop prononcé sur la bannière en wrap */
+      .hero::before     { height: 40px; background: linear-gradient(to bottom, rgba(8,8,8,0.45) 0%, transparent 100%); }
+      .hero-scroll-hint {
+        display: flex;
+        justify-content: center;
+        padding: 16px 0 8px;
+        color: var(--mist);
+        opacity: 0;
+        animation: fadeIn 1s 1.5s ease forwards;
+      }
 
       /* CV */
       .cv-layout          { grid-template-columns: 1fr; gap: 36px; }
@@ -1102,17 +1152,22 @@
         </p>
         <h1 class="hero-name">Ganaël<br><em>Chevallier</em></h1>
         <p class="hero-title">
-          <span class="hero-title-line"><strong>18<sup style="font-size:7px;vertical-align:super;letter-spacing:0.1em;">+</sup> <span style="letter-spacing:0.35em;">XP</span></strong></span>
+          <span class="hero-title-line">
+            <span class="hero-exp">
+              <span class="hero-exp-num">18<span class="hero-exp-plus">+</span></span>
+              <span class="hero-exp-label">xp</span>
+            </span>
+          </span>
           <span class="hero-title-line">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
           <em class="hero-studios">BUF · Eddy · The Mill · Mikros · MPC · Fortiche........</em>
         </p>
         <div class="hero-awards">
           <div class="award-badge">
-            <span class="award-name">🏆 Genie Award</span>
+            <span class="award-name"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;"><polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8.1,10 5,7.8 1.9,10 3,6.2 0,3.8 3.8,3.8" fill="var(--gold)"/></svg>Genie Award</span>
             <span class="award-desc">Outstanding Achievement</span>
           </div>
           <div class="award-badge">
-            <span class="award-name">🏆 Thea Award</span>
+            <span class="award-name"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;"><polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8.1,10 5,7.8 1.9,10 3,6.2 0,3.8 3.8,3.8" fill="var(--gold)"/></svg>Thea Award</span>
             <span class="award-desc">Outstanding Achievement</span>
           </div>
         </div>
@@ -1123,7 +1178,7 @@
     <div class="hero-right">
       <div class="hero-banner-wrap">
         <img
-          src="Portfolio_Banniere_02.jpg"
+          src="Portfolio_Banniere.jpg"
           alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
           class="hero-banner-img"
           loading="eager"
@@ -1134,6 +1189,11 @@
 
   </div><!-- /.hero-split -->
 
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M9 3v10M5 10l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 
 </section>
 
@@ -1285,7 +1345,7 @@
     <div class="cv-frame-panel reveal">
       <p class="cv-frame-label">Aperçu du CV</p>
       <div class="cv-frame-wrap">
-        <img src="cv_preview.jpg" alt="CV Ganaël Chevallier" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="cv_preview.jpg" alt="CV Ganaël Chevallier" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
       </div>
     </div>
   </div>
@@ -1397,18 +1457,6 @@
   </p>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
-
-<style>
-  .footer-dot {
-    color: var(--charcoal);
-    font-size: 10px;
-    text-decoration: none;
-    transition: color 0.4s;
-    user-select: none;
-    cursor: default;
-  }
-  .footer-dot:hover { color: var(--mist); cursor: pointer; }
-</style>
 
 <script>
   // ─── Scroll reveal ─────────────────────────────────────────
