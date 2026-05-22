@@ -12,13 +12,12 @@
   <meta property="og:title"       content="Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation">
   <meta property="og:description" content="18 ans d'expérience en VFX et Post-Production — publicité haut de gamme, cinéma, série. Genie Award · Thea Award. Basé à Paris / Remote.">
   <meta property="og:image"       content="https://ganaelchevallier.github.io/portfolio/cv_preview.jpg">
-  <meta name="twitter:card"       content="summary_large_image">
-  <meta name="twitter:title"      content="Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation">
-  <meta name="twitter:description" content="18 ans d'expérience en VFX et Post-Production — publicité haut de gamme, cinéma, série. Genie Award · Thea Award. Basé à Paris / Remote.">
   <meta name="author"             content="Ganaël Chevallier">
   <meta name="robots"             content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="keywords"           content="Ganael Chevallier, Ganaël Chevallier, animateur 3D freelance Paris, CG animation freelance, layout 3D, prévisualisation, previs, VFX Paris, Maya animator, 3D animator Paris">
   <link rel="canonical"           href="https://ganaelchevallier.github.io/portfolio/">
+  <link rel="icon"                href="favicon.ico" type="image/x-icon">
+  <link rel="icon"                href="favicon.png" type="image/png">
   <link rel="me"                  href="https://www.linkedin.com/in/ganaelchevallier/">
 
   <!-- JSON-LD : données structurées Person + Portfolio -->
@@ -28,7 +27,7 @@
     "@type": "Person",
     "name": "Ganaël Chevallier",
     "alternateName": ["Ganael Chevallier", "Ganaël Chevallier animateur 3D", "Ganael Chevallier 3D animator"],
-    "url": "https://ganaelchevallier.github.io/portfolio",
+    "url": "https://ganaelchevallier.github.io/portfolio/",
     "image": "https://ganaelchevallier.github.io/portfolio/cv_preview.jpg",
     "jobTitle": "Animateur 3D Freelance — Layout · Prévisualisation · CG Animation",
     "description": "Animateur 3D freelance avec 18 ans d'expérience en VFX, Layout et Prévisualisation pour la publicité haut de gamme, le cinéma et la série. Genie Award · Thea Award.",
@@ -42,7 +41,7 @@
     "telephone": "+33688379771",
     "sameAs": [
       "https://www.linkedin.com/in/ganaelchevallier/",
-      "https://ganaelchevallier.github.io/portfolio"
+      "https://ganaelchevallier.github.io/portfolio/"
     ],
     "knowsAbout": ["Animation 3D", "Layout 3D", "Prévisualisation", "CG Animation", "VFX", "Maya", "3ds Max", "Blender", "Unreal Engine"],
     "award": ["Genie Award — Outstanding Achievement", "Thea Award — Outstanding Achievement"],
@@ -75,10 +74,10 @@
 
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 68px; overflow-x: hidden; }
+    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; scrollbar-gutter: stable; }
 
     body {
-      max-width: 1080px;
+      max-width: 890px;
       margin: 0 auto;
       background: var(--black);
       color: var(--offwhite);
@@ -96,8 +95,8 @@
       animation: pageFadeIn 0.35s ease both;
     }
     @keyframes pageFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     /* ─── GRAIN OVERLAY ──────────────────────────────────── */
@@ -115,16 +114,21 @@
     nav {
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 890px;
+      height: 48px;               /* hauteur fixe — empêche tout saut de la bannière */
+      z-index: 600;
       display: flex;
+      flex-wrap: nowrap;          /* interdit le wrapping des liens */
       justify-content: space-around;
       align-items: center;
       padding: 0 24px;
       background: rgba(8,8,8,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--charcoal);
+      overflow: hidden;           /* sécurité : jamais de débordement vertical */
     }
 
     .nav-link {
@@ -135,9 +139,14 @@
       text-transform: uppercase;
       color: var(--offwhite);
       text-decoration: none;
-      padding: 22px 16px;
+      padding: 0 16px;            /* padding vertical retiré — la hauteur est gérée par nav */
+      height: 100%;
+      display: flex;
+      align-items: center;
       transition: color 0.25s;
       white-space: nowrap;
+      flex-shrink: 1;             /* permet aux liens de se comprimer sans wrapping */
+      min-width: 0;
     }
 
     .nav-link:hover  { color: var(--gold-lt); }
@@ -149,30 +158,12 @@
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;  /* bannière toujours en haut, collée sous la nav */
       padding: 0;
       overflow: hidden;
     }
 
-    .hero::before,
-    .hero::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 80px;
-      z-index: 4;
-      pointer-events: none;
-    }
 
-    .hero::before {
-      top: 0;
-      background: linear-gradient(to bottom, var(--black) 0%, transparent 100%);
-    }
-    .hero::after  {
-      bottom: 0;
-      background: linear-gradient(to top, var(--black) 0%, transparent 100%);
-    }
 
     /* ─── HERO SPLIT : bannière pleine largeur en haut ─────── */
     .hero-split {
@@ -180,11 +171,17 @@
       flex-direction: column;
       position: relative;
       z-index: 3;
+      flex: 1;                      /* remplit toute la hauteur du hero */
+      min-height: 0;
     }
 
     .hero-left {
       position: relative;
       padding: 52px 48px 56px;
+      flex: 1;                      /* occupe l'espace restant sous la bannière */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;      /* centre le contenu texte dans cet espace */
     }
 
     /* ─── HERO BANNER — au-dessus du texte, pleine largeur ─── */
@@ -203,19 +200,21 @@
       overflow: hidden;
       clip-path: none;
       opacity: 0;
-      animation: fadeUp 1.1s 0.5s ease forwards;
+      animation: fadeIn 1.1s 0.5s ease forwards;
     }
 
-    /* fondu : bas vers le texte, léger vignettage gauche/droite/haut */
+
+
+    /* vignettage bas / gauche / droite / haut */
     .hero-banner-wrap::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, transparent 20%, transparent 62%, var(--black) 100%),
-        linear-gradient(to right,  rgba(8,8,8,0.4)  0%, transparent 10%),
-        linear-gradient(to left,   rgba(8,8,8,0.4)  0%, transparent 10%),
-        linear-gradient(to bottom, rgba(8,8,8,0.5)  0%, transparent 12%);
+        linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 12%),
+        linear-gradient(to top,    rgba(8,8,8,0.85) 0%, transparent 12%),
+        linear-gradient(to right,  rgba(8,8,8,0.75) 0%, transparent 4%),
+        linear-gradient(to left,   rgba(8,8,8,0.75) 0%, transparent 4%);
       z-index: 1;
       pointer-events: none;
     }
@@ -435,6 +434,9 @@
       gap: 16px;
       margin-bottom: 80px;
       text-align: center;
+      max-width: 890px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .section-title {
@@ -467,7 +469,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
-      max-width: 1000px;
+      max-width: 890px;
       margin: 0 auto;
     }
 
@@ -483,8 +485,6 @@
       border-color: var(--gold);
       transform: translateY(-4px);
     }
-
-    .reel-card.featured { grid-column: 1 / -1; }
 
     .reel-video-wrap {
       position: relative;
@@ -555,6 +555,8 @@
       grid-template-columns: 1fr 460px;
       gap: 80px;
       align-items: start;
+      max-width: 890px;
+      margin: 0 auto;
     }
 
     .cv-lead {
@@ -603,8 +605,8 @@
 
     /* ─── SKILL BADGES ───────────────────────────────────── */
     .sk-grid {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
       gap: 6px;
       margin-bottom: 32px;
       justify-content: center;
@@ -648,6 +650,7 @@
     }
 
     .sk-grid-sep {
+      grid-column: 1 / -1;
       width: 100%;
       height: 1px;
       background: var(--charcoal);
@@ -728,10 +731,6 @@
         linear-gradient(to top,    rgba(8,8,8,0.35) 0%, transparent 8%);
       z-index: 2;
       pointer-events: none;
-    }
-
-    .cv-frame-wrap iframe {
-      display: none; /* remplacé par img */
     }
 
     /* ─── RECOMMANDATIONS ────────────────────────────────── */
@@ -824,7 +823,7 @@
     }
 
     .contact-inner {
-      max-width: 700px;
+      max-width: 890px;
       margin: 0 auto;
     }
 
@@ -863,7 +862,7 @@
 
     .contact-btn-row {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 12px;
       justify-content: center;
     }
@@ -986,8 +985,8 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 900px) {
-      nav                 { padding: 0 4px; }
-      .nav-link           { padding: 18px 6px; font-size: 10px; letter-spacing: 0.18em; }
+      nav                 { padding: 0 4px; height: 48px; }
+      .nav-link           { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
       section             { padding: 64px 20px; }
       .section-title      { font-size: clamp(26px, 5vw, 40px); }
 
@@ -1032,8 +1031,11 @@
 
       /* CV */
       .cv-layout          { grid-template-columns: 1fr; gap: 36px; }
-      .cv-frame-panel     { display: none; }          /* masqué sur tablette — trop haut */
-      .cv-stats           { max-width: 100%; }
+      .cv-frame-panel     { width: 320px; justify-self: center; }
+      .cv-stats           { max-width: 100%; gap: 10px; }
+      .cv-lead            { font-size: 17px; margin-bottom: 28px; }
+      .stat-number        { font-size: 36px; }
+      .cv-download-btn    { width: 100%; max-width: 340px; padding: 14px 24px; }
 
       /* Recommandations */
       .reco-grid          { grid-template-columns: 1fr; gap: 2px; }
@@ -1049,8 +1051,8 @@
     }
 
     @media (max-width: 600px) {
-      nav                 { padding: 0 2px; }
-      .nav-link           { padding: 16px 4px; font-size: 9px; letter-spacing: 0.12em; }
+      nav                 { padding: 0 2px; height: 48px; }
+      .nav-link           { padding: 0 4px; font-size: 9px; letter-spacing: 0.12em; }
       section             { padding: 52px 16px; }
 
       /* Hero */
@@ -1074,10 +1076,7 @@
       .reel-title-text    { font-size: 18px; }
 
       /* CV */
-      .cv-lead            { font-size: 17px; margin-bottom: 28px; }
-      .cv-stats           { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .stat-number        { font-size: 36px; }
-      .cv-download-btn    { width: 100%; max-width: 340px; padding: 14px 24px; }
+      /* (réglages déjà consolidés dans le breakpoint 900px) */
 
       /* Contact */
       #contact            { padding: 60px 16px; }
@@ -1104,8 +1103,9 @@
   <a href="work.html"  class="nav-link">Work</a>
   <a href="#contact"   class="nav-link">Contact</a>
 </nav>
-<div id="page-content" style="padding-top: 64px;">
+<div id="page-content" style="padding-top: 48px;">
 
+<main>
 <!-- ─── HERO ─────────────────────────────────────────────── -->
 <section class="hero" id="top">
 
@@ -1155,7 +1155,8 @@
           alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
           class="hero-banner-img"
           loading="eager"
-          decoding="async"
+          decoding="sync"
+          fetchpriority="high"
         >
       </div>
     </div>
@@ -1170,7 +1171,6 @@
 
 </section>
 
-<main>
 <div class="divider"></div>
 
 <!-- ─── REELS ────────────────────────────────────────────── -->
@@ -1187,6 +1187,7 @@
         <iframe
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
           title="Full CG Animation Reel 2025 — Ganaël Chevallier"
+          loading="lazy"
           allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
@@ -1195,7 +1196,7 @@
           <p class="reel-category">Animation 3D · Publicité · Cinéma</p>
           <p class="reel-title-text">Full CG Animation Reel — 2025</p>
         </div>
-        <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener">
+        <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener noreferrer">
           Voir sur Videas
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1211,6 +1212,7 @@
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
           title="Full CG Layout Reel 2025 — Ganaël Chevallier"
+          loading="lazy"
           allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
@@ -1219,7 +1221,7 @@
           <p class="reel-category">Layout 3D · Prévisualisation</p>
           <p class="reel-title-text">Full CG Layout Reel — 2025</p>
         </div>
-        <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener">
+        <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener noreferrer">
           Voir sur Videas
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1365,7 +1367,7 @@
   </div>
 
   <div style="text-align: center; margin-top: 56px;" class="reveal">
-    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener" class="reco-linkedin-btn">
+    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener noreferrer" class="reco-linkedin-btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
       </svg>
@@ -1389,7 +1391,7 @@
     </p>
     <div class="contact-buttons reveal">
 
-      <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener" class="btn-linkedin">
+      <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
@@ -1425,9 +1427,6 @@
     <span class="footer-name">Ganaël Chevallier</span>
     <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
   </div>
-  <p style="font-size:9px;color:var(--black);letter-spacing:0.1em;text-align:center;margin-top:0;user-select:none;" aria-hidden="true">
-    Ganael Chevallier · Ganaël Chevallier · Animateur 3D Paris · CG Animation · Layout · Previs · Freelance VFX
-  </p>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
 
@@ -1465,7 +1464,7 @@
     { id: 'contact', link: document.querySelector('a[href="#contact"]') },
   ];
   function updateActiveLink() {
-    const scrollY = window.scrollY + 80;
+    const scrollY = window.scrollY + 64;
     let current = navSections[0];
     navSections.forEach(s => {
       const el = document.getElementById(s.id);
@@ -1477,5 +1476,7 @@
   window.addEventListener('scroll', updateActiveLink, { passive: true });
   updateActiveLink();
 </script>
+
+
 </body>
 </html>
