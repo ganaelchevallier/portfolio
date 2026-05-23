@@ -155,7 +155,7 @@
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
       position: relative;
-      min-height: 100svh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;  /* bannière toujours en haut, collée sous la nav */
@@ -186,10 +186,10 @@
 
     /* ─── HERO BANNER — au-dessus du texte, pleine largeur ─── */
     .hero-right {
-      order: -1;                          /* passe avant hero-left */
+      order: -1;
       position: relative;
       width: 100%;
-      aspect-ratio: 4 / 1;               /* respecte les proportions naturelles de l'image */
+      height: 240px;               /* hauteur fixe — plus de reflow au resize horizontal */
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -298,7 +298,7 @@
 
     .hero-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(64px, 9vw, 130px);
+      font-size: 80px;
       font-weight: 300;
       line-height: 0.92;
       letter-spacing: -0.01em;
@@ -434,14 +434,12 @@
       gap: 16px;
       margin-bottom: 80px;
       text-align: center;
-      max-width: 890px;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
     }
 
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 4vw, 52px);
+      font-size: 44px;
       font-weight: 300;
       letter-spacing: 0.02em;
       color: var(--cream);
@@ -467,9 +465,9 @@
 
     .reels-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 80px;
-      max-width: 890px;
+      width: 530px;
       margin: 0 auto;
     }
 
@@ -477,13 +475,12 @@
       background: var(--ink);
       border: 1px solid var(--charcoal);
       overflow: hidden;
-      transition: border-color 0.4s, transform 0.4s;
+      transition: border-color 0.4s;
       cursor: pointer;
     }
 
     .reel-card:hover {
       border-color: var(--gold);
-      transform: translateY(-4px);
     }
 
     .reel-video-wrap {
@@ -544,24 +541,23 @@
       border-color: var(--gold);
     }
 
-    .reel-cta svg { transition: transform 0.3s; }
-    .reel-cta:hover svg { transform: translateX(3px); }
+    .reel-cta svg { transition: none; }
+    .reel-cta:hover svg { }
 
     /* ─── CV ─────────────────────────────────────────────── */
     #cv { background: var(--black); }
 
     .cv-layout {
       display: grid;
-      grid-template-columns: 1fr 460px;
+      grid-template-columns: minmax(300px, 1fr) 460px;
       gap: 80px;
       align-items: start;
-      max-width: 890px;
-      margin: 0 auto;
+      width: 100%;
     }
 
     .cv-lead {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(20px, 2.5vw, 30px);
+      font-size: 24px;
       font-weight: 300;
       font-style: italic;
       line-height: 1.5;
@@ -573,8 +569,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
-      margin: 0 auto 36px;
-      max-width: 320px;
+      margin: 0 0 36px;
+      width: 100%;
     }
 
     .stat-item {
@@ -606,10 +602,9 @@
     /* ─── SKILL BADGES ───────────────────────────────────── */
     .sk-grid {
       display: grid;
-      grid-template-columns: repeat(3, auto);
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
       margin-bottom: 32px;
-      justify-content: center;
     }
 
     .sk-badge {
@@ -618,8 +613,8 @@
       align-items: center;
       gap: 5px;
       border: 1px solid #222;
-      padding: 7px 12px 8px;
-      min-width: 72px;
+      padding: 7px 8px 8px;
+      min-width: 0;
     }
 
     .sk-badge-name {
@@ -657,6 +652,17 @@
       margin: 4px 0;
     }
 
+    .sk-lang-row {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .sk-lang-row .sk-badge {
+      flex: 0 0 calc(33.333% - 4px);
+    }
+
     @keyframes btnGoldPulse {
       0%   { box-shadow: 0 0 0 0 rgba(212,175,80,0.6), 0 0 0 0 rgba(184,152,58,0.3); }
       50%  { box-shadow: 0 0 16px 5px rgba(212,175,80,0.3), 0 0 36px 14px rgba(184,152,58,0.12); }
@@ -682,8 +688,7 @@
       text-decoration: none;
       padding: 16px 36px;
       transition: all 0.3s;
-      width: fit-content;
-      margin: 0 auto;
+      width: 100%;
       border: 1px solid rgba(184,152,58,0.35);
       animation: btnGoldPulse 2.8s ease-in-out infinite,
                  btnBorderShimmer 2.8s ease-in-out infinite;
@@ -696,8 +701,8 @@
       box-shadow: 0 0 28px 8px rgba(184,152,58,0.35);
       border-color: var(--gold-lt);
     }
-    .cv-download-btn svg { transition: transform 0.3s; }
-    .cv-download-btn:hover svg { transform: translateY(2px); }
+    .cv-download-btn svg { }
+    .cv-download-btn:hover svg { }
 
     .cv-frame-panel { position: relative; }
 
@@ -767,7 +772,7 @@
 
     .reco-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(15px, 1.4vw, 18px);
+      font-size: 16px;
       font-weight: 300;
       font-style: italic;
       line-height: 1.7;
@@ -823,8 +828,7 @@
     }
 
     .contact-inner {
-      max-width: 890px;
-      margin: 0 auto;
+      width: 100%;
     }
 
     .contact-label {
@@ -943,8 +947,8 @@
 
     /* ─── ANIMATIONS ─────────────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
 
     @keyframes fadeIn {
@@ -974,13 +978,11 @@
     /* ─── SCROLL REVEAL ──────────────────────────────────── */
     .reveal {
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.8s ease;
     }
 
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
@@ -988,35 +990,19 @@
       nav                 { padding: 0 4px; height: 48px; }
       .nav-link           { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
       section             { padding: 64px 20px; }
-      .section-title      { font-size: clamp(26px, 5vw, 40px); }
 
       /* Hero — bannière pleine largeur en haut, texte en dessous */
       .hero               { min-height: auto; }
-      /* hero-right conserve son aspect-ratio 4/1 sur tablette */
+      .hero-right         { height: 200px; }
       .hero-left          { padding: 36px 20px 44px 32px; }
       .hero-line          { width: 40px; }
-      .hero-name          { font-size: clamp(52px, 11vw, 100px); margin-bottom: 28px; }
+      .hero-name          { font-size: 68px; margin-bottom: 28px; }
+      .section-title      { font-size: 34px; }
       .hero-awards        { flex-direction: row; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
       .hero-content       { padding-left: 8px; }
-      .hero::before       { height: 40px; }
 
       /* Reels */
-      .reels-grid         { grid-template-columns: 1fr; row-gap: 0; width: 82%; margin: 0 auto; }
-      .reel-card.featured { grid-column: 1; }
       .reel-info          { padding: 20px 20px 24px; flex-wrap: wrap; gap: 12px; }
-      .reel-sep {
-        display: block;
-        height: 80px;
-        position: relative;
-      }
-      .reel-sep::after {
-        content: '';
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 48px; height: 1px;
-        background: var(--gold-dim);
-      }
 
       /* Gradient du hero::before trop prononcé sur la bannière en wrap */
       .hero::before     { height: 40px; background: linear-gradient(to bottom, rgba(8,8,8,0.45) 0%, transparent 100%); }
@@ -1031,11 +1017,12 @@
 
       /* CV */
       .cv-layout          { grid-template-columns: 1fr; gap: 36px; }
-      .cv-frame-panel     { width: 320px; justify-self: center; }
-      .cv-stats           { max-width: 100%; gap: 10px; }
+      .cv-frame-panel     { width: 160px; justify-self: center; }
+      .cv-frame-label     { text-align: center; }
+      .cv-stats           { width: 100%; gap: 10px; }
       .cv-lead            { font-size: 17px; margin-bottom: 28px; }
       .stat-number        { font-size: 36px; }
-      .cv-download-btn    { width: 100%; max-width: 340px; padding: 14px 24px; }
+      .cv-download-btn    { width: 100%; max-width: 340px; padding: 14px 24px; margin: 0 auto; display: flex; }
 
       /* Recommandations */
       .reco-grid          { grid-template-columns: 1fr; gap: 2px; }
@@ -1056,12 +1043,12 @@
       section             { padding: 52px 16px; }
 
       /* Hero */
-      /* hero-right conserve son aspect-ratio 4/1 sur mobile */
+      .hero-right         { height: 160px; }
       .hero-line          { display: none; }
       .hero-content       { padding-left: 0; }
       .hero-left          { padding: 28px 16px 36px 16px; }
       .hero-label         { font-size: 8px; letter-spacing: 0.12em; margin-bottom: 20px; }
-      .hero-name          { font-size: clamp(44px, 13vw, 72px); margin-bottom: 20px; }
+      .hero-name          { font-size: 50px; margin-bottom: 20px; }
       .hero-title-line    { font-size: 9px; letter-spacing: 0.08em; }
       .hero-studios       { font-size: 8.5px; letter-spacing: 0.02em; }
       .hero-awards        { margin-top: 24px; gap: 12px; }
@@ -1070,8 +1057,8 @@
       .award-badge .award-desc { font-size: 8px; }
 
       /* Reels */
-      .reels-grid         { width: 84%; row-gap: 0; }
-      .reels-grid .reel-card + .reel-card { margin-top: 32px; }
+      .reels-grid         { width: 100%; gap: 80px; }
+      .reels-grid .reel-card + .reel-card { margin-top: 0; }
       .reel-info          { padding: 14px 16px; }
       .reel-title-text    { font-size: 18px; }
 
@@ -1295,17 +1282,19 @@
           </span>
         </div>
         <div class="sk-grid-sep"></div>
-        <div class="sk-badge">
-          <span class="sk-badge-name">Français</span>
-          <span class="sk-badge-dots">
-            <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span>
-          </span>
-        </div>
-        <div class="sk-badge">
-          <span class="sk-badge-name">English</span>
-          <span class="sk-badge-dots">
-            <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang"></span>
-          </span>
+        <div class="sk-lang-row">
+          <div class="sk-badge">
+            <span class="sk-badge-name">Français</span>
+            <span class="sk-badge-dots">
+              <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span>
+            </span>
+          </div>
+          <div class="sk-badge">
+            <span class="sk-badge-name">English</span>
+            <span class="sk-badge-dots">
+              <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang"></span>
+            </span>
+          </div>
         </div>
       </div>
 
