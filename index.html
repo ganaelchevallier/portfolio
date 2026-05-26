@@ -4,21 +4,28 @@
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="sF1yZobpNqqI_gpWekF0EJlPcpZL8eCF3TGdYThRdz8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ganaël Chevallier — Animateur 3D freelance spécialisé en CG Animation, Layout et Prévisualisation. 18 ans d'expérience en publicité et cinéma. Basé à Paris / Remote. Genie Award · Thea Award.">
+  <meta name="description" content="Ganaël Chevallier — Animateur 3D spécialisé en CG Animation, Layout et Prévisualisation. 18 ans d'expérience en publicité et cinéma. Basé à Paris / Remote. Genie Award · Thea Award.">
   <title>Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation</title>
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://ganaelchevallier.github.io/portfolio/">
   <meta property="og:title"       content="Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation">
-  <meta property="og:description" content="Animation 3D - Layout - Previs">
+  <meta property="og:description" content="Ganaël Chevallier — Animateur 3D spécialisé en CG Animation, Layout et Prévisualisation. 18 ans d'expérience en publicité et cinéma. Basé à Paris / Remote. Genie Award · Thea Award.">
   <meta property="og:image"       content="https://ganaelchevallier.github.io/portfolio/cv_preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="author"             content="Ganaël Chevallier">
   <meta name="robots"             content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta name="keywords"           content="Ganael Chevallier, Ganaël Chevallier, animateur 3D freelance Paris, CG animation freelance, layout 3D, prévisualisation, previs, VFX Paris, Maya animator, 3D animator Paris">
+  <meta name="keywords"           content="Ganael Chevallier, Ganaël Chevallier, animateur 3D Paris, CG animation Paris, layout 3D, prévisualisation, previs, VFX Paris, Maya animator, 3D animator Paris">
   <link rel="canonical"           href="https://ganaelchevallier.github.io/portfolio/">
   <link rel="icon"                href="favicon.ico" type="image/x-icon">
   <link rel="icon"                href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon"    href="apple-touch-icon.png" sizes="180x180">
   <link rel="me"                  href="https://www.linkedin.com/in/ganaelchevallier/">
+  <!-- Performance : preload image LCP -->
+  <link rel="preload" as="image"  href="Banniere.jpg" fetchpriority="high">
+  <!-- Mobile : couleur de la barre de statut -->
+  <meta name="theme-color"        content="#080808">
 
   <!-- JSON-LD : données structurées Person + Portfolio -->
   <script type="application/ld+json">
@@ -29,8 +36,8 @@
     "alternateName": ["Ganael Chevallier", "Ganaël Chevallier animateur 3D", "Ganael Chevallier 3D animator"],
     "url": "https://ganaelchevallier.github.io/portfolio/",
     "image": "https://ganaelchevallier.github.io/portfolio/cv_preview.jpg",
-    "jobTitle": "Animateur 3D Freelance — Layout · Prévisualisation · CG Animation",
-    "description": "Animateur 3D freelance avec 18 ans d'expérience en VFX, Layout et Prévisualisation pour la publicité haut de gamme, le cinéma et la série. Genie Award · Thea Award.",
+    "jobTitle": "Animateur 3D — Layout · Prévisualisation · CG Animation",
+    "description": "Animateur 3D avec 18 ans d'expérience en VFX, Layout et Prévisualisation pour la publicité haut de gamme, le cinéma et la série. Genie Award · Thea Award.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Île-de-France",
@@ -44,11 +51,7 @@
       "https://ganaelchevallier.github.io/portfolio/"
     ],
     "knowsAbout": ["Animation 3D", "Layout 3D", "Prévisualisation", "CG Animation", "VFX", "Maya", "3ds Max", "Blender", "Unreal Engine"],
-    "award": ["Genie Award — Outstanding Achievement", "Thea Award — Outstanding Achievement"],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Freelance"
-    }
+    "award": ["Genie Award — Outstanding Achievement", "Thea Award — Outstanding Achievement"]
   }
   </script>
 
@@ -63,7 +66,7 @@
       --ink:      #111111;
       --charcoal: #1C1C1C;
       --smoke:    #2E2E2E;
-      --mist:     #5A5A5A;
+      --mist:     #717171;
       --silver:   #9A9A9A;
       --offwhite: #E8E4DC;
       --cream:    #F5F0E8;
@@ -74,7 +77,7 @@
 
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; scrollbar-gutter: stable; }
+    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
 
     body {
       max-width: 890px;
@@ -224,12 +227,12 @@
       filter: brightness(0.82) contrast(1.10) saturate(0.85);
       transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                   filter 0.6s ease;
-      will-change: transform;
     }
 
     .hero-banner-wrap:hover .hero-banner-img {
       transform: scale(1.04);
       filter: brightness(0.90) contrast(1.06) saturate(0.92);
+      will-change: transform;
     }
 
     .hero-line {
@@ -537,9 +540,6 @@
       border-color: var(--gold);
     }
 
-    .reel-cta svg { transition: none; }
-    .reel-cta:hover svg { }
-
     /* ─── CV ─────────────────────────────────────────────── */
     #cv { background: var(--black); }
 
@@ -608,13 +608,13 @@
       flex-direction: column;
       align-items: center;
       gap: 5px;
-      border: 1px solid #222;
+      border: 1px solid var(--charcoal);
       padding: 7px 8px 8px;
       min-width: 0;
     }
 
     .sk-badge-name {
-      font-size: 7px;
+      font-size: 8px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--offwhite);
@@ -627,7 +627,7 @@
       width: 10px;
       height: 2px;
       border-radius: 1px;
-      background: #2a2a2a;
+      background: var(--smoke);
     }
 
     .sk-badge-dot.on {
@@ -697,8 +697,6 @@
       box-shadow: 0 0 28px 8px rgba(184,152,58,0.35);
       border-color: var(--gold-lt);
     }
-    .cv-download-btn svg { }
-    .cv-download-btn:hover svg { }
 
     .cv-frame-panel { position: relative; }
 
@@ -943,8 +941,8 @@
 
     /* ─── ANIMATIONS ─────────────────────────────────────── */
     @keyframes fadeUp {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeIn {
@@ -958,17 +956,21 @@
     }
 
     @keyframes scrollDrop {
-      0%   { transform: scaleY(0); transform-origin: top;    opacity: 0; }
-      30%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
-      70%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+      0%   { clip-path: inset(0 0 100% 0); opacity: 0; }
+      15%  { opacity: 1; }
+      30%  { clip-path: inset(0 0 0% 0); }
+      70%  { clip-path: inset(0 0 0% 0); }
+      85%  { opacity: 1; }
+      100% { clip-path: inset(100% 0 0 0); opacity: 0; }
     }
 
     @keyframes scrollRise {
-      0%   { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-      30%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-      70%  { transform: scaleY(1); transform-origin: top;    opacity: 1; }
-      100% { transform: scaleY(0); transform-origin: top;    opacity: 0; }
+      0%   { clip-path: inset(100% 0 0 0); opacity: 0; }
+      15%  { opacity: 1; }
+      30%  { clip-path: inset(0 0 0% 0); }
+      70%  { clip-path: inset(0 0 0% 0); }
+      85%  { opacity: 1; }
+      100% { clip-path: inset(0 0 100% 0); opacity: 0; }
     }
 
     /* ─── SCROLL REVEAL ──────────────────────────────────── */
@@ -979,6 +981,31 @@
 
     .reveal.visible {
       opacity: 1;
+    }
+
+    /* ─── ACCESSIBILITÉ : respecte "Réduire les animations" ─ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      /* Les éléments à opacity:0 doivent devenir visibles immédiatement */
+      .hero-banner-wrap,
+      .hero-line,
+      .hero-label,
+      .hero-name,
+      .hero-title,
+      .hero-awards,
+      .hero-scroll-hint,
+      #page-content {
+        opacity: 1 !important;
+        animation: none !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transition: none !important;
+      }
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
@@ -992,8 +1019,6 @@
       /* Reels */
       .reel-info          { padding: 20px 20px 24px; flex-wrap: wrap; gap: 12px; }
 
-      /* Gradient du hero::before trop prononcé sur la bannière en wrap */
-      .hero::before     { height: 40px; background: linear-gradient(to bottom, rgba(8,8,8,0.45) 0%, transparent 100%); }
       .hero-scroll-hint {
         display: flex;
         justify-content: center;
@@ -1061,9 +1086,18 @@
     }
   </style>
   <script src="tracker.js" defer></script>
+  <!-- Accessibilité : contenu visible si JS désactivé -->
+  <noscript><style>.reveal { opacity: 1; }</style></noscript>
 </head>
 
 <body>
+
+<!-- ─── SVG SPRITE ──────────────────────────────────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-linkedin" viewBox="0 0 24 24">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+</svg>
 
 <!-- ─── NAV ──────────────────────────────────────────────── -->
 <nav>
@@ -1124,8 +1158,9 @@
           src="Banniere.jpg"
           alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
           class="hero-banner-img"
+          width="890"
+          height="500"
           loading="eager"
-          decoding="sync"
           fetchpriority="high"
         >
       </div>
@@ -1158,7 +1193,8 @@
           src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
           title="Full CG Animation Reel 2025 — Ganaël Chevallier"
           loading="lazy"
-          allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
+          sandbox="allow-scripts allow-same-origin allow-presentation allow-popups">
         </iframe>
       </div>
       <div class="reel-info">
@@ -1175,15 +1211,14 @@
       </div>
     </div>
 
-    <div class="reel-sep" aria-hidden="true"></div>
-
     <div class="reel-card reveal">
       <div class="reel-video-wrap">
         <iframe
           src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
           title="Full CG Layout Reel 2025 — Ganaël Chevallier"
           loading="lazy"
-          allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
+          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
+          sandbox="allow-scripts allow-same-origin allow-presentation allow-popups">
         </iframe>
       </div>
       <div class="reel-info">
@@ -1292,7 +1327,7 @@
     <div class="cv-frame-panel reveal">
       <p class="cv-frame-label">Aperçu du CV</p>
       <div class="cv-frame-wrap">
-        <img src="cv_preview.jpg" alt="CV Ganaël Chevallier" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="cv_preview.jpg" alt="CV Ganaël Chevallier" width="460" height="651" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
       </div>
     </div>
   </div>
@@ -1340,9 +1375,7 @@
 
   <div style="text-align: center; margin-top: 56px;" class="reveal">
     <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener noreferrer" class="reco-linkedin-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
+      <svg width="14" height="14" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
       Voir toutes les recommandations sur LinkedIn
     </a>
   </div>
@@ -1364,9 +1397,7 @@
     <div class="contact-buttons reveal">
 
       <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="noopener noreferrer" class="btn-linkedin">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
+        <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
         LinkedIn
       </a>
 
@@ -1409,11 +1440,7 @@
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
 
-</div>
-
-<script>
   // ─── Fade-out du contenu (pas de la nav) au clic ──────────
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -1422,9 +1449,8 @@
       if (!href || href.startsWith('#')) return;
       e.preventDefault();
       const content = document.getElementById('page-content');
-      content.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      content.style.transition = 'opacity 0.25s ease';
       content.style.opacity = '0';
-      content.style.transform = 'translateY(6px)';
       setTimeout(() => { window.location.href = href; }, 250);
     });
   });
@@ -1449,6 +1475,7 @@
   updateActiveLink();
 </script>
 
+</div><!-- /#page-content -->
 
 </body>
 </html>
