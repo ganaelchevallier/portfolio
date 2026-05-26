@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projets d'animation 3D, layout et prévisualisation de Ganaël Chevallier — publicité haut de gamme, cinéma, série. Animateur 3D freelance basé à Paris.">
+  <title>Work & Projets — Ganaël Chevallier · Animateur 3D Freelance Paris</title>
+  <meta name="author"   content="Ganaël Chevallier">
+  <meta name="robots"   content="index, follow">
+  <meta name="keywords" content="projets animation 3D, portfolio animateur freelance Paris, layout cinéma publicité, CG animation reel, prévisualisation VFX">
+  <link rel="canonical" href="https://ganaelchevallier.github.io/portfolio/work.html">
+  <link rel="icon"             href="favicon.ico" type="image/x-icon">
+  <link rel="icon"             href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <link rel="me"               href="https://www.linkedin.com/in/ganaelchevallier/">
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ganaelchevallier.github.io/portfolio/work.html">
+  <meta property="og:title"       content="Work — Ganaël Chevallier · Animateur 3D Freelance">
+  <meta property="og:description" content="Portfolio de projets 3D : publicité haut de gamme, cinéma et série. 18 ans d'expérience VFX à Paris.">
+  <meta property="og:image"       content="https://ganaelchevallier.github.io/portfolio/cv_preview.jpg">
+  <meta name="twitter:card"       content="summary_large_image">
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Work — Portfolio Ganaël Chevallier",
+    "url": "https://ganaelchevallier.github.io/portfolio/work.html",
+    "author": {
+      "@type": "Person",
+      "name": "Ganaël Chevallier",
+      "url": "https://ganaelchevallier.github.io/portfolio",
+      "jobTitle": "Animateur 3D Freelance"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── VARIABLES ──────────────────────────────────────── */
+    :root {
+      --black:    #080808;
+      --ink:      #111111;
+      --charcoal: #1C1C1C;
+      --smoke:    #2E2E2E;
+      --silver:   #9A9A9A;
+      --offwhite: #E8E4DC;
+      --cream:    #F5F0E8;
+      --gold:     #B8983A;
+      --gold-lt:  #D4AF50;
+      --mist:     #717171;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* ─── GRAIN OVERLAY ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.35;
+    }
+
+    /* ─── PAGE TRANSITION ────────────────────────────────────── */
+    #page-content { animation: pageFadeIn 0.35s ease both; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ─── WRAPPER ────────────────────────────────────────── */
+    .site-wrap {
+      max-width: 1600px;
+      margin: 0 auto;
+      background: var(--black);
+      min-height: 100vh;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; scrollbar-gutter: stable; }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 890px;
+      height: 48px;
+      z-index: 600;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 24px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--charcoal);
+      overflow: hidden;
+    }
+
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transition: color 0.25s;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .nav-link:hover  { color: var(--gold-lt); }
+    .nav-link.active { color: var(--gold); }
+
+    /* ─── PAGE HEADER ────────────────────────────────────── */
+    .page-header {
+      padding: 80px 0 60px;
+      background: var(--black);
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: 0.01em;
+      max-width: 890px;
+      margin: 0 auto;
+      text-align: left;
+      padding: 0 24px;
+    }
+
+    /* ─── VIDEO GRID ─────────────────────────────────────── */
+    .videos-section {
+      padding: 1px;
+      background: var(--black);
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--black);
+      max-width: 890px;
+      margin: 0 auto;
+    }
+
+    /* ─── CARD ───────────────────────────────────────────── */
+    .video-card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .thumb-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .thumb-wrap img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.5s ease, filter 0.4s, opacity 0.3s;
+      filter: brightness(0.88) saturate(0.85);
+    }
+
+    .video-card:hover .thumb-wrap img {
+      transform: scale(1.05);
+      filter: brightness(0.45) saturate(0.6);
+    }
+
+    .video-card.playing .thumb-wrap img { opacity: 0; pointer-events: none; }
+
+    /* ─── PLAY OVERLAY ───────────────────────────────────── */
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 2;
+    }
+
+    .video-card:hover .play-overlay { opacity: 1; }
+    .video-card.playing .play-overlay { display: none; }
+
+    .play-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: rgba(8,8,8,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .video-card:hover .play-btn {
+      transform: scale(1.1);
+      background: rgba(184,152,58,0.2);
+    }
+
+    .play-btn svg { margin-left: 3px; }
+
+    /* ─── IFRAME WRAP ────────────────────────────────────── */
+    .iframe-wrap {
+      position: absolute;
+      inset: 0;
+      display: none;
+      z-index: 1;
+    }
+
+    .video-card.playing .iframe-wrap { display: block; }
+
+    .iframe-wrap > div,
+    .iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ─── CARD CONTROLS ──────────────────────────────────── */
+    .card-controls {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .video-card.playing .card-controls.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Lecture → Pause visible, Play caché */
+    .card-controls .ctrl-play  { display: none; }
+    .card-controls .ctrl-pause { display: flex; }
+    /* Pause → Play visible, Pause caché */
+    .card-controls.paused .ctrl-pause { display: none; }
+    .card-controls.paused .ctrl-play  { display: flex; }
+
+    /* Capte les mouvements souris par-dessus l'iframe */
+    .mouse-catcher {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      cursor: default;
+    }
+    .video-card.playing .mouse-catcher { display: block; }
+
+    .ctrl-btn {
+      width: 66px;
+      height: 66px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: rgba(8,8,8,0.7);
+      color: var(--offwhite);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, background 0.2s;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .ctrl-btn:hover {
+      transform: scale(1.1);
+      background: rgba(184,152,58,0.2);
+    }
+
+    .ctrl-btn svg { display: block; }
+
+    /* ─── GOLD BOTTOM LINE ON HOVER ──────────────────────── */
+    .video-card:not(.playing)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: 3;
+    }
+
+    .video-card:not(.playing):hover::after { transform: scaleX(1); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1100px) { .videos-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 900px)  {
+      nav       { padding: 0 4px; height: 48px; }
+      .nav-link { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px)  {
+      nav       { padding: 0 2px; height: 48px; }
+      .nav-link { padding: 0 4px; font-size: 9px;  letter-spacing: 0.12em; }
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+  <script src="tracker.js" defer></script>
+</head>
+
+<body>
+<div class="site-wrap">
+
+  <!-- ─── NAV ────────────────────────────────────────────── -->
+<nav>
+  <a href="index.html"         class="nav-link">Home</a>
+  <a href="index.html#reels"   class="nav-link">Reels</a>
+  <a href="Experience.html"    class="nav-link">CV</a>
+  <a href="work.html"          class="nav-link active">Work</a>
+  <a href="index.html#contact" class="nav-link">Contact</a>
+</nav>
+
+<div id="page-content">
+
+  <!-- ─── PAGE HEADER ─────────────────────────────────────── -->
+  <div class="page-header">
+    <h1 class="page-title">Work</h1>
+  </div>
+
+  <!-- ─── VIDEO GRID ──────────────────────────────────────── -->
+  <section class="videos-section">
+    <div class="videos-grid" id="grid"></div>
+  </section>
+
+<!-- AJOUTER DES VIDÉOS : ajouter l'ID YouTube dans le tableau V[] -->
+<script>
+  // ─── Chargement API YouTube IFrame ──────────────────────────
+  (function () {
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  })();
+
+  var ytReady = false;
+  var ytQueue = [];
+  window.onYouTubeIframeAPIReady = function () {
+    ytReady = true;
+    ytQueue.forEach(fn => fn());
+    ytQueue = [];
+  };
+
+  // ─── Données ────────────────────────────────────────────────
+  const V = [
+    // ── 2025 ──────────────────────────────────────────────────────
+    'U8gAgfimpzE',  // 2025/11 · Teamfight Tactics | Champion Highlight Trailer
+    '0UUYO-kGprA',  // 2025/07 · Peugeot E-208 | Le fun monte à bord
+    'sXJYNb4irSc',  // 2025/05 · PARANORMAN | The Thrifting' Official Trailer
+    'n6iY-0KgHnk',  // 2025/03 · Valorant | Masters Toronto Cinematic
+    'YJ4_BKp_GBI',  // 2025/03 · Paco Rabanne | Invictus Victory Absolu
+    // ── 2024 ──────────────────────────────────────────────────────
+    'S0OO6ZAkE3c',  // 2024/09 · Champions Tactics | Launch Trailer
+    'MTVcT53FWSQ',  // 2024/07 · COLD STORAGE | Bande-annonce
+    'y64fItPkKVs',  // 2024/06 · Michelin | sur la route et au-delà !
+    'ccqn7r9WUHI',  // 2024/05 · Porsche | Dua Lipa for The all-electric Macan
+    'LDFkx2SxdOo',  // 2024/03 · Côte d'Or | Force de Caractère
+    'R59xb9vDDfE',  // 2024/02 · Anthony Joshua vs Francis Ngannou
+    // ── 2023 ──────────────────────────────────────────────────────
+    'maOO8oj3zsU',  // 2023/08 · Free Fire | Rampage: Finale
+    'K9kT526MfxA',  // 2023/06 · Renault | Rafale
+    'N7ey_DhYhZA',  // 2023/04 · VOLEUSES | Bande-annonce
+    'xObjnjwvHMU',  // 2023/03 · TOTO sport Kantine
+    'ZzIuV0d-cog',  // 2023/02 · Futuroscope | Chasseurs de Tornades
+    'TEaUIOQKAZw',  // 2023/01 · Phytovex
+    // ── 2022 ──────────────────────────────────────────────────────
+    'Vh59SXy17Rw',  // 2022/05 · Duracell Optimum | Power Bunny 2022
+    '-aEYoGF9uOE',  // 2022/04 · Castorama | Changer nous fait avancer
+    'eVDzNeL5ztM',  // 2022/03 · Feu Vert | fête ses 50 ans
+    'XKWcAsT8Sqc',  // 2022/02 · Kanye West | Heaven and Hell
+    'IGFL5cHcpbo',  // 2022/01 · Samsung Exynos | Playtime is over
+    // ── 2021 ──────────────────────────────────────────────────────
+    'IDW0PBLf9JQ',  // 2021/12 · Duracell Optimum | Schroevendraaier 15s
+    'GZIQwOUTny4',  // 2021/11 · Duracell Optimum | Krachtige Bunny 15s
+    'dJWGrzuDSFc',  // 2021/11 · Grey Goose | Summer Smooth
+    'exV1GCDvxQ4',  // 2021/10 · Qatar | Experience a World Beyond
+    'PH68kWX7hLk',  // 2021/09 · MINCE ALORS 2 | Bande Annonce
+    'TU-9_6l1xkM',  // 2021/08 · Prada | Luna Rossa Ocean
+    'EBJtqnKy1Ls',  // 2021/05 · ROBUSTE | Bande Annonce
+    'YXAes9ii0Aw',  // 2021/02 · Societe Generale | stands by its 175,000 business clients
+    // ── 2020 ──────────────────────────────────────────────────────
+    'oApORBhyiWs',  // 2020/12 · Issey Miyake IGO
+    '6tCWBlSttVw',  // 2020/07 · Vittel | Source naturelle de vitalité
+    'JJR13qs6aHY',  // 2020/06 · Futuroscope | Objectif Mars
+    'B94mNfn6IUs',  // 2020/03 · INTO THE NIGHT | Bande Annonce
+    'P9nBzYbZ4uM',  // 2020/01 · Diesel SS20 | For Successful Living
+    // ── 2019 ──────────────────────────────────────────────────────
+    'mWl33-IdOng',  // 2019/11 · Dick's Sporting | The New Kid
+    'ueaB_d-sZ7U',  // 2019/08 · Samsung | EcoBubble™ Washing Machine
+    'T_cYVJIKCuY',  // 2019/06 · ANNA | Bande-annonce
+    // ── 2018 ──────────────────────────────────────────────────────
+    '_m3PIkZW6o8',  // 2018/09 · Huawei | It's in your hands
+    'tSbDO9TVeTg',  // 2018/03 · SPYCIES | Bande Annonce
+    // ── 2017 ──────────────────────────────────────────────────────
+    'lLmNL1I_QYU',  // 2017/11 · SEVEN & ME | Opening
+    'w5EHhBd0v3E',  // 2017/06 · PEUGEOT 208 - Connected Energy
+    'wj257x8ntBo',  // 2017/06 · Duracell | Cars 3
+    '-fycN9kNaXk',  // 2017/01 · LE SENS DE LA FETE | Bande-Annonce
+    // ── 2016 ──────────────────────────────────────────────────────
+    'Lg5KWEYs0YM',  // 2016/11 · Duracell | Waiting for Olaf
+    'Goy8YMc3KHg',  // 2016/08 · L'ODYSSÉE | Bande-annonce
+    '01xifSkTvAg',  // 2016/07 · Cruzcampo CruZial 2016 | La nueva cerveza de Cruzcampo
+    'MrSy_aazUOQ',  // 2016/06 · Peugeot 2008 | STORM
+    't8sFlno9Fs0',  // 2016/06 · Agents of Mayhem | Trailer
+    // ── 2015 ──────────────────────────────────────────────────────
+    '5dvIuXj4Gm4',  // 2015/09 · Wildstar | Trailer
+    '9z9Z1cg58no',  // 2015/03 · SFR Red fibre | Lag
+    '3vXWllzZOJA',  // 2015/02 · BALLERINA | Bande Annonce
+    // ── 2014 ──────────────────────────────────────────────────────
+    'R8nVKUhaDXc',  // 2014/02 · CNP | Assurances
+    'l9R1vLbBiDA',  // 2014/01 · DIESEL | Only the Brave Wild
+    // ── 2013 ──────────────────────────────────────────────────────
+    'oVsJcsv2pyQ',  // 2013/12 · Bein Sports | Ident Bumpers
+    // ── 2012 ──────────────────────────────────────────────────────
+    'Ysf12mAd2e0',  // 2012/07 · Garfield & Cie - saison 4
+    'w-AStp1DEM4',  // 2012/06 · Renault | Mégane Collection 2012
+    'qYNgcgTEC7k',  // 2012/03 · Garfield Left Speechless
+    // ── 2011 ──────────────────────────────────────────────────────
+    'HxR3reSdNho',  // 2011/06 · Garfield & Cie - saison 3
+    'QDEmPpvIumU',  // 2011/04 · THE PRODIGIES | Bande Annonce
+    // ── 2010 ──────────────────────────────────────────────────────
+    'd0389lPZdGU',  // 2010/03 · ADELE BLANC-SEC | Bande Annonce
+    'mOdxATJwad0',  // 2010/02 · ARTHUR 3 - LA GUERRE DES DEUX MONDES | Bande Annonce
+    // ── 2009 ──────────────────────────────────────────────────────
+    'jgCFy7kl9T8',  // 2009/01 · ARTHUR ET LA VENGEANCE DE MALTAZARD | Bande Annonce
+    // ── 2008 ──────────────────────────────────────────────────────
+    '41EFHlCWpnk',  // 2008/06 · BABYLON A.D. | Theatrical Trailer
+    'RBkXxMhc3kk',  // 2008/04 · SPEED RACER | Bande Annonce
+    // ── 2007 ──────────────────────────────────────────────────────
+    'khf1mj9gkqk',  // 2007/11 · ASTERIX AT THE OLYMPIC GAMES | Bande Annonce
+    '6KVsyZHKtRY',  // 2007/10 · Nissan | Rogue
+  ];
+
+  // ─── Constantes ─────────────────────────────────────────────
+  const HIDE_DELAY = 600; // ms avant masquage automatique des contrôles
+  const thumb      = id => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+
+  // ─── État global ────────────────────────────────────────────
+  let activeCard = null;
+  const cardState = new WeakMap(); // { player, hideTimer }
+
+  // ─── Fermer une carte ────────────────────────────────────────
+  function closeCard(card) {
+    const s = cardState.get(card);
+    clearTimeout(s.hideTimer);
+    if (s.player) { try { s.player.destroy(); } catch (e) {} s.player = null; }
+    card.querySelector('.iframe-wrap').innerHTML    = '';
+    card.querySelector('.card-controls').classList.remove('visible', 'paused');
+    card.classList.remove('playing');
+    if (activeCard === card) activeCard = null;
+  }
+
+  // ─── Construction de la grille ──────────────────────────────
+  const grid = document.getElementById('grid');
+
+  V.forEach(id => {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+    card.innerHTML = `
+      <div class="thumb-wrap">
+        <img src="${thumb(id)}" alt="" loading="lazy" decoding="async" width="320" height="180">
+        <div class="play-overlay">
+          <div class="play-btn">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M3 2l9 5-9 5V2z" fill="var(--gold)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="iframe-wrap"></div>
+        <div class="mouse-catcher"></div>
+        <div class="card-controls">
+          <button class="ctrl-btn ctrl-play" title="Play">
+            <svg width="24" height="24" viewBox="0 0 10 10" fill="currentColor" style="margin-left:2px">
+              <path d="M2 1.5l7 3.5-7 3.5V1.5z"/>
+            </svg>
+          </button>
+          <button class="ctrl-btn ctrl-pause" title="Pause">
+            <svg width="24" height="24" viewBox="0 0 10 10" fill="currentColor">
+              <rect x="1.5" y="1.5" width="2.5" height="7" rx="0.5"/>
+              <rect x="6"   y="1.5" width="2.5" height="7" rx="0.5"/>
+            </svg>
+          </button>
+        </div>
+      </div>`;
+
+    const state     = { player: null, hideTimer: null };
+    cardState.set(card, state);
+
+    const controls  = card.querySelector('.card-controls');
+    const btnPlay   = card.querySelector('.ctrl-play');
+    const btnPause  = card.querySelector('.ctrl-pause');
+    const catcher   = card.querySelector('.mouse-catcher');
+    const iframeWrap = card.querySelector('.iframe-wrap');
+
+    const isTouch = () => window.matchMedia('(hover: none)').matches;
+
+    // ── Afficher brièvement les contrôles puis masquer ──────────
+    function showControls() {
+      controls.classList.add('visible');
+      clearTimeout(state.hideTimer);
+      state.hideTimer = setTimeout(() => controls.classList.remove('visible'), HIDE_DELAY);
+    }
+
+    // ── Mise à jour état lecture / pause + auto-masquage ────────
+    function setPlaying(playing) {
+      controls.classList.toggle('paused', !playing);
+      showControls();
+    }
+
+    // ── Démarrer la lecture ─────────────────────────────────────
+    function openCard() {
+      if (activeCard && activeCard !== card) closeCard(activeCard);
+      card.classList.add('playing');
+      activeCard = card;
+
+      const init = () => {
+        const div = document.createElement('div');
+        iframeWrap.appendChild(div);
+        state.player = new YT.Player(div, {
+          videoId: id,
+          playerVars: { autoplay: 1, rel: 0 },
+          events: {
+            onReady:       e => { e.target.playVideo(); setPlaying(true); },
+            onStateChange: e => {
+              if (e.data === YT.PlayerState.PLAYING) setPlaying(true);
+              if (e.data === YT.PlayerState.PAUSED)  setPlaying(false);
+            }
+          }
+        });
+      };
+
+      if (ytReady) init(); else ytQueue.push(init);
+    }
+
+    // ── Clic sur la vignette → démarrer ─────────────────────────
+    card.addEventListener('click', () => {
+      if (!card.classList.contains('playing')) openCard();
+    });
+
+    // ── Desktop : mouvement souris → afficher contrôles ─────────
+    catcher.addEventListener('mousemove', () => {
+      if (!isTouch()) showControls();
+    });
+
+    // ── Clic / tap sur la vidéo → basculer play / pause ─────────
+    catcher.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!state.player) return;
+      const playerState = state.player.getPlayerState();
+      if (playerState === YT.PlayerState.PLAYING) {
+        state.player.pauseVideo();
+        setPlaying(false);
+      } else {
+        state.player.playVideo();
+        setPlaying(true);
+      }
+    });
+
+    // ── Mobile : touchend → même bascule (évite le double-fire avec click) ──
+    catcher.addEventListener('touchend', e => {
+      e.preventDefault();
+      if (!state.player) return;
+      const playerState = state.player.getPlayerState();
+      if (playerState === YT.PlayerState.PLAYING) {
+        state.player.pauseVideo();
+        setPlaying(false);
+      } else {
+        state.player.playVideo();
+        setPlaying(true);
+      }
+    });
+
+    // ── Bouton Play ──────────────────────────────────────────────
+    btnPlay.addEventListener('click', e => {
+      e.stopPropagation();
+      if (state.player) state.player.playVideo();
+      setPlaying(true);
+    });
+
+    // ── Bouton Pause ─────────────────────────────────────────────
+    btnPause.addEventListener('click', e => {
+      e.stopPropagation();
+      if (state.player) state.player.pauseVideo();
+      setPlaying(false);
+    });
+
+    grid.appendChild(card);
+  });
+
+  // ─── Fade-out du contenu au clic sur un lien de nav ───────
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      e.preventDefault();
+      const content = document.getElementById('page-content');
+      content.style.transition = 'opacity 0.25s ease';
+      content.style.opacity = '0';
+      setTimeout(() => { window.location.href = href; }, 250);
+    });
+  });
+
+</script>
+
+</div><!-- /#page-content -->
+</div><!-- /.site-wrap -->
+
+</body>
+</html>
