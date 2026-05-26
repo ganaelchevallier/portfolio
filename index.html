@@ -177,11 +177,11 @@
 
     .hero-left {
       position: relative;
-      padding: 52px 48px 56px;
-      flex: 1;                      /* occupe l'espace restant sous la bannière */
+      padding: 32px clamp(16px, 5.4vw, 48px) 56px;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;      /* centre le contenu texte dans cet espace */
+      justify-content: flex-start;
     }
 
     /* ─── HERO BANNER — au-dessus du texte, pleine largeur ─── */
@@ -189,21 +189,19 @@
       order: -1;
       position: relative;
       width: 100%;
-      height: 240px;               /* hauteur fixe — plus de reflow au resize horizontal */
       overflow: hidden;
       flex-shrink: 0;
+      margin-top: 48px;             /* colle exactement sous la nav fixe */
     }
 
     .hero-banner-wrap {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      width: 100%;
       overflow: hidden;
       clip-path: none;
       opacity: 0;
       animation: fadeIn 1.1s 0.5s ease forwards;
     }
-
-
 
     /* vignettage bas / gauche / droite / haut */
     .hero-banner-wrap::before {
@@ -211,19 +209,17 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to bottom, rgba(8,8,8,0.85) 0%, transparent 12%),
-        linear-gradient(to top,    rgba(8,8,8,0.85) 0%, transparent 12%),
-        linear-gradient(to right,  rgba(8,8,8,0.75) 0%, transparent 4%),
-        linear-gradient(to left,   rgba(8,8,8,0.75) 0%, transparent 4%);
+        linear-gradient(to bottom, rgba(8,8,8,0.97) 0%, transparent 22%),
+        linear-gradient(to top,    rgba(8,8,8,0.97) 0%, transparent 22%),
+        linear-gradient(to right,  rgba(8,8,8,0.95) 0%, transparent 4%),
+        linear-gradient(to left,   rgba(8,8,8,0.95) 0%, transparent 4%);
       z-index: 1;
       pointer-events: none;
     }
 
     .hero-banner-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
+      height: auto;
       display: block;
       filter: brightness(0.82) contrast(1.10) saturate(0.85);
       transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -276,15 +272,15 @@
     .hero-content {
       position: relative;
       z-index: 3;
-      padding-left: 8px;
+      padding-left: clamp(0px, 0.9vw, 8px);
     }
 
     .hero-label {
-      font-size: 10px;
+      font-size: clamp(8px, 1.1vw, 10px);
       letter-spacing: 0.35em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 32px;
+      margin-bottom: clamp(20px, 3.6vw, 32px);
       opacity: 0;
       animation: fadeUp 0.8s 0.2s ease forwards;
     }
@@ -292,18 +288,18 @@
     .hero-label-location {
       color: var(--silver);
       letter-spacing: 0.2em;
-      font-size: 9px;
+      font-size: clamp(8px, 1vw, 9px);
       opacity: 0.7;
     }
 
     .hero-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 80px;
+      font-size: clamp(44px, 9vw, 80px);
       font-weight: 300;
       line-height: 0.92;
       letter-spacing: -0.01em;
       color: var(--cream);
-      margin-bottom: 40px;
+      margin-bottom: clamp(20px, 4.5vw, 40px);
       opacity: 0;
       animation: fadeUp 0.9s 0.4s ease forwards;
     }
@@ -315,7 +311,7 @@
     }
 
     .hero-title {
-      font-size: 11px;
+      font-size: clamp(9px, 1.2vw, 11px);
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--silver);
@@ -339,7 +335,7 @@
     }
     .hero-exp-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
+      font-size: clamp(26px, 4.3vw, 38px);
       font-weight: 300;
       color: var(--cream);
       line-height: 1;
@@ -347,14 +343,14 @@
     }
     .hero-exp-plus {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
+      font-size: clamp(13px, 2vw, 18px);
       color: var(--gold);
       vertical-align: super;
       line-height: 1;
     }
     .hero-exp-label {
       font-family: 'DM Mono', monospace;
-      font-size: 9px;
+      font-size: clamp(8px, 1vw, 9px);
       letter-spacing: 0.3em;
       color: var(--silver);
       text-transform: uppercase;
@@ -367,14 +363,14 @@
       text-transform: none;
       letter-spacing: 0.04em;
       color: var(--mist);
-      font-size: 10px;
+      font-size: clamp(8.5px, 1.1vw, 10px);
       white-space: nowrap;
     }
 
     .hero-awards {
-      margin-top: 48px;
+      margin-top: clamp(24px, 5.4vw, 48px);
       display: flex;
-      gap: 32px;
+      gap: clamp(12px, 3.6vw, 32px);
       opacity: 0;
       animation: fadeUp 0.9s 0.8s ease forwards;
     }
@@ -383,7 +379,7 @@
       display: flex;
       flex-direction: column;
       border-left: 1px solid var(--gold-dim);
-      padding-left: 16px;
+      padding-left: clamp(10px, 1.8vw, 16px);
     }
 
     .award-badge .award-name {
@@ -991,15 +987,7 @@
       .nav-link           { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
       section             { padding: 64px 20px; }
 
-      /* Hero — bannière pleine largeur en haut, texte en dessous */
       .hero               { min-height: auto; }
-      .hero-right         { height: 200px; }
-      .hero-left          { padding: 36px 20px 44px 32px; }
-      .hero-line          { width: 40px; }
-      .hero-name          { font-size: 68px; margin-bottom: 28px; }
-      .section-title      { font-size: 34px; }
-      .hero-awards        { flex-direction: row; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
-      .hero-content       { padding-left: 8px; }
 
       /* Reels */
       .reel-info          { padding: 20px 20px 24px; flex-wrap: wrap; gap: 12px; }
@@ -1043,15 +1031,10 @@
       section             { padding: 52px 16px; }
 
       /* Hero */
-      .hero-right         { height: 160px; }
+      .hero-right         { width: 100%; }
       .hero-line          { display: none; }
       .hero-content       { padding-left: 0; }
       .hero-left          { padding: 28px 16px 36px 16px; }
-      .hero-label         { font-size: 8px; letter-spacing: 0.12em; margin-bottom: 20px; }
-      .hero-name          { font-size: 50px; margin-bottom: 20px; }
-      .hero-title-line    { font-size: 9px; letter-spacing: 0.08em; }
-      .hero-studios       { font-size: 8.5px; letter-spacing: 0.02em; }
-      .hero-awards        { margin-top: 24px; gap: 12px; }
       .award-badge        { padding-left: 10px; }
       .award-badge .award-name,
       .award-badge .award-desc { font-size: 8px; }
@@ -1090,7 +1073,7 @@
   <a href="work.html"  class="nav-link">Work</a>
   <a href="#contact"   class="nav-link">Contact</a>
 </nav>
-<div id="page-content" style="padding-top: 48px;">
+<div id="page-content">
 
 <main>
 <!-- ─── HERO ─────────────────────────────────────────────── -->

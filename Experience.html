@@ -53,7 +53,7 @@
   --charcoal:#1C1C1C;--offwhite:#E8E4DC;--gold:#B8983A;--gold-lt:#D4AF50;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;}
-.page-wrapper{max-width:890px;margin:0 auto;padding:32px 16px 64px;}
+.page-wrapper{max-width:890px;margin:0 auto;padding:64px 16px 64px;}
 .profile-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:28px 32px 24px;margin-bottom:16px;display:flex;align-items:center;gap:20px;animation:fadeUp 0.5s ease both;}
 .profile-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#0a66c2 0%,#004d99 100%);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:26px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(10,102,194,0.25);}
 .profile-info h1{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;color:var(--text-primary);letter-spacing:-0.3px;}
@@ -116,22 +116,46 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-prim
 .media-toggle.open{color:#d4933a;border-color:#9a6420;background:rgba(201,125,46,0.09);animation:none;}
 
 /* ── NAV ── */
-nav{
-  position:sticky;top:0;z-index:200;
-  width:100%;max-width:890px;margin:0 auto;
-  display:flex;justify-content:space-around;align-items:center;
-  padding:0 24px;background:rgba(8,8,8,0.92);
-  backdrop-filter:blur(12px);border-bottom:1px solid var(--charcoal);
+nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 890px;
+  height: 48px;
+  z-index: 600;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 24px;
+  background: rgba(8,8,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--charcoal);
+  overflow: hidden;
 }
-.nav-link{
-  font-family:'Syne',sans-serif;font-weight:700;font-size:11px;
-  letter-spacing:0.35em;text-transform:uppercase;color:var(--offwhite);
-  text-decoration:none;padding:22px 16px;transition:color 0.25s;white-space:nowrap;
+.nav-link {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--offwhite);
+  text-decoration: none;
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: color 0.25s;
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
 }
-.nav-link:hover{color:var(--gold-lt);}
-.nav-link.active{color:var(--gold);}
-@media(max-width:900px){nav{padding:0 4px;}.nav-link{padding:20px 6px;font-size:11px;letter-spacing:0.2em;}}
-@media(max-width:600px){.nav-link{padding:18px 4px;font-size:10px;letter-spacing:0.1em;}}
+.nav-link:hover  { color: var(--gold-lt); }
+.nav-link.active { color: var(--gold); }
+@media (max-width: 900px) { nav { padding: 0 4px; height: 48px; } .nav-link { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; } }
+@media (max-width: 600px) { nav { padding: 0 2px; height: 48px; } .nav-link { padding: 0 4px; font-size: 9px;  letter-spacing: 0.12em; } }
 
 /* ── GRAIN ── */
 body::before{
@@ -144,10 +168,10 @@ body::before{
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-link">Home</a>
-  <a href="index.html#reels" class="nav-link">Reels</a>
-  <a href="Experience.html" class="nav-link active">CV</a>
-  <a href="work.html" class="nav-link">Work</a>
+  <a href="index.html"         class="nav-link">Home</a>
+  <a href="index.html#reels"   class="nav-link">Reels</a>
+  <a href="Experience.html"    class="nav-link active">CV</a>
+  <a href="work.html"          class="nav-link">Work</a>
   <a href="index.html#contact" class="nav-link">Contact</a>
 </nav>
 
