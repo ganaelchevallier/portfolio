@@ -9,6 +9,10 @@
   <meta name="robots"   content="index, follow">
   <meta name="keywords" content="projets animation 3D, portfolio animateur freelance Paris, layout cinéma publicité, CG animation reel, prévisualisation VFX">
   <link rel="canonical" href="https://ganaelchevallier.github.io/portfolio/work.html">
+  <link rel="icon"             href="favicon.ico" type="image/x-icon">
+  <link rel="icon"             href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <link rel="me"               href="https://www.linkedin.com/in/ganaelchevallier/">
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://ganaelchevallier.github.io/portfolio/work.html">
@@ -33,7 +37,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     /* ─── VARIABLES ──────────────────────────────────────── */
@@ -47,7 +51,7 @@
       --cream:    #F5F0E8;
       --gold:     #B8983A;
       --gold-lt:  #D4AF50;
-      --mist:     #5A5A5A;
+      --mist:     #717171;
     }
 
     /* ─── RESET ──────────────────────────────────────────── */
@@ -59,6 +63,7 @@
       font-family: 'DM Mono', monospace;
       font-weight: 300;
       overflow-x: hidden;
+      cursor: default;
     }
 
     ::selection { background: var(--gold); color: var(--black); }
@@ -70,9 +75,13 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 1000;
+      z-index: 500;
       opacity: 0.35;
     }
+
+    /* ─── PAGE TRANSITION ────────────────────────────────────── */
+    #page-content { animation: pageFadeIn 0.35s ease both; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     /* ─── WRAPPER ────────────────────────────────────────── */
     .site-wrap {
@@ -82,7 +91,7 @@
       min-height: 100vh;
     }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; scrollbar-gutter: stable; }
 
     /* ─── NAV ────────────────────────────────────────────── */
     nav {
@@ -351,6 +360,8 @@
   <a href="index.html#contact" class="nav-link">Contact</a>
 </nav>
 
+<div id="page-content">
+
   <!-- ─── PAGE HEADER ─────────────────────────────────────── -->
   <div class="page-header">
     <h1 class="page-title">Work</h1>
@@ -360,8 +371,6 @@
   <section class="videos-section">
     <div class="videos-grid" id="grid"></div>
   </section>
-
-</div>
 
 <!-- AJOUTER DES VIDÉOS : ajouter l'ID YouTube dans le tableau V[] -->
 <script>
@@ -626,7 +635,23 @@
     grid.appendChild(card);
   });
 
+  // ─── Fade-out du contenu au clic sur un lien de nav ───────
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      e.preventDefault();
+      const content = document.getElementById('page-content');
+      content.style.transition = 'opacity 0.25s ease';
+      content.style.opacity = '0';
+      setTimeout(() => { window.location.href = href; }, 250);
+    });
+  });
+
 </script>
+
+</div><!-- /#page-content -->
+</div><!-- /.site-wrap -->
 
 </body>
 </html>
