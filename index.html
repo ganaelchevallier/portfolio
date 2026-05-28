@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="google-site-verification" content="sF1yZobpNqqI_gpWekF0EJlPcpZL8eCF3TGdYThRdz8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
   <meta name="description" content="Ganaël Chevallier — Animateur 3D spécialisé en CG Animation, Layout et Prévisualisation. 18 ans d'expérience en publicité et cinéma. Basé à Paris / Remote. Genie Award · Thea Award.">
   <title>Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation</title>
   <!-- Open Graph -->
@@ -77,7 +78,7 @@
 
     /* ─── RESET ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
+    html { background-color: #080808; scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
 
     body {
       max-width: 890px;
@@ -95,12 +96,23 @@
     
     /* ─── PAGE TRANSITION : seul le contenu fade, pas la nav ── */
     #page-content {
-      animation: pageFadeIn 0.35s ease both;
+      animation: pageFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
     @keyframes pageFadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
     }
+
+    /* ─── VIEW TRANSITIONS (Chrome 126+) ────────────────────── */
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root) {
+      animation: 350ms ease-in both vt-fade-out;
+    }
+    ::view-transition-new(root) {
+      animation: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both vt-fade-in;
+    }
+    @keyframes vt-fade-out { to   { opacity: 0; } }
+    @keyframes vt-fade-in  { from { opacity: 0; } }
 
     /* ─── GRAIN OVERLAY ──────────────────────────────────── */
     body::before {
@@ -401,9 +413,6 @@
 
 
 
-    /* ─── REELS — séparateur scrollable entre cards en mode wrap ─── */
-    .reel-sep { display: none; }
-
     /* ─── FOOTER DOT ─────────────────────────────────────── */
     .footer-dot {
       color: var(--charcoal);
@@ -456,88 +465,6 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--charcoal) 20%, var(--charcoal) 80%, transparent);
       margin: 0 48px;
-    }
-
-    /* ─── REELS ──────────────────────────────────────────── */
-    #reels { background: var(--black); padding-top: 32px; }
-    #reels .section-header { margin-bottom: 32px; }
-
-    .reels-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 80px;
-      width: 530px;
-      margin: 0 auto;
-    }
-
-    .reel-card {
-      background: var(--ink);
-      border: 1px solid var(--charcoal);
-      overflow: hidden;
-      transition: border-color 0.4s;
-      cursor: pointer;
-    }
-
-    .reel-card:hover {
-      border-color: var(--gold);
-    }
-
-    .reel-video-wrap {
-      position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: var(--charcoal);
-      overflow: hidden;
-    }
-
-    .reel-video-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .reel-info {
-      padding: 24px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .reel-category {
-      font-size: 8px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-
-    .reel-title-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.02em;
-    }
-
-    .reel-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 9px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-      padding: 10px 20px;
-      border: 1px solid var(--gold-dim);
-      transition: all 0.3s;
-    }
-
-    .reel-cta:hover {
-      background: var(--gold-dim);
-      border-color: var(--gold);
     }
 
     /* ─── CV ─────────────────────────────────────────────── */
@@ -689,6 +616,7 @@
       animation: btnGoldPulse 2.8s ease-in-out infinite,
                  btnBorderShimmer 2.8s ease-in-out infinite;
       position: relative;
+      white-space: nowrap;
     }
 
     .cv-download-btn:hover {
@@ -1016,9 +944,6 @@
 
       .hero               { min-height: auto; }
 
-      /* Reels */
-      .reel-info          { padding: 20px 20px 24px; flex-wrap: wrap; gap: 12px; }
-
       .hero-scroll-hint {
         display: flex;
         justify-content: center;
@@ -1064,12 +989,6 @@
       .award-badge .award-name,
       .award-badge .award-desc { font-size: 8px; }
 
-      /* Reels */
-      .reels-grid         { width: 100%; gap: 80px; }
-      .reels-grid .reel-card + .reel-card { margin-top: 0; }
-      .reel-info          { padding: 14px 16px; }
-      .reel-title-text    { font-size: 18px; }
-
       /* CV */
       /* (réglages déjà consolidés dans le breakpoint 900px) */
 
@@ -1084,6 +1003,28 @@
       .reco-text          { font-size: 15px; }
       .reco-quote-mark    { font-size: 48px; }
     }
+    /* ─── FILM · TRAILER · EPISODIC · ADVERTISING — no-wrap ── */
+    .hero-title-categories {
+      white-space: nowrap;          /* interdit tout retour à la ligne */
+      display: block;
+    }
+
+    /* Très petits écrans (< 380px) : on réduit légèrement la taille et
+       l'espacement pour que la ligne tienne sans débordement            */
+    @media (max-width: 380px) {
+      .hero-title-categories {
+        font-size: 8px;
+        letter-spacing: 0.12em;
+      }
+    }
+
+    @media (max-width: 330px) {
+      .hero-title-categories {
+        font-size: 7px;
+        letter-spacing: 0.06em;
+      }
+    }
+
   </style>
   <script src="tracker.js" defer></script>
   <!-- Accessibilité : contenu visible si JS désactivé -->
@@ -1102,7 +1043,7 @@
 <!-- ─── NAV ──────────────────────────────────────────────── -->
 <nav>
   <a href="#top" class="nav-link active">Home</a>
-  <a href="#reels"     class="nav-link">Reels</a>
+  <a href="reels.html" class="nav-link">Reels</a>
   <a href="Experience.html" class="nav-link">CV</a>
   <a href="work.html"  class="nav-link">Work</a>
   <a href="#contact"   class="nav-link">Contact</a>
@@ -1135,7 +1076,7 @@
               <span class="hero-exp-label">xp</span>
             </span>
           </span>
-          <span class="hero-title-line">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
+          <span class="hero-title-line hero-title-categories">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
           <em class="hero-studios">BUF · Eddy · The Mill · Mikros · MPC · Fortiche........</em>
         </p>
         <div class="hero-awards">
@@ -1174,68 +1115,6 @@
     </svg>
   </div>
 
-</section>
-
-<div class="divider"></div>
-
-<!-- ─── REELS ────────────────────────────────────────────── -->
-<section id="reels">
-  <div class="section-header reveal">
-    <h2 class="section-title">Démo Reels</h2>
-    <div class="section-line"></div>
-  </div>
-
-  <div class="reels-grid">
-
-    <div class="reel-card reveal">
-      <div class="reel-video-wrap">
-        <iframe
-          src="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/"
-          title="Full CG Animation Reel 2025 — Ganaël Chevallier"
-          loading="lazy"
-          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
-          sandbox="allow-scripts allow-same-origin allow-presentation allow-popups">
-        </iframe>
-      </div>
-      <div class="reel-info">
-        <div class="reel-meta">
-          <p class="reel-category">Animation 3D · Publicité · Cinéma</p>
-          <p class="reel-title-text">Full CG Animation Reel — 2025</p>
-        </div>
-        <a href="https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/" class="reel-cta" target="_blank" rel="noopener noreferrer">
-          Voir sur Videas
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="reel-card reveal">
-      <div class="reel-video-wrap">
-        <iframe
-          src="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/"
-          title="Full CG Layout Reel 2025 — Ganaël Chevallier"
-          loading="lazy"
-          allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
-          sandbox="allow-scripts allow-same-origin allow-presentation allow-popups">
-        </iframe>
-      </div>
-      <div class="reel-info">
-        <div class="reel-meta">
-          <p class="reel-category">Layout 3D · Prévisualisation</p>
-          <p class="reel-title-text">Full CG Layout Reel — 2025</p>
-        </div>
-        <a href="https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/" class="reel-cta" target="_blank" rel="noopener noreferrer">
-          Voir sur Videas
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-  </div>
 </section>
 
 <!-- ─── CV ────────────────────────────────────────────────── -->
@@ -1445,20 +1324,26 @@
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
       const href = this.getAttribute('href');
-      // Liens externes uniquement (pas les ancres #...)
       if (!href || href.startsWith('#')) return;
       e.preventDefault();
+      // View Transitions CSS (@view-transition navigation:auto) gère le fondu
+      // nativement sur Chrome 126+ — on évite le double-fade JS
+      if (CSS.supports('view-transition-name', 'none') &&
+          document.createElement('span').style.viewTransitionName !== undefined) {
+        window.location.href = href;
+        return;
+      }
+      // Fallback JS pour les autres navigateurs
       const content = document.getElementById('page-content');
-      content.style.transition = 'opacity 0.25s ease';
+      content.style.transition = 'opacity 0.35s ease';
       content.style.opacity = '0';
-      setTimeout(() => { window.location.href = href; }, 250);
+      setTimeout(() => { window.location.href = href; }, 350);
     });
   });
 
   // ─── Active nav link au scroll ─────────────────────────────
   const navSections = [
     { id: 'top',     link: document.querySelector('a[href="#top"]') },
-    { id: 'reels',   link: document.querySelector('a[href="#reels"]') },
     { id: 'contact', link: document.querySelector('a[href="#contact"]') },
   ];
   function updateActiveLink() {

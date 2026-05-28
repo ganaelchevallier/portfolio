@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Démo Reels — Ganaël Chevallier · Animateur 3D · CG Animation · Layout · Prévisualisation. Basé à Paris / Remote.">
+  <meta name="author" content="Ganaël Chevallier">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080808">
+  <title>Reels — Ganaël Chevallier · Animateur 3D</title>
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://ganaelchevallier.github.io/portfolio/reels.html">
+  <meta property="og:title"       content="Reels — Ganaël Chevallier · Animateur 3D">
+  <meta property="og:description" content="Démo Reels — CG Animation · Layout · Prévisualisation. 18 ans d'expérience en publicité et cinéma.">
+  <meta property="og:image"       content="https://ganaelchevallier.github.io/portfolio/cv_preview.jpg">
+  <link rel="canonical"           href="https://ganaelchevallier.github.io/portfolio/reels.html">
+  <link rel="icon"                href="favicon.ico" type="image/x-icon">
+  <link rel="icon"                href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon"    href="apple-touch-icon.png" sizes="180x180">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── VARIABLES ──────────────────────────────────────────── */
+    :root {
+      --black:    #080808;
+      --ink:      #111111;
+      --charcoal: #1C1C1C;
+      --smoke:    #2E2E2E;
+      --mist:     #717171;
+      --silver:   #9A9A9A;
+      --offwhite: #E8E4DC;
+      --cream:    #F5F0E8;
+      --gold:     #B8983A;
+      --gold-lt:  #D4AF50;
+      --gold-dim: rgba(184,152,58,0.15);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      background-color: #080808;
+      scroll-behavior: smooth;
+      scroll-padding-top: 48px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+    body {
+      max-width: 890px;
+      margin: 0 auto;
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: default;
+    }
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* ─── PAGE TRANSITION ────────────────────────────────────── */
+    #page-content {
+      animation: pageFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root) { animation: 350ms ease-in both vt-fade-out; }
+    ::view-transition-new(root) { animation: 500ms cubic-bezier(0.25,0.46,0.45,0.94) both vt-fade-in; }
+    @keyframes vt-fade-out { to   { opacity: 0; } }
+    @keyframes vt-fade-in  { from { opacity: 0; } }
+
+    /* ─── GRAIN OVERLAY ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.35;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 890px;
+      height: 48px;
+      z-index: 600;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 24px;
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--charcoal);
+      overflow: hidden;
+    }
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transition: color 0.25s;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+    .nav-link:hover  { color: var(--gold-lt); }
+    .nav-link.active { color: var(--gold); }
+
+    /* ─── PAGE HERO ──────────────────────────────────────────── */
+    .page-hero {
+      margin-top: 48px;
+      padding: 24px 48px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: 0.01em;
+      color: var(--cream);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s ease forwards;
+    }
+    .page-hero-title em {
+      font-style: italic;
+      color: var(--offwhite);
+      opacity: 0.65;
+    }
+    .page-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.45s ease forwards;
+    }
+    .page-hero-line {
+      width: 32px;
+      height: 1px;
+      background: var(--gold-dim);
+      flex-shrink: 0;
+    }
+    .page-hero-sub {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      white-space: nowrap;
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────────── */
+    .divider {
+      width: calc(100% - 96px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--charcoal) 20%, var(--charcoal) 80%, transparent);
+      margin: 0 48px;
+    }
+
+    /* ─── FILTER BAR ─────────────────────────────────────────── */
+    .filter-bar {
+      padding: 40px 48px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeIn 0.6s 0.7s ease forwards;
+    }
+    .filter-bar:empty { display: none; }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .filter-sep { display: none; }
+    .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mist);
+      background: transparent;
+      border: 1px solid var(--charcoal);
+      padding: 9px 36px;
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s, background 0.25s;
+    }
+    .filter-row-years .filter-btn {
+      padding: 9px 56px;
+    }
+    .filter-btn:hover  { color: var(--offwhite); border-color: var(--smoke); }
+    .filter-btn.active { color: var(--gold); border-color: var(--gold-dim); background: var(--gold-dim); }
+
+    /* ─── REELS MAIN AREA ────────────────────────────────────── */
+    .reels-main {
+      padding: 56px 48px 120px;
+    }
+
+    /* ─── GRID ───────────────────────────────────────────────── */
+    .reels-page-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 72px;
+    }
+
+    /* ─── REEL CARD ──────────────────────────────────────────── */
+    .reel-card {
+      position: relative;
+      background: var(--ink);
+      border: 1px solid var(--charcoal);
+      overflow: hidden;
+      /* entrée staggered */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s ease, transform 0.75s ease,
+                  border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .reel-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reel-card:hover {
+      border-color: rgba(184,152,58,0.45);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.4), 0 0 0 0px var(--gold-dim);
+    }
+    /* accent gauche au hover */
+    .reel-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+      z-index: 1;
+    }
+    .reel-card:hover::before { transform: scaleY(1); }
+
+    /* numéro de séquence */
+    .reel-index {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      opacity: 0.45;
+      z-index: 2;
+      user-select: none;
+    }
+
+    /* ─── VIDEO EMBED ────────────────────────────────────────── */
+    .reel-video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;   /* 16:9 */
+      background: var(--charcoal);
+      overflow: hidden;
+    }
+    .reel-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* skeleton shimmer — disparaît quand l'iframe a chargé */
+    .reel-video-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        var(--charcoal) 0%,
+        var(--smoke) 35%,
+        var(--charcoal) 70%
+      );
+      background-size: 250% 100%;
+      animation: shimmer 1.8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.5s ease;
+    }
+    .reel-video-wrap.loaded::after { opacity: 0; pointer-events: none; }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ─── REEL INFO ──────────────────────────────────────────── */
+    .reel-info {
+      padding: 24px 28px 24px 30px;  /* 30 compense l'accent 2px */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .reel-meta { flex: 1; min-width: 0; }
+    .reel-category {
+      font-size: 8px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+      min-height: 12px;
+    }
+    .reel-title-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s;
+    }
+    .reel-card:hover .reel-title-text { color: var(--cream); }
+
+    /* skeleton titre en cours de chargement */
+    .reel-title-text.loading {
+      color: transparent;
+      background: linear-gradient(100deg, var(--charcoal) 25%, var(--smoke) 50%, var(--charcoal) 75%);
+      background-size: 250% 100%;
+      animation: shimmer 1.8s ease-in-out infinite;
+      border-radius: 0;
+      min-width: 200px;
+      user-select: none;
+    }
+
+    /* ─── CTA ────────────────────────────────────────────────── */
+    .reel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      padding: 11px 20px;
+      border: 1px solid var(--gold-dim);
+      flex-shrink: 0;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .reel-cta:hover {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
+    .reel-cta svg { transition: transform 0.25s ease; }
+    .reel-cta:hover svg { transform: translateX(3px); }
+
+    /* ─── EMPTY STATE ────────────────────────────────────────── */
+    .reels-empty {
+      text-align: center;
+      padding: 100px 0;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      padding: 40px 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 1px solid var(--charcoal);
+    }
+    .footer-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+    }
+    .footer-copy {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--smoke);
+    }
+    .footer-dot {
+      color: var(--charcoal);
+      font-size: 10px;
+      text-decoration: none;
+      transition: color 0.4s;
+      user-select: none;
+      cursor: default;
+    }
+    .footer-dot:hover { color: var(--mist); cursor: pointer; }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── REDUCED MOTION ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .page-hero-title,
+      .page-hero-meta,
+      .filter-bar,
+      #page-content { opacity: 1 !important; animation: none !important; }
+      .reel-card { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav      { padding: 0 4px; height: 48px; }
+      .nav-link { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
+
+      .page-hero { padding: 24px 20px 40px; }
+
+      .filter-bar { padding: 32px 20px 0; align-items: center; }
+      .reels-main { padding: 48px 20px 80px; }
+      .reel-info  { padding: 20px 20px 22px 22px; flex-wrap: wrap; gap: 12px; }
+
+      footer { padding: 36px 20px 20px; }
+    }
+
+    @media (max-width: 600px) {
+      nav       { padding: 0 2px; }
+      .nav-link { padding: 0 4px; font-size: 9px; letter-spacing: 0.12em; }
+
+      .page-hero { padding: 24px 16px 32px; }
+      .page-hero-line { display: none; }
+      .page-hero-sub { letter-spacing: 0.12em; font-size: 8px; }
+
+      .filter-bar { padding: 24px 16px 0; align-items: center; gap: 6px; }
+      .filter-row { gap: 4px; }
+      .filter-btn { padding: 8px 16px; letter-spacing: 0.18em; }
+      .filter-row-years .filter-btn { padding: 8px 20px; }
+      .reels-main { padding: 40px 16px 64px; }
+      .reels-page-grid { gap: 56px; }
+
+      .reel-info  { padding: 16px 16px 18px; }
+      .reel-title-text { font-size: 19px; }
+      .reel-index { font-size: 10px; top: 12px; right: 14px; }
+
+      .footer-top { flex-direction: column; gap: 8px; text-align: center; }
+      footer { padding: 28px 16px 18px; }
+      .footer-copy { font-size: 8px; }
+    }
+
+    @media (max-width: 380px) {
+      .nav-link { font-size: 8px; letter-spacing: 0.08em; padding: 0 3px; }
+      .filter-btn { padding: 7px 12px; letter-spacing: 0.12em; font-size: 8px; }
+      .filter-row-years .filter-btn { padding: 7px 14px; }
+    }
+  </style>
+
+  <script src="tracker.js" defer></script>
+  <noscript>
+    <style>
+      .reel-card { opacity: 1 !important; transform: none !important; }
+      .filter-bar, .page-hero-title, .page-hero-meta { opacity: 1 !important; }
+    </style>
+  </noscript>
+</head>
+
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <a href="index.html"          class="nav-link">Home</a>
+  <a href="reels.html"          class="nav-link active">Reels</a>
+  <a href="Experience.html"     class="nav-link">CV</a>
+  <a href="work.html"           class="nav-link">Work</a>
+  <a href="index.html#contact"  class="nav-link">Contact</a>
+</nav>
+
+<div id="page-content">
+
+<!-- ─── PAGE HERO ────────────────────────────────────────────── -->
+<header class="page-hero">
+  <h1 class="page-hero-title">Reels</h1>
+  <div class="page-hero-meta">
+    <span class="page-hero-line"></span>
+    <span class="page-hero-sub">Animation 3D · Layout · Prévisualisation</span>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- ─── FILTER BAR (injectée dynamiquement) ──────────────────── -->
+<div class="filter-bar" id="filter-bar" role="group" aria-label="Filtrer par catégorie"></div>
+
+<!-- ─── REELS ────────────────────────────────────────────────── -->
+<main class="reels-main">
+  <div class="reels-page-grid" id="reels-grid" aria-live="polite"></div>
+</main>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <span class="footer-name">Ganaël Chevallier</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+  </div>
+</footer>
+
+</div><!-- /#page-content -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+//
+//  ▶  REELS DATA
+//     Ajouter ici uniquement l'URL videas.fr pour chaque vidéo.
+//     Le champ `url` est le seul obligatoire.
+//     `title` et `category` sont optionnels — si absents, le titre
+//     est récupéré automatiquement depuis videas.fr.
+//
+//  Formats d'URL acceptés :
+//    "https://app.videas.fr/embed/media/{uuid}/"  (url embed directe)
+//    "https://app.videas.fr/{uuid}/"              (url de partage)
+//    "https://app.videas.fr/{uuid}"               (sans slash final)
+//
+//  Exemple d'ajout rapide :
+//    { url: "https://app.videas.fr/g62859f1-d8ea-4968-985b-b6a3067741d3/" }
+//
+// ═══════════════════════════════════════════════════════════════════
+const REELS = [
+  {
+    url:      "https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/",
+    title:    "Full CG Animation Reel — 2025",
+    category: "2025",
+    type:     "Animation"
+  },
+  {
+    url:      "https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/",
+    title:    "Full CG Layout Reel — 2025",
+    category: "2025",
+    type:     "Layout"
+  },
+ {
+    url:      "https://app.videas.fr/embed/media/2f300fca-6293-4e3e-a3bf-01c7352a3d51/",
+    title:    "Stylized Animation Reel — 2025",
+    category: "2025",
+    type:     "Animation"
+  },
+
+{
+    url:      "https://app.videas.fr/embed/media/0127cff0-e5ff-4548-96b4-84be77443559/",
+    title:    "Characters/Creatures Animation Reel — 2017",
+    category: "2017",
+    type:     "Animation"
+  },
+{
+    url:      "https://app.videas.fr/embed/media/03c61ba5-613b-44fe-b416-f1b40d952d52/",
+    title:    "Characters/Creatures Animation Reel — 2013",
+    category: "2013",
+    type:     "Animation"
+  },
+
+
+  // ─── Ajouter une vidéo ────────────────────────────────────────
+  //
+  //  ⚠ Videas.fr utilise deux UUIDs distincts par vidéo :
+  //    - URL de partage : https://app.videas.fr/{uuid-A}/           ← NE PAS utiliser ici
+  //    - URL d'embed   : https://app.videas.fr/embed/media/{uuid-B}/  ← utiliser CELLE-CI
+  //
+  //  Comment obtenir l'URL d'embed :
+  //    1. Ouvrir la vidéo sur app.videas.fr
+  //    2. Cliquer sur "Partager" / "Intégrer" / "Embed"
+  //    3. Copier l'URL src de l'<iframe> proposé
+  //       → elle commence par  https://app.videas.fr/embed/media/...
+  //    4. Coller cette URL dans le champ `url` ci-dessous
+  //
+  //  {
+  //    url:      "https://app.videas.fr/embed/media/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/",
+  //    title:    "Titre affiché sous la vidéo",   ← optionnel
+  //    category: "Animation 3D · Publicité"        ← optionnel
+  //  },
+];
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  UTILITAIRES
+// ═══════════════════════════════════════════════════════════════════
+
+/** Convertit toute URL videas.fr en URL embed propre */
+function toEmbedUrl(url) {
+  if (url.includes('/embed/media/')) {
+    return url.endsWith('/') ? url : url + '/';
+  }
+  const m = url.match(/app\.videas\.fr\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i);
+  return m ? `https://app.videas.fr/embed/media/${m[1]}/` : url;
+}
+
+/** Extrait l'UUID depuis une URL embed videas.fr */
+function extractUUID(embedUrl) {
+  const m = embedUrl.match(/\/media\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i);
+  return m ? m[1] : null;
+}
+
+/** Construit l'URL de partage depuis l'UUID */
+function toShareUrl(embedUrl) {
+  const uuid = extractUUID(embedUrl);
+  return uuid ? `https://app.videas.fr/${uuid}/` : embedUrl;
+}
+
+/** Formate l'index sur 2 chiffres : 1 → "01" */
+const pad = n => String(n).padStart(2, '0');
+
+/**
+ * Tente de récupérer le titre OG d'une vidéo videas.fr via un proxy CORS.
+ * Retourne null si indisponible ou erreur réseau.
+ */
+async function fetchVideoTitle(embedUrl) {
+  const uuid = extractUUID(embedUrl);
+  if (!uuid) return null;
+
+  // Proxies CORS à essayer dans l'ordre (allorigins bloque Videas)
+  const proxies = [
+    u => `https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+    u => `https://thingproxy.freeboard.io/fetch/${u}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+  ];
+
+  // URLs cibles : embed d'abord, puis page de partage
+  const targets = [
+    embedUrl,
+    `https://app.videas.fr/${uuid}/`,
+  ];
+
+  for (const target of targets) {
+    for (const buildProxy of proxies) {
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 6000);
+        const res = await fetch(buildProxy(target), { signal: controller.signal });
+        clearTimeout(timer);
+        if (!res.ok) continue;
+
+        const html = await res.text();
+
+        // 1. og:title
+        let m = html.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i)
+              || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i);
+        if (m && m[1].trim()) return m[1].trim();
+
+        // 2. <title> (ignorer les placeholders génériques "Videas")
+        m = html.match(/<title[^>]*>\s*([^<]+?)\s*<\/title>/i);
+        if (m) {
+          const t = m[1].trim();
+          if (t && !/^(videas|app\.videas\.fr)$/i.test(t)) return t;
+        }
+      } catch {
+        // timeout ou CORS bloqué → proxy suivant
+      }
+    }
+  }
+  return null;
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  RENDU D'UNE CARD
+// ═══════════════════════════════════════════════════════════════════
+
+function createCard(reel, index) {
+  const embedUrl = toEmbedUrl(reel.url);
+  const shareUrl = toShareUrl(embedUrl);
+  const hasTitle = !!reel.title;
+
+  const article = document.createElement('article');
+  article.className = 'reel-card';
+  article.dataset.category = reel.category || '';
+  article.dataset.type     = reel.type     || '';
+
+  article.innerHTML = `
+    <span class="reel-index" aria-hidden="true">${pad(index + 1)}</span>
+
+    <div class="reel-video-wrap" id="vwrap-${index}">
+      <iframe
+        src="${embedUrl}"
+        title="${reel.title || 'Démo Reel — Ganaël Chevallier'}"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+        sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+      ></iframe>
+    </div>
+
+    <div class="reel-info">
+      <div class="reel-meta">
+        <p class="reel-category" id="cat-${index}">${reel.category || ''}</p>
+        <p class="reel-title-text${hasTitle ? '' : ' loading'}" id="title-${index}">
+          ${reel.title || '\u00a0'}
+        </p>
+      </div>
+      <a
+        href="${shareUrl}"
+        class="reel-cta"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Voir ce reel sur Videas (nouvel onglet)"
+      >
+        Voir sur Videas
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  `;
+
+  // Retire le skeleton shimmer quand l'iframe a terminé de charger
+  const wrap = article.querySelector('.reel-video-wrap');
+  wrap.querySelector('iframe').addEventListener('load', () => {
+    wrap.classList.add('loaded');
+  }, { once: true });
+
+  return article;
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  FILTRE PAR CATÉGORIE
+// ═══════════════════════════════════════════════════════════════════
+
+function buildFilters(reels) {
+  const bar = document.getElementById('filter-bar');
+
+  // ── Années ──────────────────────────────────────────────────────
+  const yearSet = new Set();
+  reels.forEach(r => {
+    if (r.category) {
+      const m = r.category.match(/\b(20\d{2})\b/);
+      if (m) yearSet.add(m[1]);
+    }
+  });
+  const years = [...yearSet].sort().reverse();
+  if (!years.length) return;
+
+  // ── Types ────────────────────────────────────────────────────────
+  const typeSet = new Set();
+  reels.forEach(r => { if (r.type) typeSet.add(r.type); });
+  const types = [...typeSet].sort();
+
+  // ── État actif ───────────────────────────────────────────────────
+  let activeYear = years[0];
+  let activeType = 'Tout';
+
+  function applyFilters() {
+    document.querySelectorAll('.reel-card').forEach(card => {
+      const matchYear = card.dataset.category && card.dataset.category.includes(activeYear);
+      const matchType = activeType === 'Tout' || card.dataset.type === activeType;
+      card.style.display = (matchYear && matchType) ? '' : 'none';
+    });
+  }
+
+  // ── Boutons années (ligne 1) ─────────────────────────────────────
+  const rowYears = document.createElement('div');
+  rowYears.className = 'filter-row filter-row-years';
+  years.forEach((year, idx) => {
+    const btn = document.createElement('button');
+    btn.className = idx === 0 ? 'filter-btn active' : 'filter-btn';
+    btn.textContent = year;
+    btn.dataset.filterGroup = 'year';
+    btn.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+    rowYears.appendChild(btn);
+  });
+  bar.appendChild(rowYears);
+
+  // ── Boutons types (ligne 2) ──────────────────────────────────────
+  if (types.length > 0) {
+    const rowTypes = document.createElement('div');
+    rowTypes.className = 'filter-row filter-row-types';
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn active';
+    allBtn.textContent = 'Tout';
+    allBtn.dataset.filterGroup = 'type';
+    allBtn.setAttribute('aria-pressed', 'true');
+    rowTypes.appendChild(allBtn);
+
+    types.forEach(type => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn';
+      btn.textContent = type;
+      btn.dataset.filterGroup = 'type';
+      btn.setAttribute('aria-pressed', 'false');
+      rowTypes.appendChild(btn);
+    });
+
+    bar.appendChild(rowTypes);
+  }
+
+  applyFilters();
+
+  // ── Événements ───────────────────────────────────────────────────
+  bar.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+
+    const group = btn.dataset.filterGroup;
+
+    bar.querySelectorAll(`.filter-btn[data-filter-group="${group}"]`).forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    if (group === 'year') activeYear = btn.textContent;
+    if (group === 'type') activeType = btn.textContent;
+
+    applyFilters();
+  });
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  SCROLL REVEAL
+// ═══════════════════════════════════════════════════════════════════
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  NAVIGATION (fade out + view transitions)
+// ═══════════════════════════════════════════════════════════════════
+
+function initNavTransitions() {
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      e.preventDefault();
+      // View Transitions API (Chrome 126+) gère le fondu nativement
+      if (CSS.supports('view-transition-name', 'none') &&
+          document.createElement('span').style.viewTransitionName !== undefined) {
+        window.location.href = href;
+        return;
+      }
+      // Fallback JS
+      const content = document.getElementById('page-content');
+      content.style.transition = 'opacity 0.35s ease';
+      content.style.opacity = '0';
+      setTimeout(() => { window.location.href = href; }, 350);
+    });
+  });
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════════
+
+async function init() {
+  const grid = document.getElementById('reels-grid');
+
+  if (!REELS.length) {
+    grid.innerHTML = '<p class="reels-empty">Aucun reel disponible pour le moment.</p>';
+    initNavTransitions();
+    return;
+  }
+
+  // ① Rendu immédiat de toutes les cards (titres en skeleton si absents)
+  const cards = REELS.map((reel, i) => {
+    const card = createCard(reel, i);
+    // Décalage staggered : chaque card entre 100ms après la précédente
+    card.style.transitionDelay = `${i * 0.1}s`;
+    grid.appendChild(card);
+    revealObserver.observe(card);
+    return { card, reel, i };
+  });
+
+  // ② Filtres (si plusieurs catégories)
+  buildFilters(REELS);
+
+  // ③ Transitions de navigation
+  initNavTransitions();
+
+  // ④ Récupération asynchrone des titres manquants
+  const pending = cards.filter(({ reel }) => !reel.title);
+  for (const { reel, i } of pending) {
+    const embedUrl = toEmbedUrl(reel.url);
+    // Fire-and-forget : pas de await global pour ne pas bloquer l'affichage
+    fetchVideoTitle(embedUrl).then(title => {
+      const titleEl  = document.getElementById(`title-${i}`);
+      if (!titleEl) return;
+
+      if (title) {
+        titleEl.textContent = title;
+      } else if (reel.category) {
+        // Fallback : utiliser la catégorie comme titre (ex. "2025 · Stylized")
+        titleEl.textContent = reel.category;
+      } else {
+        titleEl.textContent = 'Démo Reel';
+      }
+      titleEl.classList.remove('loading');
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
