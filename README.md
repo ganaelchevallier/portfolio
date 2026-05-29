@@ -1,6 +1,6 @@
-# Ganaël Chevallier — Animateur 3D · Layout · Prévisualisation · Paris
+# Ganaël Chevallier — Animateur 3D · Layout · Previs · Paris
 
-> **Ganaël Chevallier** (aussi orthographié **Ganael Chevallier**) est animateur 3D basé à Paris, avec **18 ans d'expérience** en CG Animation, Layout 3D et Prévisualisation pour la publicité haut de gamme, le cinéma et la série.
+> **Ganaël Chevallier** (aussi orthographié **Ganael Chevallier**) est animateur 3D basé à Paris, avec **18 ans d'expérience** en CG Animation, Layout 3D et Previs pour la publicité haut de gamme, le cinéma et la série.
 
 🌐 **Portfolio officiel → [ganaelchevallier.github.io/portfolio](https://ganaelchevallier.github.io/portfolio)**
 
@@ -16,7 +16,7 @@ Spécialisé dans trois disciplines complémentaires :
 - **Layout 3D** — cadrage, mise en scène, blocking caméra
 - **Prévisualisation (Previs)** — conception rapide de séquences 3D pour réalisateurs
 
-Ganael Chevallier a collaboré avec : **BUF · Eddy · The Mill · Mikros · MPC · Fortiche · Digital District · McMurphy · FIRM Studio · Tetsuo Studio · Wizz · Passion Paris · Blump Studio**
+Ganael Chevallier a collaboré avec : **BUF · Eddy · The Mill · Mikros · MPC · Fortiche · Digital District · McMurphy · FIRM Studio · Tetsuo Studio · Wizz · Passion Paris · Blump Studio · .....**
 
 ---
 
@@ -65,4 +65,4 @@ Films · séries · publicités sur lesquels Ganael Chevallier a travaillé : Te
 
 ---
 
-*Ganael Chevallier · Ganaël Chevallier · Animateur 3D Paris · Layout 3D · Prévisualisation · CG Animation · VFX · Maya · 3ds Max · Blender*
+*Ganael Chevallier · Ganaël Chevallier · Animateur 3D Paris · Layout 3D · Previs · CG Animation · VFX · Maya · 3ds Max · Blender*
