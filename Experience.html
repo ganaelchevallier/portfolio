@@ -50,7 +50,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&family=Syne:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{background-color:#080808;scroll-behavior:smooth;scroll-padding-top:48px;overflow-x:hidden;scrollbar-gutter:stable;}
+html{background-color:#080808;scroll-behavior:smooth;scroll-padding-top:48px;overflow-x:hidden;overflow-y:scroll;scrollbar-gutter:stable;}
 :root{
   --bg:#080808;--card:#141414;--border:#2a2a2a;
   --text-primary:#e8e6e1;--text-secondary:#a0a09a;--text-muted:#606060;
@@ -58,7 +58,7 @@ html{background-color:#080808;scroll-behavior:smooth;scroll-padding-top:48px;ove
   --dot:#3a3a3a;--dot-active:#4d9fff;
   --shadow:0 1px 3px rgba(0,0,0,0.4),0 4px 24px rgba(0,0,0,0.3);
   --radius:12px;
-  --black:#080808;--charcoal:#1C1C1C;--smoke:#2E2E2E;--offwhite:#E8E4DC;--cream:#F5F0E8;--gold:#B8983A;--gold-lt:#D4AF50;--gold-dim:rgba(184,152,58,0.15);
+  --black:#080808;--charcoal:#1C1C1C;--smoke:#2E2E2E;--mist:#717171;--offwhite:#E8E4DC;--cream:#F5F0E8;--gold:#B8983A;--gold-lt:#D4AF50;--gold-dim:rgba(184,152,58,0.15);
 }
 ::selection{background:var(--gold);color:var(--black);}
 body::before{
@@ -71,7 +71,7 @@ body::before{
   opacity:0.35;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;cursor:default;}
-.page-wrapper{max-width:890px;margin:0 auto;padding:64px 16px 64px;}
+.page-wrapper{max-width:668px;margin:0 auto;padding:64px 16px 64px;}
 .profile-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:28px 32px 24px;margin-bottom:16px;display:flex;align-items:center;gap:20px;animation:fadeUp 0.5s ease both;}
 .profile-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#0a66c2 0%,#004d99 100%);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:26px;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(10,102,194,0.25);}
 .profile-info h1{font-family:'DM Serif Display',serif;font-size:24px;font-weight:400;color:var(--text-primary);letter-spacing:-0.3px;}
@@ -117,7 +117,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-prim
 ::view-transition-new(root){animation:500ms cubic-bezier(0.25,0.46,0.45,0.94) both vt-fade-in;}
 @keyframes vt-fade-out{to{opacity:0;}}
 @keyframes vt-fade-in{from{opacity:0;}}
-@media(max-width:540px){.exp-card,.profile-card{padding:20px 18px;}.timeline{margin-left:44px;}}
+@media(max-width:540px){.exp-card,.profile-card{padding:20px 18px;}.timeline{margin-left:44px;}
+}
 
 /* ── Media group / collapse ── */
 .media-group{display:flex;flex-direction:column;}
@@ -142,7 +143,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-prim
 .media-toggle.open svg{transform:rotate(180deg);}
 .media-toggle.open{color:#d4933a;border-color:#9a6420;background:rgba(201,125,46,0.09);animation:none;}
 
-/* ── NAV ── */
+/* ── NAV — clamp() continu, indépendant des breakpoints de page ── */
 nav {
   position: fixed;
   top: 0;
@@ -156,7 +157,7 @@ nav {
   flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 clamp(2px, 3.86vw - 10.35px, 24px);
   background: rgba(8,8,8,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--charcoal);
@@ -165,12 +166,12 @@ nav {
 .nav-link {
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.35em;
+  font-size: clamp(8.5px, 0.44vw + 7.1px, 11px);
+  letter-spacing: clamp(0.8px, 0.535vw - 0.91px, 3.85px);
   text-transform: uppercase;
   color: var(--offwhite);
   text-decoration: none;
-  padding: 0 16px;
+  padding: 0 clamp(3px, 2.28vw - 4.3px, 16px);
   height: 100%;
   display: flex;
   align-items: center;
@@ -181,8 +182,8 @@ nav {
 }
 .nav-link:hover  { color: var(--gold-lt); }
 .nav-link.active { color: var(--gold); }
-@media (max-width: 900px) { nav { padding: 0 4px; height: 48px; } .nav-link { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; } }
-@media (max-width: 600px) { nav { padding: 0 2px; height: 48px; } .nav-link { padding: 0 4px; font-size: 9px;  letter-spacing: 0.12em; } }
+.nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
+/* pas de règles nav dans les @media — le clamp() suffit */
 
 /* ── GRAIN ── */
 body::before{
@@ -190,14 +191,33 @@ body::before{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events:none;z-index:500;opacity:0.35;
 }
+/* ── FOOTER ── */
+footer{background:var(--black);padding:40px 48px 24px;display:flex;flex-direction:column;align-items:center;border-top:1px solid var(--charcoal);max-width:890px;margin:0 auto;width:100%;}
+.footer-top{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:300;letter-spacing:0.15em;color:var(--mist);}
+.footer-copy{font-size:9px;letter-spacing:0.15em;color:var(--smoke);}
+.footer-dot{color:var(--charcoal);font-size:10px;text-decoration:none;transition:color 0.4s;user-select:none;cursor:default;}
+.footer-dot:hover{color:var(--mist);cursor:pointer;}
+/* ── FOOTER RESPONSIVE ── */
+@media(max-width:890px){
+  footer{flex-direction:column;gap:12px;text-align:center;padding:32px 20px 20px;}
+  .footer-top{flex-direction:column;gap:8px;text-align:center;}
+  .footer-copy{font-size:8px;}
+}
+/* ── ACCESSIBILITÉ : prefers-reduced-motion ── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
+  .profile-card,.exp-card,#page-content{opacity:1!important;animation:none!important;}
+}
 </style>
   <script src="tracker.js" defer></script>
+  <noscript><style>.profile-card, .exp-card { opacity: 1; }</style></noscript>
 </head>
 <body>
 <nav>
   <a href="index.html"         class="nav-link">Home</a>
   <a href="reels.html"   class="nav-link">Reels</a>
-  <a href="Experience.html"    class="nav-link active">CV</a>
+  <a href="Experience.html"    class="nav-link nav-link--xp active">XP</a>
   <a href="work.html"          class="nav-link">Work</a>
   <a href="index.html#contact" class="nav-link">Contact</a>
 </nav>
@@ -1112,6 +1132,14 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 </script>
+
+<footer>
+  <div class="footer-top">
+    <span class="footer-name">Ganaël Chevallier</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+  </div>
+  <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
+</footer>
 
 </div><!-- /#page-content -->
 </body>
