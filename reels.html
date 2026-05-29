@@ -333,27 +333,32 @@
 
     /* ─── REEL INFO ──────────────────────────────────────────── */
     .reel-info {
-      padding: 24px 28px 24px 30px;  /* 30 compense l'accent 2px */
+      padding: 12px 28px 12px 30px;  /* 30 compense l'accent 2px */
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 20px;
     }
-    .reel-meta { flex: 1; min-width: 0; }
+    .reel-meta {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 14px;
+      overflow: hidden;
+    }
     .reel-category {
       font-size: 8px;
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 7px;
-      min-height: 12px;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      flex-shrink: 0;
     }
     .reel-title-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 400;
       letter-spacing: 0.02em;
       color: var(--cream);
@@ -361,6 +366,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       transition: color 0.3s;
+      min-width: 0;
     }
     .reel-card:hover .reel-title-text { color: var(--cream); }
 
@@ -419,8 +425,9 @@
     .footer-top {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      gap: 8px;
       margin-bottom: 20px;
     }
     .footer-name {
@@ -430,16 +437,13 @@
       letter-spacing: 0.15em;
       color: var(--mist);
       white-space: nowrap;
-      flex-shrink: 0;
     }
     .footer-copy {
       font-size: 9px;
       letter-spacing: 0.15em;
       color: var(--smoke);
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
+      text-align: center;
     }
     .footer-dot {
       color: var(--charcoal);
@@ -479,7 +483,9 @@
       /* nav, filter-bar, reels-main top padding, grid gap : clamp() dans les bases */
       .reels-main { padding-bottom: 80px; }
       .reel-info  { padding: 20px 20px 22px 22px; flex-wrap: wrap; gap: 12px; }
-      footer      { padding-top: 36px; padding-bottom: 20px; }
+      footer      { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px 20px; }
+      .footer-top { flex-direction: column; gap: 8px; text-align: center; }
+      .footer-copy { font-size: 8px; }
     }
 
     @media (max-width: 600px) {
@@ -490,9 +496,6 @@
       .reel-title-text { font-size: 19px; }
       .reel-index { font-size: 10px; top: 12px; right: 14px; }
 
-      .footer-top { flex-direction: column; gap: 8px; text-align: center; }
-      footer { padding-top: 28px; padding-bottom: 18px; }
-      .footer-copy { font-size: 8px; }
     }
 
     /* @media 380px supprimé : filter-btn padding et font-size gérés via clamp() dans les bases */
@@ -543,6 +546,7 @@
     <span class="footer-name">Ganaël Chevallier</span>
     <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
   </div>
+  <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
 
 </div><!-- /#page-content -->
@@ -566,47 +570,51 @@
 //
 // ═══════════════════════════════════════════════════════════════════
 const REELS = [
-  {
-    url:      "https://app.videas.fr/embed/media/874d02c4-c11f-4a40-a462-53e7635a2ff0/",
-    title:    "Animation Reel",
+ {
+    url:      "https://app.videas.fr/embed/media/2f300fca-6293-4e3e-a3bf-01c7352a3d51/",
+    title:    "Stylized Animation",
     category: "2025",
     type:     "Animation"
   },
-  {
-    url:      "https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/",
-    title:    "Layout Reel",
-    category: "2025",
-    type:     "Layout"
-  },
- {
-    url:      "https://app.videas.fr/embed/media/2f300fca-6293-4e3e-a3bf-01c7352a3d51/",
-    title:    "Stylized Animation Reel",
+{
+    url:      "https://app.videas.fr/embed/media/d9bdbb88-12d8-4f52-af27-da43b3555ab3/",
+    title:    "Photorealistic Animation",
     category: "2025",
     type:     "Animation"
   },
 
+
+
+  {
+    url:      "https://app.videas.fr/embed/media/a9253829-d7f4-4122-8ddf-f2f285f786a4/",
+    title:    "Layout",
+    category: "2025",
+    type:     "Layout"
+  },
+
+
 {
     url:      "https://app.videas.fr/embed/media/0127cff0-e5ff-4548-96b4-84be77443559/",
-    title:    "Character/Creature Animation Reel",
+    title:    "Character/Creature Animation",
     category: "2017",
     type:     "Animation · Layout"
   },
 {
     url:      "https://app.videas.fr/embed/media/03c61ba5-613b-44fe-b416-f1b40d952d52/",
-    title:    "Character/Creature Animation Reel",
+    title:    "Character/Creature Animation",
     category: "2013",
     type:     "Animation · Layout"
   },
 {
     url:      "https://app.videas.fr/embed/media/6294e526-c8c9-4f12-b3c9-cf464c2d9ac6/",
-    title:    "Character/Creature Animation Reel",
+    title:    "Character/Creature Animation",
     category: "2012",
     type:     "Animation"
   },
 
 {
     url:      "https://app.videas.fr/embed/media/899b2aaa-0187-4720-827e-8606244ab89f/",
-    title:    "Character/Creature Animation Reel",
+    title:    "Character/Creature Animation",
     category: "2011",
     type:     "Animation"
   },
@@ -725,8 +733,9 @@ function loadIframe(wrap, embedUrl, title) {
   iframe.src = embedUrl;
   iframe.title = title || 'Démo Reel — Ganaël Chevallier';
   iframe.allowFullscreen = true;
-  iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
+  iframe.setAttribute('referrerpolicy', 'unsafe-url');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups allow-forms');
   iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
   iframe.addEventListener('load', () => wrap.classList.add('loaded'), { once: true });
   wrap.appendChild(iframe);
@@ -905,8 +914,9 @@ function preloadSequential(cards, index) {
   iframe.src = embedUrl;
   iframe.title = cardTitle;
   iframe.allowFullscreen = true;
-  iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
+  iframe.setAttribute('referrerpolicy', 'unsafe-url');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups allow-forms');
   iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
 
   // Timeout de secours : si l'iframe ne tire jamais "load" (ex. réseau lent),
