@@ -166,6 +166,7 @@
 
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
+    .nav-link--xp { font-size: 13px; }
 
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
@@ -937,9 +938,10 @@
     }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
-    @media (max-width: 900px) {
+    @media (max-width: 890px) {
       nav                 { padding: 0 4px; height: 48px; }
       .nav-link           { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
+      .nav-link--xp       { font-size: 12px; }
       section             { padding: 64px 20px; }
 
       .hero               { min-height: auto; }
@@ -978,6 +980,7 @@
     @media (max-width: 600px) {
       nav                 { padding: 0 2px; height: 48px; }
       .nav-link           { padding: 0 4px; font-size: 9px; letter-spacing: 0.12em; }
+      .nav-link--xp       { font-size: 11px; }
       section             { padding: 52px 16px; }
 
       /* Hero */
@@ -1044,7 +1047,7 @@
 <nav>
   <a href="#top" class="nav-link active">Home</a>
   <a href="reels.html" class="nav-link">Reels</a>
-  <a href="Experience.html" class="nav-link">CV</a>
+  <a href="Experience.html" class="nav-link nav-link--xp">XP</a>
   <a href="work.html"  class="nav-link">Work</a>
   <a href="#contact"   class="nav-link">Contact</a>
 </nav>
@@ -1348,11 +1351,23 @@
   ];
   function updateActiveLink() {
     const scrollY = window.scrollY + 64;
+
+    // Si on est en bas de page (≤ 80px du bas), on allume Contact
+    // même si son offsetTop n'est pas encore atteint par scrollY
+    const atBottom =
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight - 80;
+
     let current = navSections[0];
-    navSections.forEach(s => {
-      const el = document.getElementById(s.id);
-      if (el && el.offsetTop <= scrollY) current = s;
-    });
+    if (atBottom) {
+      current = navSections.find(s => s.id === 'contact') || current;
+    } else {
+      navSections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el && el.offsetTop <= scrollY) current = s;
+      });
+    }
+
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
     if (current.link) current.link.classList.add('active');
   }
