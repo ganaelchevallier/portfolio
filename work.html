@@ -100,9 +100,10 @@
       min-height: 100vh;
     }
 
-    html { background-color: #080808; scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; scrollbar-gutter: stable; }
+    html { background-color: #080808; scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
 
     /* ─── NAV ────────────────────────────────────────────── */
+    /* ── NAV — clamp() continu, indépendant des breakpoints de page ── */
     nav {
       position: fixed;
       top: 0;
@@ -116,7 +117,7 @@
       flex-wrap: nowrap;
       justify-content: space-around;
       align-items: center;
-      padding: 0 24px;
+      padding: 0 clamp(2px, 3.86vw - 10.35px, 24px);
       background: rgba(8,8,8,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--charcoal);
@@ -126,12 +127,12 @@
     .nav-link {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.35em;
+      font-size: clamp(8.5px, 0.44vw + 7.1px, 11px);
+      letter-spacing: clamp(0.8px, 0.535vw - 0.91px, 3.85px);
       text-transform: uppercase;
       color: var(--offwhite);
       text-decoration: none;
-      padding: 0 16px;
+      padding: 0 clamp(3px, 2.28vw - 4.3px, 16px);
       height: 100%;
       display: flex;
       align-items: center;
@@ -143,6 +144,8 @@
 
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
+    .nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
+    /* pas de règles nav dans les @media — le clamp() suffit */
 
     /* ─── PAGE HEADER ────────────────────────────────────── */
     .page-header {
@@ -157,7 +160,7 @@
       color: var(--cream);
       line-height: 1;
       letter-spacing: 0.01em;
-      max-width: 890px;
+      max-width: 668px;
       margin: 0 auto;
       text-align: left;
       padding: 0 24px;
@@ -171,10 +174,10 @@
 
     .videos-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 1px;
       background: var(--black);
-      max-width: 890px;
+      max-width: 668px;
       margin: 0 auto;
     }
 
@@ -342,19 +345,75 @@
     .video-card:not(.playing):hover::after { transform: scaleX(1); }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
-    @media (max-width: 1100px) { .videos-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 900px)  {
-      nav       { padding: 0 4px; height: 48px; }
-      .nav-link { padding: 0 6px; font-size: 10px; letter-spacing: 0.18em; }
+    @media (max-width: 890px)  {
+      /* nav : aucune règle ici — géré via clamp() dans les styles de base */
       .videos-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px)  {
-      nav       { padding: 0 2px; height: 48px; }
-      .nav-link { padding: 0 4px; font-size: 9px;  letter-spacing: 0.12em; }
+      /* nav : aucune règle ici — géré via clamp() dans les styles de base */
       .videos-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      padding: 40px 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 1px solid var(--charcoal);
+      max-width: 890px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .footer-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+    }
+    .footer-copy {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--smoke);
+    }
+    .footer-dot {
+      color: var(--charcoal);
+      font-size: 10px;
+      text-decoration: none;
+      transition: color 0.4s;
+      user-select: none;
+      cursor: default;
+    }
+    .footer-dot:hover { color: var(--mist); cursor: pointer; }
+
+    /* ─── FOOTER RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 890px) {
+      footer              { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px 20px; }
+      .footer-top         { flex-direction: column; gap: 8px; text-align: center; }
+      .footer-copy        { font-size: 8px; }
+    }
+
+    /* ─── ACCESSIBILITÉ : prefers-reduced-motion ─────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #page-content { opacity: 1 !important; animation: none !important; }
     }
   </style>
   <script src="tracker.js" defer></script>
+  <noscript><style>#page-content { opacity: 1; }</style></noscript>
 </head>
 
 <body>
@@ -364,7 +423,7 @@
 <nav>
   <a href="index.html"         class="nav-link">Home</a>
   <a href="reels.html"   class="nav-link">Reels</a>
-  <a href="Experience.html"    class="nav-link">CV</a>
+  <a href="Experience.html"    class="nav-link nav-link--xp">XP</a>
   <a href="work.html"          class="nav-link active">Work</a>
   <a href="index.html#contact" class="nav-link">Contact</a>
 </nav>
@@ -667,6 +726,15 @@
 </script>
 
 </div><!-- /#page-content -->
+
+<footer>
+  <div class="footer-top">
+    <span class="footer-name">Ganaël Chevallier</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+  </div>
+  <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
+</footer>
+
 </div><!-- /.site-wrap -->
 
 </body>
