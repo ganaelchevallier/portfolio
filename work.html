@@ -370,8 +370,9 @@
     .footer-top {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      gap: 8px;
       margin-bottom: 20px;
     }
     .footer-name {
@@ -380,11 +381,13 @@
       font-weight: 300;
       letter-spacing: 0.15em;
       color: var(--mist);
+      white-space: nowrap;
     }
     .footer-copy {
       font-size: 9px;
       letter-spacing: 0.15em;
       color: var(--smoke);
+      white-space: nowrap;
     }
     .footer-dot {
       color: var(--charcoal);
