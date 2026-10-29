@@ -1,0 +1,4 @@
+# Do not publish these files on GitHub Pages
+exclude:
+  - README.md
+  - _config.yml

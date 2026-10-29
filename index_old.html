@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate, max-snippet:0, max-image-preview:none, max-video-preview:0">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate, max-snippet:0, max-image-preview:none, max-video-preview:0">
+  <meta name="googlebot-news" content="noindex, nosnippet">
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="AdsBot-Google" content="noindex">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
+  <meta name="google-site-verification" content="sF1yZobpNqqI_gpWekF0EJlPcpZL8eCF3TGdYThRdz8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>GC · Portfolio</title>
+  <link rel="icon"                href="favicon.ico" type="image/x-icon">
+  <link rel="icon"                href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon"    href="apple-touch-icon.png" sizes="180x180">
+  <!-- Performance : preload image LCP -->
+  <link rel="preload" as="image"  href="m/c98759e3.jpg" fetchpriority="high">
+  <!-- Mobile : couleur de la barre de statut -->
+  <meta name="theme-color"        content="#080808">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── VARIABLES ──────────────────────────────────────── */
+    :root {
+      --black:    #080808;
+      --ink:      #111111;
+      --charcoal: #1C1C1C;
+      --smoke:    #2E2E2E;
+      --mist:     #717171;
+      --silver:   #9A9A9A;
+      --offwhite: #E8E4DC;
+      --cream:    #F5F0E8;
+      --gold:     #B8983A;
+      --gold-lt:  #D4AF50;
+      --gold-dim: rgba(184,152,58,0.15);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background-color: #080808; scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
+
+    body {
+      max-width: 890px;
+      margin: 0 auto;
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    ::selection { background: var(--gold); color: var(--black); }
+
+    
+    /* ─── PAGE TRANSITION : seul le contenu fade, pas la nav ── */
+    #page-content {
+      animation: pageFadeIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── VIEW TRANSITIONS (Chrome 126+) ────────────────────── */
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root) {
+      animation: 350ms ease-in both vt-fade-out;
+    }
+    ::view-transition-new(root) {
+      animation: 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both vt-fade-in;
+    }
+    @keyframes vt-fade-out { to   { opacity: 0; } }
+    @keyframes vt-fade-in  { from { opacity: 0; } }
+
+    /* ─── GRAIN OVERLAY ──────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 500;
+      opacity: 0.35;
+    }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 890px;
+      height: 48px;
+      z-index: 600;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 clamp(2px, 3.86vw - 10.35px, 24px);
+      background: rgba(8,8,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--charcoal);
+      overflow: hidden;
+    }
+
+    .nav-link {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(8.5px, 0.44vw + 7.1px, 11px);
+      letter-spacing: clamp(0.8px, 0.535vw - 0.91px, 3.85px);
+      text-transform: uppercase;
+      color: var(--offwhite);
+      text-decoration: none;
+      padding: 0 clamp(3px, 2.28vw - 4.3px, 16px);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transition: color 0.25s;
+      white-space: nowrap;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    .nav-link:hover  { color: var(--gold-lt); }
+    .nav-link.active { color: var(--gold); }
+    .nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
+    /* pas de règles nav dans les @media — le clamp() suffit */
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;  /* bannière toujours en haut, collée sous la nav */
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* ─── HERO SPLIT : bannière pleine largeur en haut ─────── */
+    .hero-split {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 3;
+      flex: 1;                      /* remplit toute la hauteur du hero */
+      min-height: 0;
+    }
+
+    .hero-left {
+      position: relative;
+      padding: 32px clamp(16px, 5.4vw, 48px) 56px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* ─── HERO BANNER — au-dessus du texte, pleine largeur ─── */
+    .hero-right {
+      order: -1;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin-top: 48px;             /* colle exactement sous la nav fixe */
+    }
+
+    .hero-banner-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      clip-path: none;
+      opacity: 0;
+      animation: fadeIn 1.1s 0.5s ease forwards;
+    }
+
+    /* vignettage bas / gauche / droite / haut */
+    .hero-banner-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(8,8,8,0.97) 0%, transparent 22%),
+        linear-gradient(to top,    rgba(8,8,8,0.97) 0%, transparent 22%),
+        linear-gradient(to right,  rgba(8,8,8,0.95) 0%, transparent 4%),
+        linear-gradient(to left,   rgba(8,8,8,0.95) 0%, transparent 4%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-banner-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: brightness(0.82) contrast(1.10) saturate(0.85);
+      transition: transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.6s ease;
+    }
+
+    .hero-banner-wrap:hover .hero-banner-img {
+      transform: scale(1.04);
+      filter: brightness(0.90) contrast(1.06) saturate(0.92);
+      will-change: transform;
+    }
+
+    .hero-line {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 48px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeIn 1s 1.2s ease forwards;
+    }
+
+    .hero-line span {
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      writing-mode: vertical-rl;
+      animation: scrollGlow 3s ease-in-out 2.2s infinite;
+    }
+
+    .hero-line-bar {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--silver), transparent);
+      animation: scrollDrop 3s ease-in-out 2.2s infinite;
+    }
+
+    .hero-line-bar--top {
+      background: linear-gradient(to top, var(--silver), transparent);
+      animation: scrollRise 3s ease-in-out 2.2s infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding-left: clamp(0px, 0.9vw, 8px);
+    }
+
+    .hero-label {
+      font-size: clamp(8px, 1.1vw, 10px);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: clamp(20px, 3.6vw, 32px);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+    }
+
+    .hero-label-location {
+      color: var(--silver);
+      letter-spacing: 0.2em;
+      font-size: clamp(8px, 1vw, 9px);
+      opacity: 0.7;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 9vw, 80px);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      margin-bottom: clamp(20px, 4.5vw, 40px);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s ease forwards;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--offwhite);
+      opacity: 0.7;
+    }
+
+    .hero-title {
+      font-size: clamp(9px, 1.2vw, 11px);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--silver);
+      line-height: 2;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s ease forwards;
+    }
+
+    .hero-title-line { display: block; }
+
+    .hero-title strong {
+      color: var(--offwhite);
+      font-weight: 400;
+    }
+
+    /* ─── 18+ XP — traitement typographique élégant ─── */
+    .hero-exp {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .hero-exp-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 4.3vw, 38px);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .hero-exp-plus {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13px, 2vw, 18px);
+      color: var(--gold);
+      vertical-align: super;
+      line-height: 1;
+    }
+    .hero-exp-label {
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(8px, 1vw, 9px);
+      letter-spacing: 0.3em;
+      color: var(--silver);
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .hero-studios {
+      display: block;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0.04em;
+      color: var(--mist);
+      font-size: clamp(8.5px, 1.1vw, 10px);
+      white-space: nowrap;
+    }
+
+    .hero-awards {
+      margin-top: clamp(24px, 5.4vw, 48px);
+      display: flex;
+      gap: clamp(12px, 3.6vw, 32px);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.8s ease forwards;
+    }
+
+    .award-badge {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--gold-dim);
+      padding-left: clamp(10px, 1.8vw, 16px);
+    }
+
+    .award-badge .award-name {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .award-badge .award-desc {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      margin-top: 4px;
+    }
+
+    /* ─── FOOTER DOT ─────────────────────────────────────── */
+    .footer-dot {
+      color: var(--charcoal);
+      font-size: 10px;
+      text-decoration: none;
+      transition: color 0.4s;
+      user-select: none;
+      cursor: default;
+    }
+    .footer-dot:hover { color: var(--mist); cursor: pointer; }
+
+    /* ─── SCROLL HINT MOBILE ─────────────────────────────── */
+    .hero-scroll-hint {
+      display: none;
+    }
+
+    /* ─── SECTION COMMONS ────────────────────────────────── */
+    section {
+      padding: 120px 48px;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 80px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--cream);
+    }
+
+    .section-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      width: calc(100% - 96px);
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--charcoal) 20%, var(--charcoal) 80%, transparent);
+      margin: 0 48px;
+    }
+
+    /* ─── CV ─────────────────────────────────────────────── */
+    #cv { background: var(--black); }
+
+    .cv-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, 1fr) 345px;
+      gap: 80px;
+      align-items: start;
+      width: 100%;
+    }
+
+    .cv-lead {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--offwhite);
+      margin-bottom: 40px;
+    }
+
+    .cv-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 0 0 36px;
+      width: 100%;
+    }
+
+    .stat-item {
+      border-top: 1px solid var(--charcoal);
+      padding-top: 16px;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1;
+    }
+
+    .stat-number sup {
+      font-size: 18px;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-top: 8px;
+    }
+
+    /* ─── SKILL BADGES ───────────────────────────────────── */
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 32px;
+    }
+
+    .sk-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--charcoal);
+      padding: 7px 8px 8px;
+      min-width: 0;
+    }
+
+    .sk-badge-name {
+      font-size: 8px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      white-space: nowrap;
+    }
+
+    .sk-badge-dots { display: flex; gap: 3px; }
+
+    .sk-badge-dot {
+      width: 10px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--smoke);
+    }
+
+    .sk-badge-dot.on {
+      background: var(--gold);
+      box-shadow: 0 0 3px rgba(184,152,58,0.35);
+    }
+
+    .sk-badge-dot.lang.on {
+      background: var(--silver);
+      box-shadow: none;
+    }
+
+    .sk-grid-sep {
+      grid-column: 1 / -1;
+      width: 100%;
+      height: 1px;
+      background: var(--charcoal);
+      margin: 4px 0;
+    }
+
+    .sk-lang-row {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .sk-lang-row .sk-badge {
+      flex: 0 0 calc(33.333% - 4px);
+    }
+
+    @keyframes btnGoldPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(212,175,80,0.6), 0 0 0 0 rgba(184,152,58,0.3); }
+      50%  { box-shadow: 0 0 16px 5px rgba(212,175,80,0.3), 0 0 36px 14px rgba(184,152,58,0.12); }
+      100% { box-shadow: 0 0 0 0 rgba(212,175,80,0), 0 0 0 0 rgba(184,152,58,0); }
+    }
+
+    @keyframes btnBorderShimmer {
+      0%   { border-color: rgba(184,152,58,0.35); }
+      50%  { border-color: rgba(212,175,80,0.95); }
+      100% { border-color: rgba(184,152,58,0.35); }
+    }
+
+    .cv-download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--offwhite);
+      text-decoration: none;
+      padding: 16px 36px;
+      transition: all 0.3s;
+      width: 100%;
+      border: 1px solid rgba(184,152,58,0.35);
+      animation: btnGoldPulse 2.8s ease-in-out infinite,
+                 btnBorderShimmer 2.8s ease-in-out infinite;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .cv-download-btn:hover {
+      background: var(--gold-lt);
+      animation: none;
+      box-shadow: 0 0 28px 8px rgba(184,152,58,0.35);
+      border-color: var(--gold-lt);
+    }
+
+    .cv-frame-panel { position: relative; }
+
+    .cv-frame-label {
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    /* Ratio A4 : 1 / √2 ≈ 1 / 1.41421 → padding-top = 141.421% */
+    .cv-frame-wrap {
+      width: 100%;
+      position: relative;
+      padding-top: 141.421%;   /* maintient le rapport A4 quelle que soit la largeur */
+      background: var(--charcoal);
+      border: 1px solid var(--charcoal);
+      overflow: hidden;
+    }
+
+    /* gradient à la manière de la bannière hero */
+    .cv-frame-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  rgba(8,8,8,0.35) 0%, transparent 10%),
+        linear-gradient(to left,   rgba(8,8,8,0.30) 0%, transparent 8%),
+        linear-gradient(to bottom, rgba(8,8,8,0.35) 0%, transparent 9%),
+        linear-gradient(to top,    rgba(8,8,8,0.35) 0%, transparent 8%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ─── RECOMMANDATIONS ────────────────────────────────── */
+    #recommandations { background: var(--black); }
+
+    .reco-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+    }
+
+    .reco-card {
+      background: var(--ink);
+      border: 1px solid var(--charcoal);
+      padding: 36px 32px;
+      transition: border-color 0.4s, background 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .reco-card:hover {
+      border-color: var(--gold-dim);
+      background: var(--charcoal);
+    }
+
+    .reco-quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      line-height: 0.6;
+      color: rgba(184,152,58,0.3);
+      display: block;
+    }
+
+    .reco-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--offwhite);
+      flex: 1;
+    }
+
+    .reco-author {
+      border-top: 1px solid var(--charcoal);
+      padding-top: 20px;
+    }
+
+    .reco-name {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .reco-role {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .reco-linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      border: 1px solid var(--charcoal);
+      padding: 12px 28px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .reco-linkedin-btn:hover {
+      border-color: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact {
+      background: var(--ink);
+      text-align: center;
+      padding: 120px 48px;
+    }
+
+    .contact-inner {
+      width: 100%;
+    }
+
+    .contact-label {
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .contact-sub {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--silver);
+      margin-bottom: 16px;
+      line-height: 2;
+    }
+
+    .contact-location {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--mist);
+      margin-bottom: 56px;
+    }
+
+    .contact-location span { color: var(--gold); }
+
+    .contact-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .contact-btn-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--offwhite);
+      text-decoration: none;
+      padding: 16px 48px;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-linkedin:hover {
+      background: #0A66C2;
+      color: #fff;
+    }
+
+    .btn-email,
+    .btn-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--offwhite);
+      background: transparent;
+      text-decoration: none;
+      padding: 16px 24px;
+      border: 1px solid var(--smoke);
+      transition: border-color 0.3s, color 0.3s;
+      white-space: nowrap;
+    }
+
+    .btn-email:hover,
+    .btn-phone:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      padding: 40px 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-top: 1px solid var(--charcoal);
+    }
+
+    .footer-top {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--mist);
+      white-space: nowrap;
+    }
+
+    .footer-copy {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--smoke);
+      white-space: nowrap;
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scrollGlow {
+      0%, 100% { opacity: 0.35; }
+      50%       { opacity: 0.9; }
+    }
+
+    @keyframes scrollDrop {
+      0%   { clip-path: inset(0 0 100% 0); opacity: 0; }
+      15%  { opacity: 1; }
+      30%  { clip-path: inset(0 0 0% 0); }
+      70%  { clip-path: inset(0 0 0% 0); }
+      85%  { opacity: 1; }
+      100% { clip-path: inset(100% 0 0 0); opacity: 0; }
+    }
+
+    @keyframes scrollRise {
+      0%   { clip-path: inset(100% 0 0 0); opacity: 0; }
+      15%  { opacity: 1; }
+      30%  { clip-path: inset(0 0 0% 0); }
+      70%  { clip-path: inset(0 0 0% 0); }
+      85%  { opacity: 1; }
+      100% { clip-path: inset(0 0 100% 0); opacity: 0; }
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+    }
+
+    /* ─── ACCESSIBILITÉ : respecte "Réduire les animations" ─ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      /* Les éléments à opacity:0 doivent devenir visibles immédiatement */
+      .hero-banner-wrap,
+      .hero-line,
+      .hero-label,
+      .hero-name,
+      .hero-title,
+      .hero-awards,
+      .hero-scroll-hint,
+      #page-content {
+        opacity: 1 !important;
+        animation: none !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transition: none !important;
+      }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 890px) {
+      section             { padding: 64px 20px; }
+
+      .hero               { min-height: auto; }
+
+      .hero-scroll-hint {
+        display: flex;
+        justify-content: center;
+        padding: 16px 0 8px;
+        color: var(--mist);
+        opacity: 0;
+        animation: fadeIn 1s 1.5s ease forwards;
+      }
+
+      /* CV */
+      .cv-layout          { grid-template-columns: 1fr; gap: 36px; }
+      .cv-frame-panel     { width: 160px; justify-self: center; }
+      .cv-frame-label     { text-align: center; }
+      .cv-stats           { width: 100%; gap: 10px; }
+      .cv-lead            { font-size: 17px; margin-bottom: 28px; }
+      .stat-number        { font-size: 36px; }
+      .cv-download-btn    { width: 100%; max-width: 340px; padding: 14px 24px; margin: 0 auto; display: flex; }
+
+      /* Recommandations */
+      .reco-grid          { grid-template-columns: 1fr; gap: 2px; }
+      .reco-card          { padding: 28px 20px; }
+
+      /* Contact */
+      #contact            { padding: 80px 20px; }
+
+      /* Footer */
+      footer              { flex-direction: column; gap: 12px; text-align: center; padding: 32px 20px 20px; }
+      .footer-top         { flex-direction: column; gap: 8px; text-align: center; }
+      .footer-copy        { font-size: 8px; }
+    }
+
+    @media (max-width: 600px) {
+      section             { padding: 52px 16px; }
+
+      /* Hero */
+      .hero-right         { width: 100%; }
+      .hero-line          { display: none; }
+      .hero-content       { padding-left: 0; }
+      .hero-left          { padding: 28px 16px 36px 16px; }
+      .award-badge        { padding-left: 10px; }
+      .award-badge .award-name,
+      .award-badge .award-desc { font-size: 8px; }
+
+      /* CV */
+      /* (réglages déjà consolidés dans le breakpoint 900px) */
+
+      /* Contact */
+      #contact            { padding: 60px 16px; }
+      .btn-linkedin       { width: 100%; max-width: 340px; justify-content: center; }
+      .contact-btn-row    { flex-direction: column; align-items: stretch; }
+      .btn-email,
+      .btn-phone          { justify-content: center; }
+
+      /* Recommandations */
+      .reco-text          { font-size: 15px; }
+      .reco-quote-mark    { font-size: 48px; }
+    }
+    /* ─── FILM · TRAILER · EPISODIC · ADVERTISING — no-wrap ── */
+    .hero-title-categories {
+      white-space: nowrap;          /* interdit tout retour à la ligne */
+      display: block;
+    }
+
+    /* Très petits écrans (< 380px) : on réduit légèrement la taille et
+       l'espacement pour que la ligne tienne sans débordement            */
+    @media (max-width: 380px) {
+      .hero-title-categories {
+        font-size: 8px;
+        letter-spacing: 0.12em;
+      }
+    }
+
+    @media (max-width: 330px) {
+      .hero-title-categories {
+        font-size: 7px;
+        letter-spacing: 0.06em;
+      }
+    }
+
+  </style>
+  <script src="tracker.js" defer></script>
+  <!-- Accessibilité : contenu visible si JS désactivé -->
+  <noscript><style>.reveal { opacity: 1; }</style></noscript>
+</head>
+
+<body>
+
+<!-- ─── SVG SPRITE ──────────────────────────────────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-linkedin" viewBox="0 0 24 24">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+</svg>
+
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <a href="#top" class="nav-link active">Home</a>
+  <a href="reels.html" class="nav-link">Reels</a>
+  <a href="Experience.html" class="nav-link nav-link--xp">XP</a>
+  <a href="work.html"  class="nav-link">Work</a>
+  <a href="#contact"   class="nav-link">Contact</a>
+</nav>
+<div id="page-content">
+
+<main>
+<!-- ─── HERO ─────────────────────────────────────────────── -->
+<section class="hero" id="top">
+
+  <div class="hero-split">
+
+    <!-- ─ gauche : texte ─ -->
+    <div class="hero-left">
+      <div class="hero-line">
+        <div class="hero-line-bar hero-line-bar--top"></div>
+        <span>Scroll</span>
+        <div class="hero-line-bar"></div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-label">
+          CG Animation &nbsp;·&nbsp; Layout &nbsp;·&nbsp; Previs
+          <span class="hero-label-location" style="display:block; margin-top:6px;">Paris / Remote</span>
+        </p>
+        <h1 class="hero-name">Ganaël<br><em>Chevallier</em></h1>
+        <p class="hero-title">
+          <span class="hero-title-line">
+            <span class="hero-exp">
+              <span class="hero-exp-num">18<span class="hero-exp-plus">+</span></span>
+              <span class="hero-exp-label">xp</span>
+            </span>
+          </span>
+          <span class="hero-title-line hero-title-categories">Film &nbsp;·&nbsp; Trailer &nbsp;·&nbsp; Episodic &nbsp;·&nbsp; Advertising</span>
+          <em class="hero-studios">BUF · Eddy · The Mill · Mikros · MPC · Fortiche........</em>
+        </p>
+        <div class="hero-awards">
+          <div class="award-badge">
+            <span class="award-name"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;"><polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8.1,10 5,7.8 1.9,10 3,6.2 0,3.8 3.8,3.8" fill="var(--gold)"/></svg>Genie Award</span>
+            <span class="award-desc">Outstanding Achievement</span>
+          </div>
+          <div class="award-badge">
+            <span class="award-name"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" style="display:inline-block;vertical-align:middle;margin-right:5px;"><polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8.1,10 5,7.8 1.9,10 3,6.2 0,3.8 3.8,3.8" fill="var(--gold)"/></svg>Thea Award</span>
+            <span class="award-desc">Outstanding Achievement</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─ droite : bannière ─ -->
+    <div class="hero-right">
+      <div class="hero-banner-wrap">
+        <img
+          src="m/c98759e3.jpg"
+          alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
+          class="hero-banner-img"
+          width="890"
+          height="500"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
+    </div>
+
+  </div><!-- /.hero-split -->
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M9 3v10M5 10l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+</section>
+
+<!-- ─── CV ────────────────────────────────────────────────── -->
+<section id="cv">
+  <div class="section-header reveal">
+    <h2 class="section-title">Curriculum Vitae</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="cv-layout">
+    <div class="cv-text reveal">
+      <p class="cv-lead">
+        18 ans dans l'industrie VFX et la Post-Production — de la Prévisualisation au Layout jusqu'à l'Animation 3D, dans la publicité haut de gamme, le cinéma et la série.
+      </p>
+
+      <div class="cv-stats">
+        <div class="stat-item" style="text-align: right;">
+          <p class="stat-number">18<sup>+</sup></p>
+          <p class="stat-label">Années d'expérience</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">50<sup>+</sup></p>
+          <p class="stat-label">Marques & productions</p>
+        </div>
+      </div>
+
+      <div class="sk-grid">
+        <div class="sk-badge">
+          <span class="sk-badge-name">Maya</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span>
+          </span>
+        </div>
+        <div class="sk-badge">
+          <span class="sk-badge-name">3ds Max</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span>
+          </span>
+        </div>
+        <div class="sk-badge">
+          <span class="sk-badge-name">Blender</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span>
+          </span>
+        </div>
+        <div class="sk-badge">
+          <span class="sk-badge-name">M. Builder</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span>
+          </span>
+        </div>
+        <div class="sk-badge">
+          <span class="sk-badge-name">Unreal</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span><span class="sk-badge-dot"></span>
+          </span>
+        </div>
+        <div class="sk-badge">
+          <span class="sk-badge-name">DaVinci</span>
+          <span class="sk-badge-dots">
+            <span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot on"></span><span class="sk-badge-dot"></span>
+          </span>
+        </div>
+        <div class="sk-grid-sep"></div>
+        <div class="sk-lang-row">
+          <div class="sk-badge">
+            <span class="sk-badge-name">Français</span>
+            <span class="sk-badge-dots">
+              <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span>
+            </span>
+          </div>
+          <div class="sk-badge">
+            <span class="sk-badge-name">English</span>
+            <span class="sk-badge-dots">
+              <span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang on"></span><span class="sk-badge-dot lang"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <a href="m/5c4ce803d91f.pdf" download="CV_Ganael_Chevallier_2026.pdf" rel="nofollow" class="cv-download-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2v9M4 8l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Télécharger le CV (PDF)
+      </a>
+    </div>
+
+    <div class="cv-frame-panel reveal">
+      <p class="cv-frame-label">Aperçu du CV</p>
+      <div class="cv-frame-wrap">
+        <img src="m/72372ba4.jpg" alt="CV Ganaël Chevallier" width="460" height="651" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── RECOMMANDATIONS ───────────────────────────────────── -->
+<section id="recommandations">
+  <div class="section-header reveal">
+    <h2 class="section-title">Recommandations</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="reco-grid">
+
+    <div class="reco-card reveal">
+      <span class="reco-quote-mark">"</span>
+      <p class="reco-text">Un artiste qui maîtrise parfaitement son sujet, une personne avec laquelle on aime travailler !</p>
+      <div class="reco-author">
+        <p class="reco-name">Ugo Nicolas</p>
+        <p class="reco-role">VFX Supervisor / CEO — BLUMP</p>
+      </div>
+    </div>
+
+    <div class="reco-card reveal">
+      <span class="reco-quote-mark">"</span>
+      <p class="reco-text">J'ai eu le plaisir de collaborer avec Ganaël sur de nombreux projets de publicité. Sa maîtrise de la prévisualisation est un atout majeur pour n'importe quelle production : il possède cette capacité rare de transformer des concepts abstraits en séquences 3D fluides et lisibles très rapidement. Au-delà de ses compétences techniques impeccables en animation, Ganaël a un excellent sens de la mise en scène et du rythme. C'est un professionnel fiable, créatif et force de proposition que je recommande sans hésiter.</p>
+      <div class="reco-author">
+        <p class="reco-name">Geoffroy Barbet Massin</p>
+        <p class="reco-role">Director — The Mill</p>
+      </div>
+    </div>
+
+    <div class="reco-card reveal">
+      <span class="reco-quote-mark">"</span>
+      <p class="reco-text">J'ai eu le plaisir de collaborer avec Ganaël sur plusieurs projets PUB et c'est un Animateur 3D hors pair. Au-delà de sa maîtrise technique, il apporte un véritable plus artistique à chaque plan. Il se distingue par son implication et son esprit collaboratif. Capable de travailler en étroite collaboration avec un réalisateur, il excelle notamment dans la phase de préviz, où sa rapidité et sa force de proposition font une réelle différence. C'est vraiment un profil moteur dans une équipe, aussi efficace qu'agréable au quotidien. Je le recommande vivement et hâte de retravailler ensemble.</p>
+      <div class="reco-author">
+        <p class="reco-name">Mickael Girod</p>
+        <p class="reco-role">VFX Supervisor / CG Supervisor</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; margin-top: 56px;" class="reveal">
+    <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="nofollow noopener noreferrer" class="reco-linkedin-btn">
+      <svg width="14" height="14" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+      Voir toutes les recommandations sur LinkedIn
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CONTACT ───────────────────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="contact-label reveal">Contact</p>
+    <p class="contact-sub reveal">
+      Disponible pour des projets en Layout 3D,<br>
+      Prévisualisation et Animation CG.
+    </p>
+    <p class="contact-location reveal">
+      <span>📍</span> Île-de-France · Paris / Remote
+    </p>
+    <div class="contact-buttons reveal">
+
+      <a href="https://www.linkedin.com/in/ganaelchevallier/" target="_blank" rel="nofollow noopener noreferrer" class="btn-linkedin">
+        <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+        LinkedIn
+      </a>
+
+      <div class="contact-btn-row">
+      <a href="mailto:ganaelchevallier@gmail.com" class="btn-email">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M1 5l7 5 7-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        ganaelchevallier@gmail.com
+      </a>
+
+      <a href="tel:+33688379771" class="btn-phone">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M14 11.5c0 .3-.07.6-.22.87-.14.27-.33.52-.57.73-.4.37-.84.55-1.3.55-.33 0-.68-.08-1.06-.25s-.76-.4-1.13-.69c-.38-.3-.74-.63-1.08-1-.34-.37-.66-.75-.95-1.14-.28-.38-.51-.76-.67-1.13-.17-.37-.25-.72-.25-1.05 0-.32.07-.63.21-.9.14-.28.35-.53.63-.75.34-.27.7-.4 1.09-.4.15 0 .3.03.44.09.15.06.28.15.39.29l1.33 1.87c.11.15.19.3.25.43.06.13.09.25.09.36 0 .14-.04.28-.12.42-.08.13-.19.27-.33.4l-.45.47c-.07.07-.1.14-.1.23 0 .05.01.09.03.14.02.05.04.09.06.13.21.38.48.74.8 1.09.32.34.67.64 1.05.91.04.02.08.04.13.06.05.02.1.03.15.03.1 0 .18-.04.25-.11l.45-.44c.14-.14.28-.25.41-.32.14-.08.27-.12.42-.12.11 0 .23.02.36.07.13.05.27.13.42.24l1.9 1.35c.14.1.24.22.3.36.05.14.08.29.08.46z" fill="currentColor"/>
+        </svg>
+        +33 6 88 37 97 71
+      </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <span class="footer-name">Ganaël Chevallier</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+  </div>
+  <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
+</footer>
+
+<script>
+  // ─── Scroll reveal ─────────────────────────────────────────
+  const isMobile = window.innerWidth <= 890;
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.12, rootMargin: isMobile ? '0px 0px -120px 0px' : '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── Fade-out du contenu (pas de la nav) au clic ──────────
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      e.preventDefault();
+      // View Transitions CSS (@view-transition navigation:auto) gère le fondu
+      // nativement sur Chrome 126+ — on évite le double-fade JS
+      if (CSS.supports('view-transition-name', 'none') &&
+          document.createElement('span').style.viewTransitionName !== undefined) {
+        window.location.href = href;
+        return;
+      }
+      // Fallback JS pour les autres navigateurs
+      const content = document.getElementById('page-content');
+      content.style.transition = 'opacity 0.35s ease';
+      content.style.opacity = '0';
+      setTimeout(() => { window.location.href = href; }, 350);
+    });
+  });
+
+  // ─── Active nav link au scroll ─────────────────────────────
+  const navSections = [
+    { id: 'top',     link: document.querySelector('a[href="#top"]') },
+    { id: 'contact', link: document.querySelector('a[href="#contact"]') },
+  ];
+  function updateActiveLink() {
+    const scrollY = window.scrollY + 64;
+
+    // Si on est en bas de page (≤ 80px du bas), on allume Contact
+    // même si son offsetTop n'est pas encore atteint par scrollY
+    const atBottom =
+      window.scrollY + window.innerHeight >=
+      document.documentElement.scrollHeight - 80;
+
+    let current = navSections[0];
+    if (atBottom) {
+      current = navSections.find(s => s.id === 'contact') || current;
+    } else {
+      navSections.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (el && el.offsetTop <= scrollY) current = s;
+      });
+    }
+
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    if (current.link) current.link.classList.add('active');
+  }
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
+</script>
+
+</div><!-- /#page-content -->
+
+</body>
+</html>
