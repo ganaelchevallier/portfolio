@@ -86,7 +86,7 @@
     }
 
     /* ─── NAV ────────────────────────────────────────────────── */
-    /* ── NAV — clamp() continu, indépendant des breakpoints de page ── */
+    /* ── NAV, clamp() continu, indépendant des breakpoints de page ── */
     nav {
       position: fixed;
       top: 0; left: 50%;
@@ -124,7 +124,7 @@
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
     .nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
-    /* pas de règles nav dans les @media — le clamp() suffit */
+    /* pas de règles nav dans les @media, le clamp() suffit */
 
     /* ─── PAGE HERO ──────────────────────────────────────────── */
     .page-hero {
@@ -205,7 +205,7 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: clamp(56px, 5.52vw + 22.88px, 72px);
-      max-width: 592px;   /* ≈ 890 × 2/3 — taille max réduite d'1/3 */
+      max-width: 592px;   /* ≈ 890 × 2/3, taille max réduite d'1/3 */
       margin: 0 auto;
     }
 
@@ -274,7 +274,7 @@
       height: 100%;
       border: none;
     }
-    /* skeleton shimmer — disparaît quand l'iframe a chargé */
+    /* skeleton shimmer, disparaît quand l'iframe a chargé */
     .reel-video-wrap::after {
       content: '';
       position: absolute;
@@ -541,7 +541,7 @@
 <footer>
   <div class="footer-top">
     <span class="footer-name">Ganaël Chevallier</span>
-    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France · Paris</span>
   </div>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
@@ -554,7 +554,7 @@
 //  ▶  REELS DATA
 //     Ajouter ici uniquement l'URL videas.fr pour chaque vidéo.
 //     Le champ `url` est le seul obligatoire.
-//     `title` et `category` sont optionnels — si absents, le titre
+//     `title` et `category` sont optionnels, si absents, le titre
 //     est récupéré automatiquement depuis videas.fr.
 //
 //  Formats d'URL acceptés :
@@ -728,7 +728,7 @@ async function fetchVideoTitle(embedUrl) {
 function loadIframe(wrap, embedUrl, title) {
   const iframe = document.createElement('iframe');
   iframe.src = embedUrl;
-  iframe.title = title || 'Démo Reel — Ganaël Chevallier';
+  iframe.title = title || 'Démo Reel · Ganaël Chevallier';
   iframe.allowFullscreen = true;
   iframe.setAttribute('referrerpolicy', 'unsafe-url');
   iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
@@ -742,7 +742,7 @@ function createCard(reel, index) {
   const embedUrl = toEmbedUrl(reel.url);
   const shareUrl = toShareUrl(embedUrl);
   const hasTitle = !!reel.title;
-  const cardTitle = reel.title || 'Démo Reel — Ganaël Chevallier';
+  const cardTitle = reel.title || 'Démo Reel · Ganaël Chevallier';
 
   const article = document.createElement('article');
   article.className = 'reel-card';
@@ -905,7 +905,7 @@ function preloadSequential(cards, index) {
   }
 
   const embedUrl  = toEmbedUrl(reel.url);
-  const cardTitle = reel.title || 'Démo Reel — Ganaël Chevallier';
+  const cardTitle = reel.title || 'Démo Reel · Ganaël Chevallier';
 
   const iframe = document.createElement('iframe');
   iframe.src = embedUrl;
@@ -955,12 +955,12 @@ async function init() {
     return { card, reel, i };
   });
 
-  // ① bis — Charge l'iframe de la 1ère vidéo automatiquement (sans attendre le clic)
+  // ① bis, Charge l'iframe de la 1ère vidéo automatiquement (sans attendre le clic)
   if (cards.length > 0) {
     const firstWrap = cards[0].card.querySelector('.reel-video-wrap');
     const firstEmbed = cards[0].reel;
     const embedUrl = toEmbedUrl(firstEmbed.url);
-    const cardTitle = firstEmbed.title || 'Démo Reel — Ganaël Chevallier';
+    const cardTitle = firstEmbed.title || 'Démo Reel · Ganaël Chevallier';
     loadIframe(firstWrap, embedUrl, cardTitle);
     const facade = firstWrap.querySelector('.reel-facade');
     if (facade) facade.style.display = 'none';

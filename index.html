@@ -131,7 +131,7 @@
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
     .nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
-    /* pas de règles nav dans les @media — le clamp() suffit */
+    /* pas de règles nav dans les @media, le clamp() suffit */
 
     /* ─── HERO ───────────────────────────────────────────── */
     .hero {
@@ -163,7 +163,7 @@
       justify-content: flex-start;
     }
 
-    /* ─── HERO BANNER — au-dessus du texte, pleine largeur ─── */
+    /* ─── HERO BANNER, au-dessus du texte, pleine largeur ─── */
     .hero-right {
       order: -1;
       position: relative;
@@ -306,7 +306,7 @@
       font-weight: 400;
     }
 
-    /* ─── 18+ XP — traitement typographique élégant ─── */
+    /* ─── 18+ XP, traitement typographique élégant ─── */
     .hero-exp {
       display: inline-flex;
       align-items: baseline;
@@ -965,7 +965,7 @@
       .reco-text          { font-size: 15px; }
       .reco-quote-mark    { font-size: 48px; }
     }
-    /* ─── FILM · TRAILER · EPISODIC · ADVERTISING — no-wrap ── */
+    /* ─── FILM · TRAILER · EPISODIC · ADVERTISING, no-wrap ── */
     .hero-title-categories {
       white-space: nowrap;          /* interdit tout retour à la ligne */
       display: block;
@@ -1059,7 +1059,7 @@
       <div class="hero-banner-wrap">
         <img
           src="m/Portfolio_Banniere_04_ratio4.jpg"
-          alt="Portfolio — Ganaël Chevallier · CG Animation · Layout · Previs"
+          alt="Portfolio · Ganaël Chevallier · CG Animation · Layout · Previs"
           class="hero-banner-img"
           width="890"
           height="500"
@@ -1089,7 +1089,7 @@
   <div class="cv-layout">
     <div class="cv-text reveal">
       <p class="cv-lead">
-        <span class="exp-years" data-exp-start="2007-07-01">19</span> ans dans l'industrie VFX et la Post-Production — de la Prévisualisation au Layout jusqu'à l'Animation 3D, dans la publicité haut de gamme, le cinéma et la série.
+        <span class="exp-years" data-exp-start="2007-07-01">19</span> ans dans l'industrie VFX et la Post-Production, de la Prévisualisation au Layout jusqu'à l'Animation 3D, dans la publicité haut de gamme, le cinéma et la série.
       </p>
 
       <div class="cv-stats">
@@ -1198,7 +1198,7 @@ Contraint, il éxecute au poil le brief. Libre, il insulfe son propre style tout
       <p class="reco-text">J'ai eu le plaisir de collaborer avec Ganaël sur de nombreux projets de publicité. Sa maîtrise de la prévisualisation est un atout majeur pour n'importe quelle production : il possède cette capacité rare de transformer des concepts abstraits en séquences 3D fluides et lisibles très rapidement. Au-delà de ses compétences techniques impeccables en animation, Ganaël a un excellent sens de la mise en scène et du rythme. C'est un professionnel fiable, créatif et force de proposition que je recommande sans hésiter.</p>
       <div class="reco-author">
         <p class="reco-name">Geoffroy Barbet Massin</p>
-        <p class="reco-role">Director — The Mill</p>
+        <p class="reco-role">Director · The Mill</p>
       </div>
     </div>
 
@@ -1268,7 +1268,7 @@ Contraint, il éxecute au poil le brief. Libre, il insulfe son propre style tout
 <footer>
   <div class="footer-top">
     <span class="footer-name">Ganaël Chevallier</span>
-    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France · Paris</span>
   </div>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>
@@ -1289,7 +1289,7 @@ Contraint, il éxecute au poil le brief. Libre, il insulfe son propre style tout
       if (!href || href.startsWith('#')) return;
       e.preventDefault();
       // View Transitions CSS (@view-transition navigation:auto) gère le fondu
-      // nativement sur Chrome 126+ — on évite le double-fade JS
+      // nativement sur Chrome 126+, on évite le double-fade JS
       if (CSS.supports('view-transition-name', 'none') &&
           document.createElement('span').style.viewTransitionName !== undefined) {
         window.location.href = href;

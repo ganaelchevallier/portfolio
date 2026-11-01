@@ -81,7 +81,7 @@
     html { background-color: #080808; scroll-behavior: smooth; scroll-padding-top: 48px; overflow-x: hidden; overflow-y: scroll; scrollbar-gutter: stable; }
 
     /* ─── NAV ────────────────────────────────────────────── */
-    /* ── NAV — clamp() continu, indépendant des breakpoints de page ── */
+    /* ── NAV, clamp() continu, indépendant des breakpoints de page ── */
     nav {
       position: fixed;
       top: 0;
@@ -123,7 +123,7 @@
     .nav-link:hover  { color: var(--gold-lt); }
     .nav-link.active { color: var(--gold); }
     .nav-link--xp { font-size: clamp(10.5px, 0.44vw + 9.1px, 13px); }
-    /* pas de règles nav dans les @media — le clamp() suffit */
+    /* pas de règles nav dans les @media, le clamp() suffit */
 
     /* ─── PAGE HEADER ────────────────────────────────────── */
     .page-header {
@@ -325,11 +325,11 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 890px)  {
-      /* nav : aucune règle ici — géré via clamp() dans les styles de base */
+      /* nav : aucune règle ici, géré via clamp() dans les styles de base */
       .videos-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px)  {
-      /* nav : aucune règle ici — géré via clamp() dans les styles de base */
+      /* nav : aucune règle ici, géré via clamp() dans les styles de base */
       .videos-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -712,7 +712,7 @@
 <footer>
   <div class="footer-top">
     <span class="footer-name">Ganaël Chevallier</span>
-    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France — Paris</span>
+    <span class="footer-copy">© 2026 · Layout 3D · Prévisualisation · Animation CG · Île-de-France · Paris</span>
   </div>
   <a href="stats.html" class="footer-dot" title="" tabindex="-1" aria-hidden="true">·</a>
 </footer>

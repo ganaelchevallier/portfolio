@@ -9,7 +9,7 @@
   <meta name="AdsBot-Google" content="noindex">
   <meta name="format-detection" content="telephone=no, email=no, address=no">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stats — GC Portfolio</title>
+  <title>Stats · GC Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -639,7 +639,7 @@
       letter-spacing: .06em; margin-top: 2px;
     }
 
-    /* ── NAV — identique à index.html ── */
+    /* ── NAV, identique à index.html ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -847,7 +847,7 @@
 </head>
 <body>
 
-<!-- ════ NAV — identique à index.html ════ -->
+<!-- ════ NAV, identique à index.html ════ -->
 <nav>
   <a href="index.html" class="nav-link active">Home</a>
   <span class="nav-ghost">Reels</span>
@@ -897,7 +897,7 @@
     </div>
 
     <div class="dash-meta">
-      <div id="last-updated">—</div>
+      <div id="last-updated">…</div>
       <button class="refresh-btn" onclick="fetchAllStats()">↻ Actualiser</button>
     </div>
   </div>
@@ -923,7 +923,7 @@
         <circle cx="12" cy="12" r="3"/>
       </svg>
       <div class="kpi-label">Vues · 14 jours</div>
-      <div class="kpi-value" id="kpi-views">—</div>
+      <div class="kpi-value" id="kpi-views">…</div>
       <div class="kpi-sub">pages vues</div>
       <div class="kpi-alltime" id="kpi-views-total" style="display:none"></div>
     </div>
@@ -936,7 +936,7 @@
         <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
       </svg>
       <div class="kpi-label">Visiteurs uniques</div>
-      <div class="kpi-value" id="kpi-uniques">—</div>
+      <div class="kpi-value" id="kpi-uniques">…</div>
       <div class="kpi-sub">14 derniers jours</div>
       <div class="kpi-alltime" id="kpi-uniques-total" style="display:none"></div>
     </div>
@@ -947,7 +947,7 @@
         <polyline points="8 6 2 12 8 18"/>
       </svg>
       <div class="kpi-label">Clones repo</div>
-      <div class="kpi-value" id="kpi-clones">—</div>
+      <div class="kpi-value" id="kpi-clones">…</div>
       <div class="kpi-sub">14 derniers jours</div>
     </div>
 
@@ -956,7 +956,7 @@
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
       </svg>
       <div class="kpi-label">Cloneurs uniques</div>
-      <div class="kpi-value" id="kpi-clone-uniq">—</div>
+      <div class="kpi-value" id="kpi-clone-uniq">…</div>
       <div class="kpi-sub">14 derniers jours</div>
     </div>
   </div>
@@ -968,7 +968,7 @@
         <div class="section-label" id="chart-label">Vues par jour · 14 jours</div>
         <div id="history-badge" style="display:none" class="history-badge">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <span id="history-badge-text">—</span>
+          <span id="history-badge-text">…</span>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
@@ -1016,7 +1016,7 @@
         <div class="section-label">Audience · Distribution</div>
         <div id="donut-tracker-badge" style="display:none" class="history-badge">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span id="donut-tracker-count">—</span>
+          <span id="donut-tracker-count">…</span>
         </div>
       </div>
       <button class="refresh-btn" onclick="clearTrackerLog()" style="font-size:9px">⌫ Vider le log</button>
@@ -1096,7 +1096,7 @@
      Pour régénérer : voir l'outil encrypt-token.html fourni séparément.        */
   const ENC_TOKEN = 'HrAko5eJhMTNRBpHKjcV3ls63hq+eqKjH0LbqVOEK/+sJGSCWwHMwxejQIKj5uUOsINlzBRq4IxIlvSNXNXkWLIs5uh8ona6v4Ti0JrY05G00XYQ';
 
-  /* Token déchiffré, disponible après unlock() — jamais persisté */
+  /* Token déchiffré, disponible après unlock(), jamais persisté */
   let GH_TOKEN = null;
 
   /* ─── Déchiffrement AES-256-GCM · PBKDF2 (200 000 itérations) ───
@@ -1129,7 +1129,7 @@
     errEl.textContent = 'Mot de passe incorrect ✕';
 
     try {
-      /* Tenter le déchiffrement — réussit uniquement avec le bon mot de passe */
+      /* Tenter le déchiffrement, réussit uniquement avec le bon mot de passe */
       GH_TOKEN = await decryptToken(input.value);
       sessionStorage.setItem('gc_stats_unlocked', '1');
       unlock();
@@ -1155,7 +1155,7 @@
       /* ↓ fetchAllStats APRÈS display:block pour que clientWidth soit lisible */
       requestAnimationFrame(() => {
         dash.classList.add('visible');
-        renderDonuts();   /* donuts locaux — pas besoin du token GitHub */
+        renderDonuts();   /* donuts locaux, pas besoin du token GitHub */
         fetchAllStats();
       });
     }, 500);
@@ -1171,7 +1171,7 @@
   });
 
   /* ══════════════════════════════════════
-     GIST — HISTORIQUE INFINI
+     GIST, HISTORIQUE INFINI
   ══════════════════════════════════════ */
   const GIST_FILENAME = 'gc_portfolio_traffic.json';
   let GIST_ID = localStorage.getItem('gc_stats_gist_id') || null;
@@ -1187,7 +1187,7 @@
     if (!val) return;
     GIST_ID = val;
     localStorage.setItem('gc_stats_gist_id', GIST_ID);
-    setGistStatus('ID appliqué — rechargez les stats', 'warn');
+    setGistStatus('ID appliqué, rechargez les stats', 'warn');
   }
 
   function setGistStatus(msg, type = '') {
@@ -1217,7 +1217,7 @@
   /* Charge l'historique depuis le Gist */
   async function loadHistory() {
     if (!GIST_ID) {
-      setGistStatus('Aucun Gist configuré — un nouveau sera créé automatiquement', 'warn');
+      setGistStatus('Aucun Gist configuré, un nouveau sera créé automatiquement', 'warn');
       return { views: [], clones: [] };
     }
     try {
@@ -1239,7 +1239,7 @@
   /* Sauvegarde (crée ou met à jour le Gist) */
   async function saveHistory(data) {
     const body = {
-      description: 'GC Portfolio — Historique trafic GitHub Pages',
+      description: 'GC Portfolio · Historique trafic GitHub Pages',
       public: false,
       files: { [GIST_FILENAME]: { content: JSON.stringify(data, null, 2) } }
     };
@@ -1297,7 +1297,7 @@
     /* Cause 1 : ouverture depuis file:// (CORS null-origin bloqué par Chrome) */
     if (location.protocol === 'file:') {
       throw new Error(
-        'Fichier ouvert en local (file://) — les requêtes CORS sont bloquées par le navigateur. ' +
+        'Fichier ouvert en local (file://), les requêtes CORS sont bloquées par le navigateur. ' +
         'Hébergez la page sur GitHub Pages ou un serveur local (ex: npx serve .).'
       );
     }
@@ -1336,7 +1336,7 @@
         'Assurez-vous que le PAT a bien le scope repo ou read:org.'
       );
     }
-    /* token OK — on peut continuer */
+    /* token OK, on peut continuer */
   }
 
   /* ── GITHUB API ── */
@@ -1350,10 +1350,10 @@
         }
       });
     } catch {
-      throw new Error('Requête interrompue — réseau instable ou extension bloquante.');
+      throw new Error('Requête interrompue, réseau instable ou extension bloquante.');
     }
     if (res.status === 401) throw new Error('Token expiré ou invalide (401)');
-    if (res.status === 403) throw new Error('Accès refusé — scope insuffisant (403)');
+    if (res.status === 403) throw new Error('Accès refusé, scope insuffisant (403)');
     if (res.status === 404) throw new Error('Dépôt introuvable ou trafic indisponible (404)');
     if (!res.ok) throw new Error(`Erreur API GitHub : ${res.status} ${res.statusText}`);
     return res.json();
@@ -1400,7 +1400,7 @@
         lastSync: new Date().toISOString()
       }).then(() => {
         const days = mergedViews.length;
-        setGistStatus(`✓ Historique sauvegardé — ${days} jour${days > 1 ? 's' : ''} accumulé${days > 1 ? 's' : ''}`, 'ok');
+        setGistStatus(`✓ Historique sauvegardé, ${days} jour${days > 1 ? 's' : ''} accumulé${days > 1 ? 's' : ''}`, 'ok');
       }).catch(e => setGistStatus(`Erreur sauvegarde : ${e.message}`, 'err'));
 
       /* Données en mémoire pour les filtres */
@@ -1509,7 +1509,7 @@
       return;
     }
 
-    /* Largeur réelle du conteneur — plusieurs fallbacks pour résoudre le
+    /* Largeur réelle du conteneur, plusieurs fallbacks pour résoudre le
        problème sur mobile où le dashboard peut encore être en layout-pending */
     const wrap = svg.parentElement;
     const W  = Math.round(wrap.getBoundingClientRect().width) ||
@@ -1550,7 +1550,7 @@
       dailyViews.slice(1).map((d, i) => `L ${xS(i+1)},${yS(d.uniques)}`).join(' ') +
       ` L ${xS(n-1)},${btm} L ${xS(0)},${btm} Z`;
 
-    /* x-axis labels — adapte la densité selon le nombre de points */
+    /* x-axis labels, adapte la densité selon le nombre de points */
     const skipEvery = n > 60 ? 14 : n > 30 ? 7 : n > 14 ? 3 : n > 7 ? 2 : 1;
     const xlabels = dailyViews.map((d, i) => {
       if (i % skipEvery !== 0 && i !== n - 1) return '';
@@ -1640,7 +1640,7 @@
   }
 
   /* ══════════════════════════════════════════════════════════════
-     DONUTS — Distribution navigateurs / appareils / OS / langues
+     DONUTS, Distribution navigateurs / appareils / OS / langues
      Données issues de localStorage['gc_tracker_log'] (tracker.js)
   ══════════════════════════════════════════════════════════════ */
 
