@@ -573,6 +573,15 @@
 //     Videas › Lecteurs vidéo : pour changer de thème, remplacer cet identifiant.
 const VIDEAS_PLAYER = '61ee6856-1a94-4266-8f0f-3436e5352694';
 
+//  ▶  COULEUR DU LECTEUR (bouton lecture, barre) : code hexadécimal sans « # ».
+//     Écrite dans le lien, elle s'applique même si Videas ignore les réglages du compte.
+//     B8983A = le doré du site. Laisser '' pour utiliser la couleur réglée dans Videas.
+const VIDEAS_COLOR = 'B8983A';
+
+//  ▶  THÈME DU LECTEUR : 'dark' (fond et commandes noirs), 'light', ou '' pour le réglage Videas.
+//     Videas n'accepte pas de « couleur secondaire » dans le lien : le thème sombre est l'équivalent.
+const VIDEAS_THEME = 'dark';
+
 const REELS = [
  {
     url:      "https://app.videas.fr/embed/media/2f300fca-6293-4e3e-a3bf-01c7352a3d51/",
@@ -660,7 +669,11 @@ function toEmbedUrl(url) {
   if (!m) return url;
   const p = url.match(new RegExp('[?&]player=(' + UUID + ')', 'i'));
   const player = p ? p[1] : VIDEAS_PLAYER;
-  return `https://app.videas.fr/embed/media/${m[1]}/` + (player ? `?player=${player}` : '');
+  const params = [];
+  if (player) params.push('player=' + player);
+  if (typeof VIDEAS_COLOR === 'string' && /^[0-9a-f]{6}$/i.test(VIDEAS_COLOR)) params.push('primary_color=' + VIDEAS_COLOR);
+  if (typeof VIDEAS_THEME === 'string' && /^(dark|light)$/.test(VIDEAS_THEME)) params.push('theme=' + VIDEAS_THEME);
+  return `https://app.videas.fr/embed/media/${m[1]}/` + (params.length ? '?' + params.join('&') : '');
 }
 
 /** Extrait l'UUID depuis une URL embed videas.fr */
@@ -1012,28 +1025,57 @@ document.addEventListener('DOMContentLoaded', init);
 </script>
 
 
-<!-- ARRÊT AUTOMATIQUE : le reel en cours de lecture s'arrête quand il sort de l'écran,
-     et un seul reel joue à la fois. Le lecteur Videas n'ayant pas de commande « pause »
-     accessible depuis le site, on le recharge (sans lecture automatique), ce qui coupe le son. -->
+<!-- BOUTON LECTURE + ARRÊT AUTOMATIQUE
+     · un bouton doré au triangle noir recouvre celui de Videas (dont la couleur
+       du triangle ne se règle pas) ; au clic, la vidéo se lance ;
+     · un seul reel joue à la fois ;
+     · le reel en cours s'arrête quand il sort de l'écran.
+     Le lecteur Videas n'ayant pas de commande accessible depuis le site,
+     « lancer » et « arrêter » = recharger le lecteur avec ou sans lecture auto. -->
+<style>
+  .gc-play {
+    position: absolute; left: 50%; top: 50%; z-index: 3;
+    width: clamp(56px, 10%, 84px); aspect-ratio: 1; transform: translate(-50%, -50%);
+    border: 0; border-radius: 50%; padding: 0; cursor: pointer;
+    background: var(--gold, #B8983A); display: none; align-items: center; justify-content: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: transform .2s, background .2s;
+  }
+  .gc-play:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--gold-lt, #D4AF50); }
+  .gc-play svg { width: 38%; height: 38%; margin-left: 8%; display: block; }
+  .reel-video-wrap.loaded .gc-play:not(.off) { display: flex; }
+</style>
 <script>
 (function () {
   if (!('IntersectionObserver' in window)) return;
-  var active = null;                      // iframe dans laquelle le visiteur a cliqué
+  var active = null;                      // iframe en cours de lecture
   var VISIBLE_MIN = 0.3;                  // en dessous de 30 % visible → on arrête
+  var ICON = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2l7 3.8-7 3.8z" fill="#000"/></svg>';
 
+  function withAutoplay(u, on) {
+    u = u.replace(/([?&])auto_play=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
+    return u + (u.indexOf('?') < 0 ? '?' : '&') + 'auto_play=' + (on ? 1 : 0);
+  }
+  function btnOf(ifr) { var w = ifr && ifr.closest('.reel-video-wrap'); return w && w.querySelector('.gc-play'); }
   function stop(ifr) {
     var u = ifr.getAttribute('src'); if (!u) return;
-    u = u.replace(/([?&])auto_play=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
-    ifr.setAttribute('src', u + (u.indexOf('?') < 0 ? '?' : '&') + 'auto_play=0');
+    ifr.setAttribute('src', withAutoplay(u, false));
+    var b = btnOf(ifr); if (b) b.classList.remove('off');
     if (active === ifr) active = null;
   }
+  function play(ifr) {
+    if (active && active !== ifr && document.contains(active)) stop(active);
+    var b = btnOf(ifr); if (b) b.classList.add('off');
+    ifr.setAttribute('src', withAutoplay(ifr.getAttribute('src') || '', true));
+    active = ifr;
+  }
 
-  // Un clic dans un lecteur déplace le focus dans son iframe : on le repère.
+  // clic directement dans un lecteur (barre, plein écran…) : il devient le reel actif
   setInterval(function () {
     var el = document.activeElement;
     if (el && el.tagName === 'IFRAME' && el.closest && el.closest('.reel-video-wrap') && el !== active) {
-      if (active && document.contains(active)) stop(active);   // un seul reel à la fois
+      if (active && document.contains(active)) stop(active);
       active = el;
+      var b = btnOf(el); if (b) b.classList.add('off');
     }
   }, 300);
 
@@ -1041,20 +1083,26 @@ document.addEventListener('DOMContentLoaded', init);
     entries.forEach(function (e) {
       if (e.intersectionRatio >= VISIBLE_MIN) return;
       var ifr = e.target.querySelector('iframe');
-      if (ifr && ifr === active) {
-        stop(ifr);
-        if (document.activeElement === ifr) ifr.blur();
-      }
+      if (ifr && ifr === active) { stop(ifr); if (document.activeElement === ifr) ifr.blur(); }
     });
   }, { threshold: [0, VISIBLE_MIN] });
 
-  function watch() {
+  function setup() {
     document.querySelectorAll('.reel-video-wrap').forEach(function (w) {
       if (!w.dataset.watched) { w.dataset.watched = '1'; io.observe(w); }
+      if (!w.querySelector('.gc-play')) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'gc-play'; b.setAttribute('aria-label', 'Lire la vidéo'); b.innerHTML = ICON;
+        b.addEventListener('click', function (ev) {
+          ev.stopPropagation();
+          var ifr = w.querySelector('iframe'); if (ifr) play(ifr);
+        });
+        w.appendChild(b);
+      }
     });
   }
-  watch();
-  new MutationObserver(watch).observe(document.body, { childList: true, subtree: true });
+  setup();
+  new MutationObserver(setup).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
 </body>
