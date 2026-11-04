@@ -600,7 +600,12 @@
     }
     .cv-frame-panel .cv-download-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-    /* Ratio A4 : 1 / √2 ≈ 1 / 1.41421 → padding-top = 141.421% */
+    /* Coins arrondis : l'aperçu du CV et le bouton, chacun ses 4 coins */
+    .cv-frame-wrap,
+    .cv-frame-panel .cv-download-btn { border-radius: clamp(8px, 1vw, 14px); }
+    .cv-frame-wrap { isolation: isolate; }   /* garde l'arrondi net sur Safari */
+
+    /* Ratio : celui du PDF du CV (recalculé automatiquement par le script en bas de page) */
     .cv-frame-wrap {
       width: 100%;
       position: relative;
