@@ -1030,7 +1030,7 @@ document.addEventListener('DOMContentLoaded', init);
      · un bouton doré au triangle noir recouvre celui de Videas (dont la couleur
        du triangle ne se règle pas) ; au clic, la vidéo se lance ;
      · un seul reel joue à la fois ;
-     · le reel en cours s'arrête quand moins de 20 % reste visible, et reprend
+     · le reel en cours s'arrête quand moins de 30 % reste visible (hors menu), et reprend
        où il en était au clic suivant (position estimée, ou « Reprendre à » de Videas).
      Le lecteur Videas n'ayant pas de commande accessible depuis le site,
      « lancer » et « arrêter » = recharger le lecteur avec ou sans lecture auto. -->
@@ -1049,7 +1049,7 @@ document.addEventListener('DOMContentLoaded', init);
 <script>
 (function () {
   if (!('IntersectionObserver' in window)) return;
-  var VISIBLE_MIN = 0.2;                  // moins de 20 % visible → le reel s'arrête
+  var VISIBLE_MIN = 0.3;                  // moins de 30 % réellement visible (sous le menu) → le reel s'arrête
   var ICON = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.667 1.2L9.667 5L2.667 8.8Z" fill="#000"/></svg>';   // centre de gravité du triangle = centre du rond
   var played = new Set();                 // lecteurs qui ont pu être lancés
   var st = new WeakMap();                 // lecteur → { pos, startAt, t0, clean, videasResume }
@@ -1112,7 +1112,9 @@ document.addEventListener('DOMContentLoaded', init);
       var ifr = e.target.querySelector('iframe');
       if (ifr && played.has(ifr)) { stop(ifr); if (document.activeElement === ifr) ifr.blur(); }
     });
-  }, { threshold: [0, VISIBLE_MIN, 0.5] });
+  }, { threshold: [0, 0.1, 0.2, VISIBLE_MIN, 0.5],
+       // la barre de menu fixe cache le haut de l'écran : cette zone ne compte pas comme visible
+       rootMargin: '-' + ((document.querySelector('nav') || {}).offsetHeight || 0) + 'px 0px 0px 0px' });
 
   function setup() {
     document.querySelectorAll('.reel-video-wrap').forEach(function (w) {
