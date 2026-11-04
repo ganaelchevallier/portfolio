@@ -673,6 +673,7 @@ function toEmbedUrl(url) {
   if (player) params.push('player=' + player);
   if (typeof VIDEAS_COLOR === 'string' && /^[0-9a-f]{6}$/i.test(VIDEAS_COLOR)) params.push('primary_color=' + VIDEAS_COLOR);
   if (typeof VIDEAS_THEME === 'string' && /^(dark|light)$/.test(VIDEAS_THEME)) params.push('theme=' + VIDEAS_THEME);
+  params.push('auto_play=0');   // les lecteurs préparés d'avance ne démarrent jamais seuls
   return `https://app.videas.fr/embed/media/${m[1]}/` + (params.length ? '?' + params.join('&') : '');
 }
 
@@ -1029,7 +1030,8 @@ document.addEventListener('DOMContentLoaded', init);
      · un bouton doré au triangle noir recouvre celui de Videas (dont la couleur
        du triangle ne se règle pas) ; au clic, la vidéo se lance ;
      · un seul reel joue à la fois ;
-     · le reel en cours s'arrête quand il sort de l'écran.
+     · le reel en cours s'arrête quand moins de 20 % reste visible, et reprend
+       où il en était au clic suivant (position estimée, ou « Reprendre à » de Videas).
      Le lecteur Videas n'ayant pas de commande accessible depuis le site,
      « lancer » et « arrêter » = recharger le lecteur avec ou sans lecture auto. -->
 <style>
@@ -1041,51 +1043,76 @@ document.addEventListener('DOMContentLoaded', init);
     box-shadow: 0 4px 18px rgba(0,0,0,.45); transition: transform .2s, background .2s;
   }
   .gc-play:hover { transform: translate(-50%, -50%) scale(1.08); background: var(--gold-lt, #D4AF50); }
-  .gc-play svg { width: 38%; height: 38%; margin-left: 8%; display: block; }
+  .gc-play svg { width: 42%; height: 42%; display: block; }
   .reel-video-wrap.loaded .gc-play:not(.off) { display: flex; }
 </style>
 <script>
 (function () {
   if (!('IntersectionObserver' in window)) return;
-  var active = null;                      // iframe en cours de lecture
-  var VISIBLE_MIN = 0.3;                  // en dessous de 30 % visible → on arrête
-  var ICON = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1.2l7 3.8-7 3.8z" fill="#000"/></svg>';
+  var VISIBLE_MIN = 0.2;                  // moins de 20 % visible → le reel s'arrête
+  var ICON = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2.667 1.2L9.667 5L2.667 8.8Z" fill="#000"/></svg>';   // centre de gravité du triangle = centre du rond
+  var played = new Set();                 // lecteurs qui ont pu être lancés
+  var st = new WeakMap();                 // lecteur → { pos, startAt, t0, clean, videasResume }
+  function S(ifr) { if (!st.has(ifr)) st.set(ifr, { pos: 0, startAt: 0, t0: 0, clean: true, videasResume: false }); return st.get(ifr); }
 
-  function withAutoplay(u, on) {
-    u = u.replace(/([?&])auto_play=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
-    return u + (u.indexOf('?') < 0 ? '?' : '&') + 'auto_play=' + (on ? 1 : 0);
+  function setParams(u, p) {
+    try { var url = new URL(u, location.href);
+      Object.keys(p).forEach(function (k) { if (p[k] == null) url.searchParams.delete(k); else url.searchParams.set(k, p[k]); });
+      return url.toString(); } catch (e) { return u; }
   }
   function btnOf(ifr) { var w = ifr && ifr.closest('.reel-video-wrap'); return w && w.querySelector('.gc-play'); }
+
+  // ARRÊT : on recharge le lecteur sans lecture auto (ça coupe le son et le téléchargement)
   function stop(ifr) {
-    var u = ifr.getAttribute('src'); if (!u) return;
-    ifr.setAttribute('src', withAutoplay(u, false));
-    var b = btnOf(ifr); if (b) b.classList.remove('off');
-    if (active === ifr) active = null;
+    var s = S(ifr);
+    if (s.clean && s.t0) s.pos = Math.max(0, s.startAt + (performance.now() - s.t0) / 1000 - 0.5);  // position estimée
+    else { s.pos = 0; s.videasResume = true; }        // position inconnue : on laisse Videas proposer « Reprendre à … »
+    s.t0 = 0;
+    reload(ifr, setParams(ifr.getAttribute('src') || '', { auto_play: 0, start_at: null }));
+    var b = btnOf(ifr); if (b) b.classList.toggle('off', s.videasResume);
+    played.delete(ifr);
   }
+  function reload(ifr, url) {
+    if (url !== ifr.getAttribute('src')) { ifr.setAttribute('src', url); return; }
+    ifr.setAttribute('src', 'about:blank');                       // même adresse : on vide puis on recharge
+    setTimeout(function () { ifr.setAttribute('src', url); }, 30);
+  }
+  function stopOthers(keep) { played.forEach(function (f) { if (f !== keep && document.contains(f)) stop(f); }); }
+
+  // LECTURE via notre bouton : reprise à la position estimée
   function play(ifr) {
-    if (active && active !== ifr && document.contains(active)) stop(active);
+    stopOthers(ifr);
+    var s = S(ifr); s.clean = true; s.videasResume = false;
+    s.startAt = s.pos > 1 ? Math.floor(s.pos) : 0;
+    ifr.addEventListener('load', function () { s.t0 = performance.now(); }, { once: true });
+    ifr.setAttribute('src', setParams(ifr.getAttribute('src') || '', { auto_play: 1, start_at: s.startAt || null }));
     var b = btnOf(ifr); if (b) b.classList.add('off');
-    ifr.setAttribute('src', withAutoplay(ifr.getAttribute('src') || '', true));
-    active = ifr;
+    played.add(ifr);
   }
 
-  // clic directement dans un lecteur (barre, plein écran…) : il devient le reel actif
+  // clic DANS le lecteur Videas (barre, pause, avance…) : il devient le reel en cours,
+  // mais on ne connaît plus sa position exacte
+  var lastFocus = null;
   setInterval(function () {
     var el = document.activeElement;
-    if (el && el.tagName === 'IFRAME' && el.closest && el.closest('.reel-video-wrap') && el !== active) {
-      if (active && document.contains(active)) stop(active);
-      active = el;
-      var b = btnOf(el); if (b) b.classList.add('off');
-    }
+    if (el && el.tagName === 'IFRAME' && el.closest && el.closest('.reel-video-wrap')) {
+      if (el !== lastFocus) {
+        stopOthers(el);
+        var s = S(el); s.clean = false; s.videasResume = false;
+        played.add(el);
+        var b = btnOf(el); if (b) b.classList.add('off');
+      }
+      lastFocus = el;
+    } else lastFocus = null;
   }, 300);
 
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.intersectionRatio >= VISIBLE_MIN) return;
       var ifr = e.target.querySelector('iframe');
-      if (ifr && ifr === active) { stop(ifr); if (document.activeElement === ifr) ifr.blur(); }
+      if (ifr && played.has(ifr)) { stop(ifr); if (document.activeElement === ifr) ifr.blur(); }
     });
-  }, { threshold: [0, VISIBLE_MIN] });
+  }, { threshold: [0, VISIBLE_MIN, 0.5] });
 
   function setup() {
     document.querySelectorAll('.reel-video-wrap').forEach(function (w) {
@@ -1093,10 +1120,7 @@ document.addEventListener('DOMContentLoaded', init);
       if (!w.querySelector('.gc-play')) {
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'gc-play'; b.setAttribute('aria-label', 'Lire la vidéo'); b.innerHTML = ICON;
-        b.addEventListener('click', function (ev) {
-          ev.stopPropagation();
-          var ifr = w.querySelector('iframe'); if (ifr) play(ifr);
-        });
+        b.addEventListener('click', function (ev) { ev.stopPropagation(); var ifr = w.querySelector('iframe'); if (ifr) play(ifr); });
         w.appendChild(b);
       }
     });
