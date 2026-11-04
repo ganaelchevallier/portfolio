@@ -551,21 +551,30 @@
 <script>
 // ═══════════════════════════════════════════════════════════════════
 //
-//  ▶  REELS DATA
-//     Ajouter ici uniquement l'URL videas.fr pour chaque vidéo.
-//     Le champ `url` est le seul obligatoire.
-//     `title` et `category` sont optionnels, si absents, le titre
-//     est récupéré automatiquement depuis videas.fr.
+//  ▶  AJOUTER UN REEL
+//     1. Videas › Bibliothèque › ta vidéo › Intégration web
+//     2. Copier le « LIEN » (https://app.videas.fr/embed/media/…)
+//     3. Ajouter un bloc dans REELS ci-dessous, à la place voulue :
+//          {
+//            url:      "le lien copié",
+//            title:    "Titre affiché sous la vidéo",
+//            category: "2026",          ← année = bouton de filtre
+//            type:     "Animation"
+//          },
+//     Seul `url` est obligatoire. Les reels s'affichent dans l'ordre de la liste.
 //
 //  Formats d'URL acceptés :
-//    "https://app.videas.fr/embed/media/{uuid}/"  (url embed directe)
-//    "https://app.videas.fr/{uuid}/"              (url de partage)
-//    "https://app.videas.fr/{uuid}"               (sans slash final)
-//
-//  Exemple d'ajout rapide :
-//    { url: "https://app.videas.fr/g62859f1-d8ea-4968-985b-b6a3067741d3/" }
+//    "https://app.videas.fr/embed/media/{uuid}/?player=…"  (lien d'intégration)
+//    "https://app.videas.fr/embed/media/{uuid}/"
+//    "https://app.videas.fr/{uuid}/"                        (lien de partage)
 //
 // ═══════════════════════════════════════════════════════════════════
+
+//  ▶  LECTEUR VIDEAS : thème « Reels » (couleurs, options) appliqué à TOUS
+//     les reels, même si le lien collé n'a pas de « ?player= ».
+//     Videas › Lecteurs vidéo : pour changer de thème, remplacer cet identifiant.
+const VIDEAS_PLAYER = '61ee6856-1a94-4266-8f0f-3436e5352694';
+
 const REELS = [
  {
     url:      "https://app.videas.fr/embed/media/2f300fca-6293-4e3e-a3bf-01c7352a3d51/",
@@ -645,13 +654,15 @@ const REELS = [
 //  UTILITAIRES
 // ═══════════════════════════════════════════════════════════════════
 
-/** Convertit toute URL videas.fr en URL embed propre */
+/** Convertit toute URL videas.fr en URL embed propre, avec le thème du lecteur */
 function toEmbedUrl(url) {
-  if (url.includes('/embed/media/')) {
-    return url.endsWith('/') ? url : url + '/';
-  }
-  const m = url.match(/app\.videas\.fr\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})/i);
-  return m ? `https://app.videas.fr/embed/media/${m[1]}/` : url;
+  const UUID = '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}';
+  const m = url.match(new RegExp('/embed/media/(' + UUID + ')', 'i'))
+         || url.match(new RegExp('app\\.videas\\.fr/(' + UUID + ')', 'i'));
+  if (!m) return url;
+  const p = url.match(new RegExp('[?&]player=(' + UUID + ')', 'i'));
+  const player = p ? p[1] : VIDEAS_PLAYER;
+  return `https://app.videas.fr/embed/media/${m[1]}/` + (player ? `?player=${player}` : '');
 }
 
 /** Extrait l'UUID depuis une URL embed videas.fr */
@@ -1002,5 +1013,51 @@ async function init() {
 document.addEventListener('DOMContentLoaded', init);
 </script>
 
+
+<!-- ARRÊT AUTOMATIQUE : le reel en cours de lecture s'arrête quand il sort de l'écran,
+     et un seul reel joue à la fois. Le lecteur Videas n'ayant pas de commande « pause »
+     accessible depuis le site, on le recharge (sans lecture automatique), ce qui coupe le son. -->
+<script>
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  var active = null;                      // iframe dans laquelle le visiteur a cliqué
+  var VISIBLE_MIN = 0.3;                  // en dessous de 30 % visible → on arrête
+
+  function stop(ifr) {
+    var u = ifr.getAttribute('src'); if (!u) return;
+    u = u.replace(/([?&])auto_play=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
+    ifr.setAttribute('src', u + (u.indexOf('?') < 0 ? '?' : '&') + 'auto_play=0');
+    if (active === ifr) active = null;
+  }
+
+  // Un clic dans un lecteur déplace le focus dans son iframe : on le repère.
+  setInterval(function () {
+    var el = document.activeElement;
+    if (el && el.tagName === 'IFRAME' && el.closest && el.closest('.reel-video-wrap') && el !== active) {
+      if (active && document.contains(active)) stop(active);   // un seul reel à la fois
+      active = el;
+    }
+  }, 300);
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.intersectionRatio >= VISIBLE_MIN) return;
+      var ifr = e.target.querySelector('iframe');
+      if (ifr && ifr === active) {
+        stop(ifr);
+        if (document.activeElement === ifr) ifr.blur();
+      }
+    });
+  }, { threshold: [0, VISIBLE_MIN] });
+
+  function watch() {
+    document.querySelectorAll('.reel-video-wrap').forEach(function (w) {
+      if (!w.dataset.watched) { w.dataset.watched = '1'; io.observe(w); }
+    });
+  }
+  watch();
+  new MutationObserver(watch).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>
