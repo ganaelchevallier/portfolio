@@ -604,7 +604,7 @@
     .cv-frame-wrap {
       width: 100%;
       position: relative;
-      padding-top: 141.421%;   /* maintient le rapport A4 quelle que soit la largeur */
+      padding-top: 124.85%;    /* proportions du CV (675 × 843 pt), réajustées automatiquement d'après le PDF */
       background: var(--charcoal);
       border: 1px solid var(--charcoal);
       overflow: hidden;
@@ -1160,7 +1160,7 @@
 
     <div class="cv-frame-panel reveal">
       <div class="cv-frame-wrap">
-        <img src="m/vignette_CV_Ganael_Chevallier_2026.jpg" alt="CV Ganaël Chevallier" width="460" height="651" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="m/vignette_CV_Ganael_Chevallier_2026.jpg" alt="CV Ganaël Chevallier" width="460" height="574" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
       </div>
       <a href="m/CV_Ganael_Chevallier_2026.pdf" download="CV_Ganael_Chevallier_2026.pdf" rel="nofollow" class="cv-download-btn">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1350,5 +1350,56 @@ Contraint, il éxecute au poil le brief. Libre, il insulfe son propre style tout
 
 </div><!-- /#page-content -->
 
+
+<!-- APERÇU DU CV : dessiné automatiquement à partir de la 1re page du PDF.
+     Mettre à jour le PDF suffit, l'aperçu suit. La vignette .jpg ne sert
+     que de secours si le PDF ne peut pas être affiché. -->
+<script>
+(function () {
+  var wrap = document.querySelector('.cv-frame-wrap');
+  var link = document.querySelector('.cv-download-btn');
+  if (!wrap || !link) return;
+  var pdfUrl = link.getAttribute('href');
+  var PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+  var started = false;
+
+  function render() {
+    if (started) return; started = true;
+    var s = document.createElement('script');
+    s.src = PDFJS + 'pdf.min.js';
+    s.onload = function () {
+      var lib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+      if (!lib) return;
+      lib.GlobalWorkerOptions.workerSrc = PDFJS + 'pdf.worker.min.js';
+      lib.getDocument({ url: pdfUrl }).promise
+        .then(function (pdf) { return pdf.getPage(1); })
+        .then(function (page) {
+          var base = page.getViewport({ scale: 1 });
+          wrap.style.paddingTop = (base.height / base.width * 100) + '%';
+          var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+          var vp = page.getViewport({ scale: Math.max(wrap.clientWidth, 320) * dpr / base.width });
+          var c = document.createElement('canvas');
+          c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+          c.setAttribute('aria-label', 'Aperçu du CV');
+          c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;';
+          return page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise.then(function () {
+            var img = wrap.querySelector('img');
+            wrap.insertBefore(c, wrap.firstChild);
+            if (img) img.remove();
+          });
+        })
+        .catch(function () { /* on garde la vignette .jpg */ });
+    };
+    document.head.appendChild(s);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries.some(function (e) { return e.isIntersecting; })) { io.disconnect(); render(); }
+    }, { rootMargin: '600px' });
+    io.observe(wrap);
+  } else { render(); }
+})();
+</script>
 </body>
 </html>
